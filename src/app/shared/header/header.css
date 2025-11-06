@@ -1,0 +1,46 @@
+/* src/app/shared/header/header.component.css */
+
+/* --- Desktop Link Styling (Keep this) --- */
+.active-link {
+  color: #f107a3 !important;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 5px;
+}
+.active-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%; 
+  background-color: #f107a3;
+  transition: width 0.3s ease-in-out;
+}
+
+/* --- Mobile Menu Item Styling (Refined) --- */
+
+/* Target the Mat Menu Item when the 'active-link' class is present */
+.mat-mdc-menu-item.active-link {
+  /* Apply the light pink background for the active state */
+  background-color: #f107a31a !important; /* light pink background */
+  
+  /* Apply the primary text color (your dark color) */
+  color: #333333 !important; 
+}
+
+/* Add a custom separator style to make it look uniform (only needed if you manually added separators) */
+.mat-mdc-menu-item {
+    border-bottom: 1px solid #ddd; /* Light grey separator for all items */
+}
+
+/* Remove the separator on the last item */
+.mat-mdc-menu-item:last-child {
+    border-bottom: none;
+}
+
+@media (width >= 48rem) {
+    .md\:hidden {
+        display: none !important;
+    }
+}

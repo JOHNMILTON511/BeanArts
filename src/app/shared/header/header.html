@@ -1,0 +1,46 @@
+<mat-toolbar color="primary" class="shadow-md sticky top-0 z-50 h-20 px-4 sm:px-6 md:px-8">
+  <div class="flex items-center w-full max-w-7xl mx-auto">
+    
+    <a routerLink="/" class="flex items-center text-xl font-bold text-gray-800">
+      <img 
+        src="logo/Bean Logo 03_page-0001.jpg" 
+        alt="BeanArts Logo" 
+        class="w-10 h-10 rounded-full mr-2"
+      />
+      BeanArts
+    </a>
+
+    <span class="flex-grow"></span>
+
+    <nav class="hidden md:flex space-x-4">
+      @for (item of navItems; track item.link) {
+        <a 
+          [routerLink]="item.link" 
+          routerLinkActive="active-link" 
+          [routerLinkActiveOptions]="{ exact: item.link === '/' }"
+          mat-button
+          class="text-gray-600 hover:text-gray-900 font-medium px-3 py-2 transition-colors duration-200"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+    
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="md:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+  </div>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  @for (item of navItems; track item.link) {
+    <a 
+      [routerLink]="item.link" 
+      routerLinkActive="active-link"
+      mat-menu-item 
+    >
+      {{ item.label }}
+    </a>
+  }
+</mat-menu>
