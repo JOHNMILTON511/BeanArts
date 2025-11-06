@@ -1,1 +1,294 @@
-<p>home works!</p>
+<!-- Hero Slider - Migrated to ngx-owl-carousel-o -->
+<section class="hero w-full overflow-hidden relative">
+  <!-- Bind the [options] to the configuration object from the component -->
+  <owl-carousel-o [options]="heroCarouselOptions" class="w-full">
+    
+    @for (slide of slides; track slide.id) {
+      <ng-template carouselSlide>
+        <div class="relative w-full">
+          <!-- Image Container -->
+          <img 
+            [src]="slide.imgSrc" 
+            [alt]="slide.title" 
+            class="w-full h-[400px] md:h-[600px] object-cover"
+          >
+          
+          <!-- Overlay Text -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/30 p-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-2" data-aos="zoom-in" data-aos-delay="200">{{ slide.title }}</h2>
+            <p class="text-lg md:text-2xl font-light" data-aos="zoom-in" data-aos-delay="400">{{ slide.subtitle }}</p>
+          </div>
+        </div>
+      </ng-template> 
+    }
+    
+  </owl-carousel-o>
+</section>
+
+
+<!-- Services Overview (Previously converted section - remains the same) -->
+<section id="services-overview" class="py-12 bg-gray-50">
+  <div class="container mx-auto px-4 text-center max-w-7xl">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-10" data-aos="fade-up">Our Services</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Service 1 (Corporate Gifting) -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="100">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl overflow-hidden hover:shadow-2xl transition duration-300">
+          <img src="services/2.jpg" alt="Corporate Gifting" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h5 class="text-xl font-semibold text-blue-600 mb-2">Corporate Gifting</h5>
+            <p class="text-gray-600 text-sm mb-4">Tailored gifting solutions to make a lasting impression on your clients, employees, and partners.</p>
+            <a routerLink="/services" mat-flat-button color="primary" class="w-full">Learn More</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Service 2 (Printing Services) -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="300">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl overflow-hidden hover:shadow-2xl transition duration-300">
+          <img src="services/5.jpg" alt="Printing Services" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h5 class="text-xl font-semibold text-green-600 mb-2">Printing Services</h5>
+            <p class="text-gray-600 text-sm mb-4">High-quality prints for brochures, banners, business cards, and more, ensuring your brand stands out.</p>
+            <a routerLink="/services" mat-flat-button color="accent" class="w-full">Explore Printing</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Service 3 (Customized Packaging) -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="500">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl overflow-hidden hover:shadow-2xl transition duration-300">
+          <img src="services/3.jpg" alt="Customized Packaging" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h5 class="text-xl font-semibold text-yellow-600 mb-2">Customized Packaging</h5>
+            <p class="text-gray-600 text-sm mb-4">Elegant and functional packaging solutions that reflect your brand's values and enhance product presentation.</p>
+            <a routerLink="/services" mat-flat-button class="bg-yellow-500 hover:bg-yellow-600 text-white w-full">See Options</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section id="cta" class="py-16 bg-pink-500 bg-opacity-10">
+  <div class="container mx-auto px-4 text-center max-w-4xl" data-aos="fade-in">
+    <h2 class="text-3xl md:text-4xl text-gray-800 font-extrabold mb-4">Let’s Create Something Unforgettable</h2>
+    <p class="text-gray-600 mb-8 text-lg">Start building memorable experiences for your clients and employees with our tailored gifting, printing, and packaging solutions. We're here to help!</p>
+    <a routerLink="/contact" mat-flat-button color="primary" class="bg-pink-600 hover:bg-pink-700 text-white text-lg rounded-full py-3 px-8 shadow-lg transition duration-300">Contact Us Now</a>
+  </div>
+</section>
+
+
+<!-- About Section -->
+<section id="about" class="py-16 bg-white">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+        <h3 class="text-3xl font-bold text-gray-800" data-aos="fade-right">About Our Company</h3>
+        <p class="text-gray-600 leading-relaxed" data-aos="fade-right" data-aos-delay="300">
+          We specialize in premium corporate gifting and high-quality printing solutions tailored to elevate your brand. Our goal is to help you leave a lasting impression through thoughtful gifts and top-notch print materials.
+        </p>
+        <p class="text-gray-600 leading-relaxed" data-aos="fade-right" data-aos-delay="600">
+          Whether it's custom packaging, branded merchandise, or marketing materials — we deliver excellence and creativity in every detail.
+        </p>
+        <p class="text-gray-600 leading-relaxed" data-aos="fade-right" data-aos-delay="900">
+          From small startups to large enterprises, we work closely with our clients to understand their brand identity and deliver personalized solutions that align with their goals. Our dedication to quality, innovation, and customer satisfaction sets us apart in the industry.
+        </p>
+      </div>
+      <div class="order-first md:order-last" data-aos="fade-left">
+        <!-- Replaced img-fluid with Tailwind classes for responsiveness -->
+        <img src="assets/Main_Image.jpg" alt="About Image" class="w-full h-auto rounded-xl shadow-2xl object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Additional Services Cards Section (Simple Icons) -->
+<section id="services-icons" class="py-16 bg-gray-100">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <h3 class="text-3xl font-extrabold text-center text-gray-800 mb-10" data-aos="fade-up">
+      Our Core Services
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Corporate Gifting -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center shadow-xl rounded-xl p-8 bg-white transition duration-300 hover:scale-[1.02] hover:shadow-2xl h-full" 
+             style="background: linear-gradient(135deg, #00bcd41a, #1e88e51a); color: #333;">
+          <!-- Using font-awesome class inside a mat-icon container is safe -->
+          <i class="fas fa-gift fa-4x mb-4 text-blue-600"></i> 
+          <h5 class="text-xl font-bold mb-2">Corporate Gifting</h5>
+          <p class="text-gray-600">Customized gift solutions for clients, employees, and events, tailored to your brand.</p>
+        </div>
+      </div>
+
+      <!-- Printing Services -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="text-center shadow-xl rounded-xl p-8 bg-white transition duration-300 hover:scale-[1.02] hover:shadow-2xl h-full" 
+             style="background: linear-gradient(135deg, #ff98001a, #f443361a); color: #333;">
+          <i class="fas fa-print fa-4x mb-4 text-red-600"></i>
+          <h5 class="text-xl font-bold mb-2">Printing Services</h5>
+          <p class="text-gray-600">High-quality printing for brochures, business cards, packaging, and promotional materials.</p>
+        </div>
+      </div>
+
+      <!-- Customized Packaging -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="300">
+        <div class="text-center shadow-xl rounded-xl p-8 bg-white transition duration-300 hover:scale-[1.02] hover:shadow-2xl h-full" 
+             style="background: linear-gradient(135deg, #4caf501a, #8bc34a1a); color: #333;">
+          <i class="fas fa-box-open fa-4x mb-4 text-green-600"></i>
+          <h5 class="text-xl font-bold mb-2">Customized Packaging</h5>
+          <p class="text-gray-600">Branded packaging solutions to make your gifts and products stand out professionally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Gallery Section - This will also use the Owl Carousel later -->
+<section id="gallery" class="py-16 gallery-swiper">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <h3 class="text-3xl font-extrabold text-center text-gray-800 mb-10" data-aos="fade-up">
+      Our Space & Moments
+    </h3>
+    
+    <!-- Placeholder for Gallery Carousel (to be connected to galleryCarouselOptions later) -->
+    <div class="text-center py-10 text-gray-500 border border-dashed border-gray-300 rounded-xl">
+      Gallery Carousel Placeholder (Will be converted to Owl Carousel)
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Benefits Section -->
+<section id="benefits" class="py-16 bg-white">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <h3 class="text-3xl font-extrabold text-center text-gray-800 mb-10" data-aos="fade-up">
+      Why Choose Us?
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+      
+      <!-- Personalized Solutions -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl hover:bg-gray-50">
+          <i class="fas fa-gift fa-3x mb-4 text-orange-500"></i>
+          <h5 class="text-xl font-bold mb-2 text-gray-800">Personalized Solutions</h5>
+          <p class="text-gray-600">We tailor our solutions to meet your specific needs, ensuring your brand message is communicated effectively and creatively.</p>
+        </div>
+      </div>
+      
+      <!-- Fast Turnaround -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="400">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl hover:bg-gray-50">
+          <i class="fas fa-rocket fa-3x mb-4 text-blue-600"></i>
+          <h5 class="text-xl font-bold mb-2 text-gray-800">Fast Turnaround</h5>
+          <p class="text-gray-600">Our streamlined processes guarantee quick delivery without compromising on quality.</p>
+        </div>
+      </div>
+
+      <!-- Quality Assurance -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="600">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl hover:bg-gray-50">
+          <i class="fas fa-thumbs-up fa-3x mb-4 text-green-600"></i>
+          <h5 class="text-xl font-bold mb-2 text-gray-800">Quality Assurance</h5>
+          <p class="text-gray-600">We maintain the highest standards of quality across all our offerings.</p>
+        </div>
+      </div>
+
+      <!-- Additional 3 Benefits -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="800">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl hover:bg-gray-50">
+          <i class="fas fa-users fa-3x mb-4 text-yellow-500"></i>
+          <h5 class="text-xl font-bold mb-2 text-gray-800">Customer-Centric Approach</h5>
+          <p class="text-gray-600">We collaborate closely with you to understand your vision, ensuring that we exceed your expectations.</p>
+        </div>
+      </div>
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="1000">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl hover:bg-gray-50">
+          <i class="fas fa-hand-holding-heart fa-3x mb-4 text-pink-600"></i>
+          <h5 class="text-xl font-bold mb-2 text-gray-800">Sustainable Practices</h5>
+          <p class="text-gray-600">We are committed to sustainability, offering eco-friendly solutions to reduce waste.</p>
+        </div>
+      </div>
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="1200">
+        <div class="bg-white shadow-xl border border-gray-100 rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl hover:bg-gray-50">
+          <i class="fas fa-star fa-3x mb-4 text-cyan-600"></i>
+          <h5 class="text-xl font-bold mb-2 text-gray-800">Exceptional Experience</h5>
+          <p class="text-gray-600">We focus on creating an exceptional experience, from consultation to the final product.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Commitment to Quality Section (Duplicate content in original - consolidated into one clean section) -->
+<section id="quality" class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <h3 class="text-3xl font-extrabold text-center text-gray-800 mb-10" data-aos="fade-up">
+      Our Commitment to Quality
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Quality Standard 1 -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex flex-col items-center bg-white shadow-xl rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl">
+          <i class="fas fa-cogs fa-3x mb-4 text-red-500"></i>
+          <h5 class="text-xl font-bold text-center mb-2 text-gray-800">Precision Engineering</h5>
+          <p class="text-center text-gray-600">We guarantee that every product undergoes detailed and stringent testing, ensuring superior performance and quality.</p>
+        </div>
+      </div>
+
+      <!-- Quality Standard 2 -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="400">
+        <div class="flex flex-col items-center bg-white shadow-xl rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl">
+          <i class="fas fa-shield-alt fa-3x mb-4 text-teal-600"></i>
+          <h5 class="text-xl font-bold text-center mb-2 text-gray-800">Safety Standards</h5>
+          <p class="text-center text-gray-600">Our products comply with the highest safety regulations, ensuring you can trust our services.</p>
+        </div>
+      </div>
+
+      <!-- Quality Standard 3 -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="600">
+        <div class="flex flex-col items-center bg-white shadow-xl rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl">
+          <i class="fas fa-award fa-3x mb-4 text-lime-600"></i>
+          <h5 class="text-xl font-bold text-center mb-2 text-gray-800">Award-Winning Service</h5>
+          <p class="text-center text-gray-600">Our dedication to quality and customer satisfaction has earned us several prestigious awards.</p>
+        </div>
+      </div>
+
+      <!-- Quality Standard 4 -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="800">
+        <div class="flex flex-col items-center bg-white shadow-xl rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl">
+          <i class="fas fa-handshake fa-3x mb-4 text-amber-500"></i>
+          <h5 class="text-xl font-bold text-center mb-2 text-gray-800">Customer Partnerships</h5>
+          <p class="text-center text-gray-600">We focus on building long-lasting relationships with our clients, offering support and guidance every step of the way.</p>
+        </div>
+      </div>
+
+      <!-- Quality Standard 5 -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="1000">
+        <div class="flex flex-col items-center bg-white shadow-xl rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl">
+          <i class="fas fa-lightbulb fa-3x mb-4 text-emerald-500"></i>
+          <h5 class="text-xl font-bold text-center mb-2 text-gray-800">Innovation</h5>
+          <p class="text-center text-gray-600">We are committed to innovation, constantly evolving to bring the latest and most efficient solutions.</p>
+        </div>
+      </div>
+
+      <!-- Quality Standard 6 -->
+      <div class="col-span-1" data-aos="fade-up" data-aos-delay="1200">
+        <div class="flex flex-col items-center bg-white shadow-xl rounded-xl p-6 h-full transition duration-300 hover:shadow-2xl">
+          <i class="fas fa-clipboard-check fa-3x mb-4 text-sky-600"></i>
+          <h5 class="text-xl font-bold text-center mb-2 text-gray-800">Certified Excellence</h5>
+          <p class="text-center text-gray-600">We are proud of our internationally recognized certifications, ensuring that our processes and products meet global standards.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
