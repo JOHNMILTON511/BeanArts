@@ -1,0 +1,26 @@
+/* Ensure smooth transitions where specified in the template */
+.transition {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Basic styling to ensure the timeline line appears above the cards on small screens */
+@media (max-width: 767px) {
+    .space-y-16>div {
+        padding-left: 2rem;
+        /* Add padding for the dot on mobile */
+        border-left: 2px solid #e5e7eb;
+        /* Mimic vertical line on mobile */
+    }
+
+    .space-y-16>div>.absolute {
+        left: 0;
+        transform: none;
+    }
+
+    /* Hide the vertical line on mobile */
+    .absolute.left-1\/2 {
+        display: none !important;
+    }
+}

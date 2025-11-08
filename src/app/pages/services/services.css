@@ -1,0 +1,47 @@
+/* Tailwind is assumed to be available, use custom styles for fine-tuning */
+    :host {
+      display: block;
+      /* Using Inter font as required in guidelines */
+      font-family: 'Inter', sans-serif;
+    }
+    .process-card, .feature-card, .card-item, .testimonial-card {
+      /* Ensure rounded corners are used widely */
+      border-radius: 0.75rem; 
+      /* Ensures smooth visual transitions */
+      transition: all 0.3s ease-in-out; 
+    }
+
+    /* Custom style for service card image zoom on hover */
+    .card-item:hover img {
+      transform: scale(1.05);
+    }
+    .card-item img {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Responsive adjustments for headings */
+    h1 {
+      font-size: clamp(2rem, 5vw + 1rem, 4rem);
+    }
+    h2 {
+      font-size: clamp(1.75rem, 4vw + 0.5rem, 2.5rem);
+    }
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+      .relative.flex-col > .relative:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 60px; /* Adjust based on circle position */
+        bottom: -20px; /* Connects to the next item */
+        left: 24px;
+        width: 4px;
+        background-color: theme('colors.indigo.300');
+        z-index: 0;
+      }
+    }
