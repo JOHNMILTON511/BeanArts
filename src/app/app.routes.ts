@@ -4,13 +4,15 @@ import { Contact } from './pages/contact/contact';
 import { Home } from './pages/home/home';
 import { NotFound } from './pages/not-found/not-found';
 import { Services } from './pages/services/services';
+import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 
 export const routes: Routes = [
+    { path: 'home', component: Home },
     { path: '', component: Home },
     { path: 'about', component: About },
     { path: 'services', component: Services },
     { path: 'contact', component: Contact },
-    // This must be the LAST route in your array
+    { path: 'privacy', component: PrivacyPolicy },
     { path: '404', component: NotFound },
     { path: '**', redirectTo: '/404' }
 ];

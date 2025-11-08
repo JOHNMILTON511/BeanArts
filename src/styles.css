@@ -1,11 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+/* AOS (Animate On Scroll) global styles */
+/* Use package import without `~` so the angular-css plugin can resolve it */
+@import "aos/dist/aos.css";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 
 app-root {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Set minimum height to 100% of the viewport height */
+}
+
+/* Global font setup */
+body {
+  @apply font-[Inter] text-gray-800 bg-white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-[Poppins] font-semibold ;
 }
