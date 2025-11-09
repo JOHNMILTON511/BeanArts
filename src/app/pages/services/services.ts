@@ -1,10 +1,15 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SvgIcon } from './svg-icon/svg-icon';
+import { CommonModule } from '@angular/common';
+import { Router } from 'express';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-services',
   imports: [
-    SvgIcon
+    SvgIcon,
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './services.html',
   styleUrl: './services.css',
@@ -80,6 +85,7 @@ export class Services {
   // Image assets injected into the data structure
   services = signal([
     {
+      id: 1,
       name: 'Corporate Gifting Solutions',
       color: 'indigo',
       items: [
@@ -90,6 +96,7 @@ export class Services {
       ]
     },
     {
+      id: 2,
       name: 'High-Impact Printing Services',
       color: 'orange',
       items: [
@@ -100,6 +107,7 @@ export class Services {
       ]
     },
     {
+      id: 3,
       name: 'Bespoke Packaging Design',
       color: 'teal',
       items: [

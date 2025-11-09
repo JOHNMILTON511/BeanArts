@@ -8,7 +8,7 @@ import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 
 export const routes: Routes = [
     { path: 'home', component: Home },
-    { path: '', component: Home },
+    { path: '', component: Home, pathMatch:'full' },
     { path: 'about', component: About },
     { path: 'services', component: Services },
     { path: 'contact', component: Contact },

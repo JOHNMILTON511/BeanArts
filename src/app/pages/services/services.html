@@ -22,8 +22,8 @@
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Why Partner With Us?</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @for (feature of features(); track feature.id) {
-                <div
+                @for (feature of features(); track feature.id; let i = $index) {
+                <div data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)"
                     class="bg-white p-6 rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03] border-t-4 border-{{feature.color}}-500">
                     <div
                         class="flex items-center justify-center h-12 w-12 rounded-full bg-{{feature.color}}-100 text-{{feature.color}}-600 mb-4">
@@ -46,8 +46,8 @@
                 <!-- Timeline Line (Desktop) -->
                 <div class="hidden md:block absolute top-6 left-0 right-0 h-1 bg-indigo-300 mx-10"></div>
 
-                @for (step of processSteps(); track step.id) {
-                <div class="relative flex-1 p-6 md:p-0">
+                @for (step of processSteps(); track step.id; let i = $index) {
+                <div class="relative flex-1 p-6 md:p-0" data-aos="fade-right" [attr.data-aos-delay]="100 * (i + 1)">
                     <!-- Step Circle -->
                     <div class="flex items-center justify-start md:justify-center">
                         <div
@@ -73,8 +73,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center mb-16 text-gray-900">Explore Our Services</h2>
 
-            @for (service of services(); track service.name) {
-            <div class="mb-16">
+            @for (service of services(); track service.name; let i = $index) {
+            <div class="mb-16" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
                 <h3
                     class="text-3xl font-extrabold text-{{service.color}}-700 border-b-2 border-{{service.color}}-500 pb-2 mb-8">
                     {{ service.name }}</h3>
