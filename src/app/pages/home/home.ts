@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselModule,
-    MatButtonModule
+  imports: [
+    CarouselModule,
+    MatButtonModule,
+    RouterModule
     ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -16,7 +19,7 @@ export class Home {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
-    pullDrag: true,
+    pullDrag: false,
     dots: true,
     navSpeed: 700,
     navText: ['', ''],
@@ -41,21 +44,21 @@ export class Home {
   slides = [
     {
       id: 1,
-      imgSrc: 'Slider/1.jpg',
-      title: 'Discover Creativity',
-      subtitle: 'Where art meets imagination'
+      imgSrc: 'New/5.jpg',
+      title: 'Gifting That Speaks Gratitude',
+      subtitle: 'Celebrate people. Strengthen connections'
     },
     {
       id: 2,
-      imgSrc: 'Slider/2.jpg',
-      title: 'Modern Expression',
-      subtitle: 'Experience the fusion of art and technology'
+      imgSrc: 'New/2.jpg',
+      title: 'Elevate Every Occasion',
+      subtitle: 'From onboarding to milestones — make every moment memorable'
     },
     {
       id: 3,
       imgSrc: 'Slider/3.jpg',
-      title: 'Timeless Beauty',
-      subtitle: 'Capturing emotions through every stroke'
+      title: 'Smart. Stylish. Memorable',
+      subtitle: 'Corporate gifts crafted to impress and inspire'
     }
   ];
 
