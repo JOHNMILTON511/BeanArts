@@ -1,18 +1,20 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SvgIcon } from './svg-icon/svg-icon';
 import { CommonModule } from '@angular/common';
-import { Router } from 'express';
 import { RouterModule } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-services',
+  standalone: true,
   imports: [
     SvgIcon,
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgxSkeletonLoaderModule
   ],
   templateUrl: './services.html',
-  styleUrl: './services.css',
+  styleUrls: ['./services.css'],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -89,33 +91,80 @@ export class Services {
       name: 'Corporate Gifting Solutions',
       color: 'indigo',
       items: [
-        { title: 'Premium Welcome Kits', description: 'Curated kits for new hires and client onboarding that make a powerful first impression.', imageUrl: 'services/1.jpg' },
-        { title: 'Luxury Festive Hampers', description: 'Elegant, customizable hampers for employee and client celebrations during major holidays.', imageUrl: 'image_340be3.png' },
-        { title: 'Branded Tech & Swag', description: 'High-quality, personalized tech accessories and branded merchandise to boost company pride.', imageUrl: 'image_35f803.png' },
-        { title: 'Signature Scented Candles', description: 'Custom-branded, aromatic candles to create a sophisticated sensory experience.', imageUrl: 'image_37bde3.png' }
+        {
+          title: 'Premium Welcome Kits',
+          description: 'Curated kits for new hires and client onboarding that make a powerful first impression.',
+          imageUrl: 'assets/service/Premium_welcome_Kits.png',
+          loaded: false
+        },
+        {
+          title: 'Luxury Festive Hampers',
+          description: 'Elegant, customizable hampers for employee and client celebrations during major holidays.',
+          imageUrl: 'assets/service/Luxury_Festive_Hampers.png',
+          loaded: false
+        },
+        {
+          title: 'Branded Tech & Swag',
+          description: 'High-quality, personalized tech accessories and branded merchandise to boost company pride.',
+          imageUrl: 'assets/service/Branded_Tech_Swag.png',
+          loaded: false
+        },
+        {
+          title: 'Signature Scented Candles',
+          description: 'Custom-branded, aromatic candles to create a sophisticated sensory experience.', imageUrl: 'assets/service/Signature_Scented_Candles.jpg', loaded: false
+        }
+
       ]
     },
     {
       id: 2,
-      name: 'High-Impact Printing Services',
+      name: 'Premium Printing Solutions',
       color: 'orange',
       items: [
-        { title: 'Vivid Marketing Flyers', description: 'Full-color, double-sided flyers and leaflets for targeted promotional campaigns.', imageUrl: 'image_381c16.png' },
-        { title: 'Executive Business Cards', description: 'Premium paper stock, embossed, or spot UV finishing for distinctive business cards.', imageUrl: 'https://placehold.co/400x300/f3e5f5/4a148c?text=Business+Cards' },
-        { title: 'Large Format Banners', description: 'Durable, high-resolution posters and retractable banners for events and storefronts.', imageUrl: 'https://placehold.co/400x300/e1f5fe/01579b?text=Banners+%26+Posters' },
-        { title: 'Custom Branded Stationery', description: 'Letterheads, envelopes, and notepads consistent with your corporate identity.', imageUrl: 'https://placehold.co/400x300/f9fbe7/689f38?text=Stationery' }
+        {
+          title: 'Marketing Flyers & Brochures',
+          description: 'High-quality, full-color prints designed to deliver your message with clarity and impact.',
+          imageUrl: 'assets/service/flyer.jpg',
+          loaded: false
+        },
+        {
+          title: 'Professional Business Cards',
+          description: 'Premium card stock with matte, glossy, embossed, or spot-UV finishes for a lasting first impression.',
+          imageUrl: 'assets/service/Business_Cards.jpg',
+          loaded: false
+        },
+        {
+          title: 'Event Banners & Posters',
+          description: 'Durable, high-resolution large-format prints ideal for events, conferences, and retail branding.',
+          imageUrl: 'assets/service/Event_Banners.jpg',
+          loaded: false
+        },
+        {
+          title: 'Custom Corporate Stationery',
+          description: 'Branded letterheads, envelopes, notepads, and office essentials that reflect your company identity.',
+          imageUrl: 'assets/service/Custom_CorporateStationery.jpg',
+          loaded: false
+        }
       ]
-    },
+    }
+    ,
     {
       id: 3,
       name: 'Bespoke Packaging Design',
       color: 'teal',
       items: [
-        { title: 'Eco-Friendly Mailer Boxes', description: 'Sustainable, custom-sized corrugated boxes perfect for safe and environmentally conscious shipping.', imageUrl: 'https://placehold.co/400x300/e0f7fa/006064?text=Eco+Mailer+Boxes' },
-        { title: 'Retail Product Packaging', description: 'Unique structural and graphic design that maximizes shelf appeal and product protection.', imageUrl: 'https://placehold.co/400x300/f0f4c3/827717?text=Retail+Boxes' },
-        { title: 'Premium Rigid Boxes', description: 'High-end, durable boxes with magnetic closures or foam inserts for luxury items and gifts.', imageUrl: 'https://placehold.co/400x300/fce4ec/ad1457?text=Luxury+Packaging' },
-        { title: 'Custom Branded Tapes & Labels', description: 'The final touch: personalized tapes and labels for sealing and security with visual flair.', imageUrl: 'https://placehold.co/400x300/ffebee/d32f2f?text=Tapes+%26+Labels' }
+        { title: 'Eco-Friendly Mailer Boxes', description: 'Sustainable, custom-sized corrugated boxes perfect for safe and environmentally conscious shipping.', imageUrl: 'assets/service/Eco-Friendly_Mailer_Boxes.jpg', loaded: false },
+        { title: 'Retail Product Packaging', description: 'Unique structural and graphic design that maximizes shelf appeal and product protection.', imageUrl: 'assets/service/Retail_Product_Packaging.jpg', loaded: false },
+        { title: 'Premium Rigid Boxes', description: 'High-end, durable boxes with magnetic closures or foam inserts for luxury items and gifts.', imageUrl: 'assets/service/Premium_Rigid_Boxes.jpg', loaded: false },
+        { title: 'Custom Branded Tapes & Labels', description: 'The final touch: personalized tapes and labels for sealing and security with visual flair.', imageUrl: 'assets/service/Custom_Branded.jpg', loaded: false }
       ]
     }
   ]);
+
+
+  imageLoaded: { [key: string]: boolean } = {};
+
+  onImageLoad(title: string) {
+    this.imageLoaded[title] = true;
+  }
 }
