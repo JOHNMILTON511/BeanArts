@@ -1,9 +1,9 @@
-<mat-toolbar color="primary" class="shadow-md sticky top-0 z-50 h-20 px-4 sm:px-6 md:px-8" class="sticky-toolbar">
+<mat-toolbar color="primary"  class="shadow-md sticky top-0 z-50 h-20 px-4 sm:px-6 md:px-8 bg-neutral-primary fixed mb-4" class="sticky-toolbar">
   <div class="flex items-center w-full max-w-7xl mx-auto">
     
     <a routerLink="/" class="flex items-center text-xl font-bold text-gray-800">
       <img 
-        src="assets/logo/Bean Logo 03_page-0001.jpg" 
+        src="assets/logo/1.png" 
         alt="BeanArts Logo" 
         class="w-10 h-10 rounded-full mr-2"
       />
@@ -38,6 +38,7 @@
     <a 
       [routerLink]="item.link" 
       routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
       mat-menu-item 
     >
       {{ item.label }}

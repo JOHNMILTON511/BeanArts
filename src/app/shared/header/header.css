@@ -51,4 +51,7 @@
   left: 0;
   width: 100%;
   z-index: 999; /* Ensures the toolbar stays on top of other elements */
+      /* background: var(--mat-sys-primary-container); */
+       --mat-toolbar-container-background-color: var(--mat-primary);
+  --mat-toolbar-container-text-color: var(--mat-on-primary);
 }
