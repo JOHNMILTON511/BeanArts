@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select'; 
+import { Meta, Title } from '@angular/platform-browser'; 
 
 @Component({
   selector: 'app-contact',
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -15,68 +18,83 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
-export class Contact {
+export class Contact implements OnInit {
   contactForm: FormGroup;
   
-  // State variables for UI feedback
   isSubmitting = false;
   submissionMessage: string | null = null;
   isSuccess: boolean | null = null;
 
-  constructor(private fb: FormBuilder) {
-    // Initialize the form with controls and validators
+  // Dropdown options for B2B Segmentation
+  serviceOptions = [
+    'Corporate Gifting (Hampers)',
+    'Employee Welcome Kits',
+    'Custom Printing Services',
+    'Bespoke Packaging',
+    'Other'
+  ];
+
+  constructor(
+    private fb: FormBuilder,
+    private meta: Meta,
+    private title: Title
+  ) {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
+      companyName: [''], // Optional but good for B2B
       email: ['', [Validators.required, Validators.email]],
-      subject: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Basic Indian phone validation
+      serviceType: ['', Validators.required], // New Field
+      quantity: [''], // New Field
       message: ['', Validators.required]
     });
   }
 
-  /**
-   * Handles the form submission.
-   * This simulates an API call (like EmailJS or a backend endpoint).
-   */
+  ngOnInit(): void {
+    this.title.setTitle('Contact BeanArts | Request a Corporate Gifting Quote');
+
+    this.meta.updateTag({ 
+      name: 'description', 
+      content: 'Get a quote for premium corporate gifting, employee welcome kits, and bulk printing in Bangalore. Contact BeanArts for custom solutions.' 
+    });
+
+    this.meta.updateTag({ 
+      name: 'keywords', 
+      content: 'Contact BeanArts, Corporate Gifting Quote, Bulk Printing Enquiry, Custom Packaging Suppliers Bangalore' 
+    });
+  }
+
   onSubmit() {
-    this.submissionMessage = null; // Clear previous messages
+    this.submissionMessage = null;
     
     if (this.contactForm.invalid) {
-      // Mark all fields as touched to display errors
       this.contactForm.markAllAsTouched();
       return;
     }
 
     this.isSubmitting = true;
 
-    // --- Start of Simulated API Call ---
-    // In a real application, you would make an HTTP POST request here.
+    // Simulate API Call
     const formData = this.contactForm.value;
-    console.log('Attempting to send message:', formData);
+    console.log('B2B Lead Data:', formData);
 
-    // Simulate network delay
     setTimeout(() => {
       this.isSubmitting = false;
-
-      // Simulate success 90% of the time, or failure 10%
-      const success = Math.random() > 0.1; 
-
-      if (success) {
-        this.isSuccess = true;
-        this.submissionMessage = 'Thank you! Your message has been sent successfully. We will get back to you shortly.';
-        this.contactForm.reset(); // Reset the form fields
-      } else {
-        this.isSuccess = false;
-        this.submissionMessage = 'Failed to send the message. Please ensure all details are correct and try again.';
-      }
-    }, 2000); // 2 second delay
-    // --- End of Simulated API Call ---
+      this.isSuccess = true;
+      this.submissionMessage = 'Thank you! We have received your enquiry. Our sales team will call you shortly to discuss your requirements.';
+      this.contactForm.reset();
+      
+      Object.keys(this.contactForm.controls).forEach(key => {
+        this.contactForm.get(key)?.setErrors(null);
+      });
+    }, 2000);
   }
 
-  // Helper method to determine if a form control should show an error
   hasError(controlName: string, errorType: string) {
     const control = this.contactForm.get(controlName);
     return control && control.hasError(errorType) && control.touched;

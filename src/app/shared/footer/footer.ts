@@ -6,7 +6,10 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [CommonModule, RouterLink,
+  standalone: true, 
+  imports: [
+    CommonModule, 
+    RouterLink,
     MatIconModule,
     MatButtonModule
   ],
@@ -16,11 +19,15 @@ import { RouterLink } from '@angular/router';
 export class Footer {
   navLinks = [
     { label: 'Home', link: '/' },
-    { label: 'About', link: '/about' },
-    { label: 'Services', link: '/services' },
-    { label: 'Contact', link: '/contact' },
+    { label: 'About Us', link: '/about' }, 
+    { label: 'Our Services', link: '/services' },
+    { label: 'Request a Quote', link: '/contact' }, 
+    { label: 'Blogs', link: '/blog' },
+    { label: 'Careers', link: '/careers' },
     { label: 'Privacy Policy', link: '/privacy' },
+    { label: 'Terms & Conditions', link: '/terms-conditions' },
+    { label: 'FAQ', link: '/faq' },
   ];
 
-    currentYear = signal(new Date().getFullYear());
+  currentYear = signal(new Date().getFullYear());
 }

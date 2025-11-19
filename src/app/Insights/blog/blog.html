@@ -1,0 +1,79 @@
+<section class="min-h-screen py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16" data-aos="fade-down">
+      <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+        Insights & Resources
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Expert advice, gifting trends, and strategies to improve your corporate culture.
+      </p>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      
+      @for (post of posts(); track post.id) {
+        <article class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 flex flex-col h-full" data-aos="fade-up">
+          
+          <!-- Image Wrapper -->
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              [src]="post.image" 
+              [alt]="post.title" 
+              class="blog-card-img w-full h-full object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Article+Image';"
+            >
+            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-indigo-600 uppercase tracking-wide">
+              {{ post.category }}
+            </span>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="text-xs text-gray-400 mb-3 flex items-center gap-1">
+              <span class="material-icons text-[14px]">calendar_today</span>
+              {{ post.date }}
+            </div>
+            
+            <h2 class="text-xl font-bold text-gray-900 mb-3 hover:text-indigo-600 transition-colors cursor-pointer">
+              {{ post.title }}
+            </h2>
+            
+            <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-1">
+              {{ post.excerpt }}
+            </p>
+
+            <a routerLink="/contact" class="inline-flex items-center text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition group">
+              Read Article 
+              <span class="material-icons text-sm ml-1 transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+      }
+
+    </div>
+
+    <!-- Newsletter Signup (SEO Goldmine) -->
+    <div class="mt-20 bg-indigo-900 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <h2 class="text-3xl font-bold mb-4">Stay Ahead of the Curve</h2>
+        <p class="text-indigo-200 mb-8 max-w-xl mx-auto">Get the latest corporate gifting trends and exclusive bulk discounts delivered to your inbox.</p>
+        
+        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+          <input type="email" placeholder="Enter your work email" class="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          <button type="button" class="bg-amber-400 hover:bg-amber-300 text-indigo-900 font-bold px-8 py-3 rounded-full transition shadow-lg">
+            Subscribe
+          </button>
+        </form>
+      </div>
+      
+      <!-- Decorative background circle -->
+      <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+         <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full"><circle cx="0" cy="100" r="50" fill="white" /></svg>
+      </div>
+    </div>
+
+  </div>
+</section>

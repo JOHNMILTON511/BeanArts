@@ -1,4 +1,6 @@
-<!-- Hero Slider - Migrated to ngx-owl-carousel-o -->
+<app-hero></app-hero>
+
+<!-- Hero Slider - Restored & SEO Optimized -->
 <section class="hero w-full overflow-hidden relative">
   <!-- Bind the [options] to the configuration object from the component -->
   <owl-carousel-o [options]="heroCarouselOptions" class="w-full">
@@ -11,9 +13,13 @@
 
         <!-- Overlay Text -->
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/30 p-4 text-center">
-          <h2 class="text-4xl md:text-6xl font-extrabold mb-2" data-aos="zoom-in" data-aos-delay="200">{{ slide.title }}
-          </h2>
-          <p class="text-lg md:text-2xl font-light" data-aos="zoom-in" data-aos-delay="400">{{ slide.subtitle }}</p>
+          <!-- SEO FIX: Changed h2 to h1 for semantic importance -->
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-2" data-aos="zoom-in" data-aos-delay="200">
+            {{ slide.title }}
+          </h1>
+          <p class="text-lg md:text-2xl font-light" data-aos="zoom-in" data-aos-delay="400">
+            {{ slide.subtitle }}
+          </p>
         </div>
       </div>
     </ng-template>
@@ -23,8 +29,7 @@
 </section>
 
 
-<!-- Services Overview (Previously converted section - remains the same) -->
-
+<!-- Services Overview -->
 <section id="services-overview" class="py-16 bg-gray-50">
   <div class="container mx-auto px-4 text-center max-w-7xl">
     <h2 class="text-3xl md:text-4xl font-poppins font-extrabold text-gray-800 mb-12" data-aos="fade-up">
@@ -158,7 +163,7 @@
 </section>
 
 
-<!-- Gallery Section - This will also use the Owl Carousel later -->
+<!-- Gallery Section -->
 <section id="gallery" class="py-16 gallery-swiper">
   <div class="container mx-auto px-4 max-w-7xl">
     <h3 class="text-3xl font-extrabold text-center text-gray-800 mb-10" data-aos="fade-up">
@@ -262,7 +267,7 @@
 </section>
 
 
-<!-- Commitment to Quality Section (Duplicate content in original - consolidated into one clean section) -->
+<!-- Commitment to Quality Section -->
 <section id="quality" class="py-16 bg-gray-50">
   <div class="container mx-auto px-4 max-w-7xl">
     <h3 class="text-3xl font-extrabold text-center text-gray-800 mb-10" data-aos="fade-up">

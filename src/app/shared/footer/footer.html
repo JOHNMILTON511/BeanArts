@@ -7,17 +7,19 @@
         <a routerLink="/" class="flex items-center text-2xl font-bold text-white mb-2">
           <img 
             src="assets/logo/Bean Logo 03_page-0001.jpg" 
-            alt="BeanArts Logo" 
+            alt="BeanArts - Corporate Gifting & Packaging" 
             class="w-8 h-8 rounded-full mr-2"
           />
           BeanArts
         </a>
-        <p class="text-sm">
-          Crafting beautiful digital experiences with passion and precision.
-          We specialize in modern web development using Angular.
+        <p class="text-sm leading-relaxed">
+          Your trusted partner for premium <strong>corporate gifting</strong>, 
+          <strong>custom printing</strong>, and bespoke <strong>packaging solutions</strong>. 
+          Delivering excellence across India.
         </p>
       </div>
 
+      <!-- Column 2: Site Navigation -->
       <div>
         <h3 class="text-lg font-semibold text-pink-500 mb-4">Quick Links</h3>
         <nav class="flex flex-col space-y-2">
@@ -33,27 +35,42 @@
       </div>
 
       <div class="space-y-4">
-        <h3 class="text-lg font-semibold text-pink-500 mb-4">Contact</h3>
-        <p class="text-sm">Email: <a href="mailto:sales@beanarts.in" class="hover:text-pink-400">sales@beanarts.in</a></p>
-        <p class="text-sm" href="tel:+918147540690">Phone: +91 8147540690</p>
-        <p class="text-sm">Address: 235, Binnamangala, 2nd Floor, 13th Cross Road, 2nd Stage, Indira Nagar, Bengaluru - 560038</p>
+        <h3 class="text-lg font-semibold text-pink-500 mb-4">Contact Us</h3>
+        <address class="not-italic space-y-3">
+          <p class="text-sm flex items-center gap-2">
+            <span class="material-icons text-xs">email</span>
+            <a href="mailto:sales@beanarts.in" class="hover:text-pink-400">sales@beanarts.in</a>
+          </p>
+          <p class="text-sm flex items-center gap-2">
+            <span class="material-icons text-xs">phone</span>
+            <a href="tel:+918147540690" class="hover:text-pink-400">+91 8147540690</a>
+          </p>
+          <p class="text-sm flex items-start gap-2">
+            <span class="material-icons text-xs mt-1">location_on</span>
+            <span>
+              235, Binnamangala, 2nd Floor, 13th Cross Road, <br>
+              2nd Stage, Indira Nagar, Bengaluru - 560038
+            </span>
+          </p>
+        </address>
       </div>
       
     </div>
     
+    <!-- Bottom Bar: Socials & Copyright -->
     <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
       
       <div class="mb-4 sm:mb-0 space-x-4 text-xl">
-        <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Follow us on Facebook" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Follow us on Twitter" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Follow us on Instagram" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Connect on LinkedIn" class="text-gray-400 hover:text-pink-500 transition-colors duration-150"><i class="fab fa-linkedin-in"></i></a>
       </div>
       
-      <p class="text-xs text-gray-500">&copy; {{ currentYear() }} BeanArts. All rights reserved.</p>
+      <p class="text-xs text-gray-500">
+        &copy; {{ currentYear() }} BeanArts Corporate Gifting. All rights reserved.
+      </p>
     </div>
-
-    
 
   </div>
 </footer>

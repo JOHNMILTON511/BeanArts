@@ -1,0 +1,67 @@
+<section class="min-h-screen py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-12" data-aos="fade-down">
+      <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+        Our Selected Works
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        From concept to delivery, see how we have helped brands make a lasting impression.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+      @for (cat of ['All', 'Gifting', 'Packaging', 'Printing']; track cat) {
+        <button 
+          (click)="setFilter(cat)"
+          [class.active-filter]="currentFilter() === cat"
+          class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 font-medium transition-all duration-300 hover:border-indigo-600 hover:text-indigo-600 bg-white"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <div class="portfolio-grid" data-aos="fade-up" data-aos-delay="200">
+      @for (project of filteredProjects(); track project.id) {
+        <div class="group relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer h-80">
+          <!-- Image with fallback -->
+          <img 
+            [src]="project.image" 
+            [alt]="project.title" 
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Project+Image';"
+          >
+          
+          <!-- Overlay Info (Appears on Hover) -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <span class="inline-block px-3 py-1 mb-2 text-xs font-bold text-white bg-indigo-600 rounded-full w-fit">
+              {{ project.category }}
+            </span>
+            <h3 class="text-xl font-bold text-white">{{ project.title }}</h3>
+            <p class="text-gray-300 text-sm mt-1">Client: {{ project.client }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Empty State (If no projects match filter) -->
+    @if (filteredProjects().length === 0) {
+      <div class="text-center py-20">
+        <p class="text-gray-500 text-lg">No projects found in this category yet.</p>
+      </div>
+    }
+
+    <!-- CTA -->
+    <div class="mt-20 text-center bg-indigo-900 rounded-3xl p-12 text-white shadow-2xl" data-aos="zoom-in">
+      <h2 class="text-3xl font-bold mb-4">Like what you see?</h2>
+      <p class="text-indigo-200 mb-8 text-lg">Let's create something similar for your brand.</p>
+      <a routerLink="/contact" class="inline-block bg-white text-indigo-900 font-bold py-4 px-10 rounded-full hover:bg-indigo-50 transition transform hover:-translate-y-1 shadow-lg">
+        Start a Project
+      </a>
+    </div>
+
+  </div>
+</section>

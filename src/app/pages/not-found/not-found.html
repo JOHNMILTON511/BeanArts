@@ -1,33 +1,49 @@
-<div class="flex flex-col items-center justify-center min-h-[calc(100vh-theme(spacing.20)-theme(spacing.20))] px-4 py-16 bg-gradient-to-br from-purple-50 to-pink-50">
+<div class="flex flex-col items-center justify-center min-h-[80vh] px-4 py-16 bg-gray-50">
   
-  <div class="max-w-md text-center bg-white p-10 rounded-2xl shadow-xl border border-gray-100" data-aos="zoom-in">
+  <div class="max-w-lg w-full text-center bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-100" data-aos="zoom-in">
     
     <img 
       src="assets/logo/Bean Logo 03_page-0001.jpg" 
-      alt="BeanArts Logo" 
-      class="w-24 h-24 mx-auto mb-6 rounded-full shadow-lg"
+      alt="BeanArts" 
+      class="w-20 h-20 mx-auto mb-8 rounded-full shadow-md"
     />
     
-    <h1 class="text-6xl md:text-8xl font-extrabold text-gray-800 mb-4">
+    <h1 class="text-7xl md:text-9xl font-extrabold text-indigo-100 mb-4 tracking-tighter select-none">
       404
     </h1>
     
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-700 mb-6">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 relative -mt-12 md:-mt-16 z-10">
       Page Not Found
     </h2>
     
-    <p class="text-lg text-gray-500 mb-8 leading-relaxed">
-      Oops! The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+    <p class="text-gray-500 mb-8 leading-relaxed text-sm md:text-base">
+      The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
     </p>
     
+    <!-- Primary Action -->
     <a 
       routerLink="/"
       mat-flat-button 
       color="primary" 
-      class="h-14 text-lg px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1"
+      class="w-full md:w-auto py-6 px-10 text-lg rounded-xl shadow-lg hover:shadow-xl transition duration-300 mb-8"
     >
-      Go to Homepage
+      Back to Homepage
     </a>
+
+    <!-- Helpful Links (Reduces Bounce Rate) -->
+    <div class="border-t border-gray-100 pt-6 mt-2">
+      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-4">Or try these helpful links</p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a routerLink="/services" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 hover:underline">
+          Our Services
+        </a>
+        <span class="text-gray-300">•</span>
+        <a routerLink="/contact" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 hover:underline">
+          Contact Support
+        </a>
+      </div>
+    </div>
+
   </div>
 
 </div>

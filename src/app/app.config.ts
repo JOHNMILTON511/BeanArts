@@ -6,8 +6,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideNgxSkeletonLoader } from 'ngx-skeleton-loader';
-import { provideServerRendering } from '@angular/ssr';
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,15 +15,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     importProvidersFrom(CarouselModule),
     provideHttpClient(withFetch()),
-
-    provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideNgxSkeletonLoader({
-      theme: {
-        extendsFromRoot: true,
-        height: '30px',
-      },
-    }),
-
+    provideRouter(routes),
+    provideClientHydration(withEventReplay()),
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `${config.src}?width=${config.width}`;
+      }
+    }
 
   ]
 };

@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, OnInit } from '@angular/core';
 import { SvgIcon } from './svg-icon/svg-icon';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-services',
@@ -11,17 +11,32 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     SvgIcon,
     CommonModule,
     RouterModule,
-    NgxSkeletonLoaderModule
+    NgOptimizedImage
   ],
   templateUrl: './services.html',
   styleUrls: ['./services.css'],
-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Services {
+export class Services implements OnInit {
+  
   currentYear = signal(new Date().getFullYear());
 
-  // Dynamic Data Definitions
+  constructor(private meta: Meta, private title: Title) {}
+
+  ngOnInit(): void {
+    this.title.setTitle('Our Services - Corporate Gifting, Printing & Custom Packaging | BeanArts');
+
+    this.meta.updateTag({ 
+      name: 'description', 
+      content: 'Explore BeanArts\' comprehensive corporate solutions: Premium Employee Welcome Kits, High-Quality Business Printing, and Eco-Friendly Custom Packaging Design.' 
+    });
+
+    this.meta.updateTag({ 
+      name: 'keywords', 
+      content: 'Corporate Gifting Services, Bulk Printing Bangalore, Custom Packaging Design, Employee Swag Kits, Business Cards Printing, Eco-friendly Boxes' 
+    });
+  }
+
   processSteps = signal([
     {
       id: 1,
@@ -161,10 +176,8 @@ export class Services {
     }
   ]);
 
+  imageLoadedState: { [key: string]: boolean } = {};
 
-  imageLoaded: { [key: string]: boolean } = {};
-
-  onImageLoad(title: string) {
-    this.imageLoaded[title] = true;
-  }
+  onImageLoad(itemId: string) {
+    this.imageLoadedState[itemId] = true;}
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { Hero } from '../hero/hero';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   imports: [
     CarouselModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    Hero
   ],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],

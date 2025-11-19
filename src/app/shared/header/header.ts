@@ -4,10 +4,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatMenuModule } from '@angular/material/menu';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
+    CommonModule,
     RouterLink,
     RouterLinkActive,
     MatToolbarModule, 
@@ -21,8 +24,9 @@ import { MatMenuModule } from '@angular/material/menu';
 export class Header {
   navItems = [
     { label: 'Home', link: '/' },
-    { label: 'About', link: '/about' },
-    { label: 'Services', link: '/services' },
-    { label: 'Contact', link: '/contact' },
+    { label: 'About Us', link: '/about' },
+    { label: 'Our Services', link: '/services' },
+    { label: 'Portfolio', link: '/portfolio' }, 
+    { label: 'Request a Quote', link: '/contact' }, 
   ];
 }
