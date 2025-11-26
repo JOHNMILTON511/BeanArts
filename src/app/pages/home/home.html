@@ -2,21 +2,17 @@
 
 <!-- Hero Slider - Restored & SEO Optimized -->
 <section class="hero w-full overflow-hidden relative">
-  <!-- Bind the [options] to the configuration object from the component -->
   <owl-carousel-o [options]="heroCarouselOptions" class="w-full">
 
     @for (slide of slides; track slide.id) {
     <ng-template carouselSlide>
       <div class="relative w-full">
-        <!-- Image Container -->
         <img [src]="slide.imgSrc" [alt]="slide.title" class="w-full h-[400px] md:h-[600px] object-cover">
 
-        <!-- Overlay Text -->
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/30 p-4 text-center">
-          <!-- SEO FIX: Changed h2 to h1 for semantic importance -->
-          <h1 class="text-4xl md:text-6xl font-extrabold mb-2" data-aos="zoom-in" data-aos-delay="200">
+          <h2 class="text-4xl md:text-6xl font-extrabold mb-2" data-aos="zoom-in" data-aos-delay="200">
             {{ slide.title }}
-          </h1>
+          </h2>
           <p class="text-lg md:text-2xl font-light" data-aos="zoom-in" data-aos-delay="400">
             {{ slide.subtitle }}
           </p>
