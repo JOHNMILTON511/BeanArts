@@ -18,6 +18,14 @@ body {
   @apply font-[Inter] text-gray-800 bg-white;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   @apply font-[Poppins] font-semibold ;
 }
+
+/* @font-face {
+  font-family: 'Font Awesome 5 Brands';
+  src: url('/media/fa-brands-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap; 
+} */
