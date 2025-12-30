@@ -26,7 +26,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: IMAGE_LOADER,
       useValue: (config: ImageLoaderConfig) => {
-        return `${config.src}?width=${config.width}`;
+        // return `${config.src}?width=${config.width}`;
+        return config.width
+    ? `${config.src}?width=${config.width}`
+    : config.src;
       }
     }
 

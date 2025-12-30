@@ -19,7 +19,7 @@ export class App {
     afterNextRender(() => {
       Aos.init({
         once: true,
-        duration: 800,
+        duration: 300,
         easing: 'ease-in-out',
       });
     });

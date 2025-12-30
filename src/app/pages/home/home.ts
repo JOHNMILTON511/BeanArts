@@ -1,5 +1,5 @@
 import { Component, afterNextRender, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { isPlatformBrowser, CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
@@ -15,6 +15,7 @@ import Aos from 'aos';
     MatButtonModule,
     RouterModule,
     Hero,
+    NgOptimizedImage
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -25,20 +26,7 @@ export class Home {
   private platformId = inject(PLATFORM_ID);
 
   constructor() {
-    afterNextRender(() => {
-      if (isPlatformBrowser(this.platformId)) {
-        Aos.init({
-          once: true,
-          duration: 700,
-          easing: 'ease-out',
-        });
-
-        // Smooth scroll works only in browser
-        this.router.events.subscribe(() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-    });
+    
   }
 
   // -------------------------------

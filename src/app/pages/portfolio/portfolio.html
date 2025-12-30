@@ -12,7 +12,7 @@
     </div>
 
     <!-- Filter Buttons -->
-    <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
       @for (cat of ['All', 'Gifting', 'Packaging', 'Printing']; track cat) {
         <button 
           (click)="setFilter(cat)"
@@ -24,13 +24,15 @@
       }
     </div>
 
-    <div class="portfolio-grid" data-aos="fade-up" data-aos-delay="200">
+    <div class="portfolio-grid">
       @for (project of filteredProjects(); track project.id) {
         <div class="group relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer h-80">
           <!-- Image with fallback -->
           <img 
             [src]="project.image" 
             [alt]="project.title" 
+            fill
+            fetchpriority="high"
             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Project+Image';"
           >

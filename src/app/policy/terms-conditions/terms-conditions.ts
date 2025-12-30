@@ -26,6 +26,6 @@ export class TermsConditions implements OnInit {
       name: 'description', 
       content: 'Read the Terms and Conditions for placing corporate orders with BeanArts. Includes payment terms, customization policies, and shipping details.' 
     });
-    this.meta.updateTag({ name: 'robots', content: 'noindex, follow' }); // Often legal pages are set to noindex to avoid cluttering search results, but 'index' is fine too.
+    // this.meta.updateTag({ name: 'robots', content: 'noindex, follow' }); // Often legal pages are set to noindex to avoid cluttering search results, but 'index' is fine too.
   }
 }

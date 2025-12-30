@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, RouterModule,NgOptimizedImage],
+  imports: [CommonModule, RouterModule,],
   templateUrl: './hero.html',
   styleUrls: ['./hero.css'],
 })

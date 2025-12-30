@@ -28,6 +28,5 @@ export class Footer {
     { label: 'Terms & Conditions', link: '/terms-conditions' },
     { label: 'FAQ', link: '/faq' },
   ];
-
   currentYear = signal(new Date().getFullYear());
 }
