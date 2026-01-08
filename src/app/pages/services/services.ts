@@ -25,18 +25,57 @@ export class Services implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Our Services - Corporate Gifting, Printing & Custom Packaging | BeanArts');
-
     this.meta.updateTag({ 
       name: 'description', 
       content: 'Explore BeanArts\' comprehensive corporate solutions: Premium Employee Welcome Kits, High-Quality Business Printing, and Eco-Friendly Custom Packaging Design.' 
     });
-
     this.meta.updateTag({ 
       name: 'keywords', 
       content: 'Corporate Gifting Services, Bulk Printing Bangalore, Custom Packaging Design, Employee Swag Kits, Business Cards Printing, Eco-friendly Boxes' 
     });
   }
 
+  // --- NEW: Statistics Data ---
+  stats = signal([
+    { label: 'Happy Clients', value: '500+', icon: 'fa-smile', color: 'text-yellow-400' },
+    { label: 'Projects Delivered', value: '1,200+', icon: 'fa-box-open', color: 'text-blue-400' },
+    { label: 'Years Experience', value: '10+', icon: 'fa-star', color: 'text-orange-400' },
+    { label: 'Cities Covered', value: '25+', icon: 'fa-map-marker-alt', color: 'text-green-400' }
+  ]);
+
+  // --- NEW: FAQ Data ---
+  faqs = signal([
+    { 
+      question: 'Do you offer bulk volume discounts?', 
+      answer: 'Yes! We offer tiered pricing structures for bulk orders. The more you order, the more you save. Contact our sales team for a custom quote.', 
+      isOpen: false 
+    },
+    { 
+      question: 'Can I get a physical sample before placing a large order?', 
+      answer: 'Absolutely. We believe in quality assurance. You can request a sample kit or a prototype of your custom packaging before committing to a full run.', 
+      isOpen: false 
+    },
+    { 
+      question: 'What is your typical turnaround time?', 
+      answer: 'Standard printing orders take 3-5 business days. Custom packaging and gifting kits typically take 10-14 days depending on complexity and quantity.', 
+      isOpen: false 
+    },
+    { 
+      question: 'Do you handle logistics and individual shipping?', 
+      answer: 'Yes, we provide end-to-end fulfillment. We can ship bulk to one location or individually to your employees\' doorsteps across India.', 
+      isOpen: false 
+    }
+  ]);
+
+  toggleFaq(index: number) {
+    this.faqs.update(items => {
+      const newItems = [...items];
+      newItems[index].isOpen = !newItems[index].isOpen;
+      return newItems;
+    });
+  }
+
+  // Existing Process Steps
   processSteps = signal([
     {
       id: 1,
@@ -68,6 +107,7 @@ export class Services implements OnInit {
     },
   ]);
 
+  // Existing Features
   features = signal([
     {
       id: 1,
@@ -99,7 +139,7 @@ export class Services implements OnInit {
     },
   ]);
 
-  // Image assets injected into the data structure
+  // Existing Services
   services = signal([
     {
       id: 1,
@@ -126,9 +166,10 @@ export class Services implements OnInit {
         },
         {
           title: 'Signature Scented Candles',
-          description: 'Custom-branded, aromatic candles to create a sophisticated sensory experience.', imageUrl: 'assets/service/Signature_Scented_Candles.jpg', loaded: false
+          description: 'Custom-branded, aromatic candles to create a sophisticated sensory experience.', 
+          imageUrl: 'assets/service/Signature_Scented_Candles.jpg', 
+          loaded: false
         }
-
       ]
     },
     {
@@ -179,5 +220,6 @@ export class Services implements OnInit {
   imageLoadedState: { [key: string]: boolean } = {};
 
   onImageLoad(itemId: string) {
-    this.imageLoadedState[itemId] = true;}
+    this.imageLoadedState[itemId] = true;
+  }
 }

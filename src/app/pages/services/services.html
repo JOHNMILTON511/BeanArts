@@ -1,20 +1,34 @@
 <div class="min-h-screen bg-gray-50 font-sans text-gray-800">
 
-    <!-- Header / Hero Section -->
-    <header class="bg-blue-900 shadow-xl mt-8"> <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Comprehensive Corporate Solutions
-        </h1>
-        <p class="mt-4 text-xl text-blue-100 max-w-3xl mx-auto"> Your single source for premium gifting, impactful printing, and bespoke packaging design.
-        </p>
-        <a routerLink='/contact'
-            class="mt-8 inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl shadow-lg text-blue-900 bg-white hover:bg-blue-50 transition duration-300 cursor-pointer">
-            Request a Consultation
-        </a>
-    </div>
-</header>
+    <header class="relative shadow-2xl mt-8 overflow-hidden animate-gradient text-white">
+        <div class="absolute inset-0 bg-black opacity-10"></div> <div class="relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center z-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 drop-shadow-md">
+                Comprehensive Corporate Solutions
+            </h1>
+            <p class="mt-4 text-xl text-blue-100 max-w-3xl mx-auto font-light leading-relaxed">
+                Your single source for premium gifting, impactful printing, and bespoke packaging design.
+            </p>
+            <a routerLink='/contact'
+                class="mt-10 inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-semibold rounded-full shadow-xl text-blue-900 bg-white hover:bg-blue-50 hover:scale-105 transition duration-300 transform cursor-pointer">
+                Request a Consultation
+            </a>
+        </div>
+    </header>
 
-    <!-- Section: Why Choose Us (Features) -->
+    <section class="bg-blue-900 py-12 border-b border-blue-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-blue-800/50">
+                @for (stat of stats(); track stat.label) {
+                <div class="p-4" data-aos="fade-up">
+                    <i class="fas {{stat.icon}} text-4xl mb-3 {{stat.color}}"></i>
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ stat.value }}</div>
+                    <div class="text-sm text-blue-200 uppercase tracking-wider">{{ stat.label }}</div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Why Partner With Us?</h2>
@@ -22,44 +36,39 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @for (feature of features(); track feature.id; let i = $index) {
                 <div data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)"
-                    class="bg-white p-6 rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03] border-t-4 border-{{feature.color}}-500">
+                    class="bg-white p-6 rounded-xl shadow-xl transition duration-500 transform hover:scale-[1.03] border-t-4 border-{{feature.color}}-500 group hover:shadow-2xl">
                     <div
-                        class="flex items-center justify-center h-12 w-12 rounded-full bg-{{feature.color}}-100 text-{{feature.color}}-600 mb-4">
-                        <!-- Ensure app-svg-icon handles the icon name correctly -->
-                        <app-svg-icon [name]="feature.icon" class="w-6 h-6"></app-svg-icon>
+                        class="flex items-center justify-center h-14 w-14 rounded-full bg-{{feature.color}}-50 text-{{feature.color}}-600 mb-6 group-hover:bg-{{feature.color}}-100 transition-colors">
+                        <app-svg-icon [name]="feature.icon" class="w-7 h-7"></app-svg-icon>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-900">{{ feature.title }}</h3>
-                    <p class="text-gray-500 text-sm">{{ feature.description }}</p>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">{{ feature.title }}</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">{{ feature.description }}</p>
                 </div>
                 }
             </div>
         </div>
     </section>
 
-    <!-- Section: Our Simple Process -->
-    <section class="py-16 bg-indigo-50">
+    <section class="py-20 bg-indigo-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center mb-16 text-gray-900">Our Seamless 4-Step Process</h2>
 
             <div class="relative flex flex-col md:flex-row justify-between">
-                <!-- Timeline Line (Desktop) -->
-                <div class="hidden md:block absolute top-6 left-0 right-0 h-1 bg-indigo-300 mx-10"></div>
+                <div class="hidden md:block absolute top-6 left-0 right-0 h-1 bg-indigo-200 mx-10"></div>
 
                 @for (step of processSteps(); track step.id; let i = $index) {
                 <div class="relative flex-1 p-6 md:p-0" data-aos="fade-right" [attr.data-aos-delay]="100 * (i + 1)">
-                    <!-- Step Circle -->
                     <div class="flex items-center justify-start md:justify-center">
                         <div
-                            class="z-10 w-12 h-12 flex items-center justify-center rounded-full bg-{{step.color}}-600 text-white font-bold text-lg shadow-xl ring-4 ring-indigo-50 ring-opacity-70">
+                            class="z-10 w-14 h-14 flex items-center justify-center rounded-full bg-{{step.color}}-600 text-white font-bold text-xl shadow-lg ring-4 ring-white">
                             {{ step.id }}
                         </div>
-                        <!-- Vertical Line (Mobile) -->
-                        <div class="md:hidden absolute top-0 bottom-0 left-6 w-1 bg-indigo-300 -translate-x-1/2"></div>
+                        <div class="md:hidden absolute top-0 bottom-0 left-9 w-1 bg-indigo-200 -translate-x-1/2 -z-0"></div>
                     </div>
 
-                    <div class="mt-4 md:mt-8 ml-16 md:ml-0 text-left md:text-center">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ step.title }}</h3>
-                        <p class="text-sm text-gray-600">{{ step.description }}</p>
+                    <div class="mt-4 md:mt-8 ml-20 md:ml-0 text-left md:text-center">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">{{ step.title }}</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">{{ step.description }}</p>
                     </div>
                 </div>
                 }
@@ -67,28 +76,47 @@
         </div>
     </section>
 
-    <!-- Section: Detailed Services -->
-    <!-- <section class="py-16 bg-white">
+    <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-16 text-gray-900">Explore Our Services</h2>
+            <h2 class="text-4xl font-extrabold text-center mb-20 text-gray-900">Explore Our Services</h2>
 
             @for (service of services(); track service.name; let i = $index) {
-            <div class="mb-16" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
-                <h3
-                    class="text-3xl font-extrabold text-{{service.color}}-700 border-b-2 border-{{service.color}}-500 pb-2 mb-8">
-                    {{ service.name }}</h3>
+            <div class="mb-20" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
+                
+                <div class="flex items-center gap-4 mb-10 border-b border-gray-200 pb-4">
+                    <div class="h-10 w-2 bg-{{service.color}}-600 rounded-full"></div>
+                    <h3 class="text-3xl font-bold text-gray-800">
+                        {{ service.name }}
+                    </h3>
+                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     @for (item of service.items; track item.title) {
-                    <div
-                        class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl hover:translate-y-[-2px]">
-                
-                     
-                        <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-48 object-cover" loading="lazy"
-                            onerror="this.onerror=null;this.src='https://placehold.co/400x300/a8a29e/ffffff?text=Image+Unavailable';">
-                        <div class="p-4">
-                            <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ item.title }}</h4>
-                            <p class="text-sm text-gray-600">{{ item.description }}</p>
+                    <div class="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-100 relative">
+
+                        <div class="relative w-full h-56 bg-gray-100 overflow-hidden">
+                            @if (!imageLoadedState[item.title]) {
+                            <div class="absolute inset-0 animate-pulse bg-gray-200 z-10"></div>
+                            }
+                            <img 
+                                [ngSrc]="item.imageUrl" 
+                                [alt]="item.title"
+                                fill
+                                class="object-cover transition-transform duration-700 group-hover:scale-110"
+                                (load)="onImageLoad(item.title)"
+                                onerror="'https://placehold.co/400x300/a8a29e/ffffff?text=Image+Unavailable'"
+                            >
+                            
+                            <div class="absolute inset-0 bg-indigo-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <a routerLink="/contact" class="px-6 py-2 bg-white text-indigo-900 font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg hover:bg-indigo-50">
+                                    Get a Quote
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">{{ item.title }}</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">{{ item.description }}</p>
                         </div>
                     </div>
                     }
@@ -96,48 +124,37 @@
             </div>
             }
         </div>
-    </section> -->
+    </section>
 
-
-    <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-16 text-gray-900">Explore Our Services</h2>
-
-        @for (service of services(); track service.name; let i = $index) {
-        <div class="mb-16" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
-            <h3 class="text-3xl font-extrabold text-{{service.color}}-700 border-b-2 border-{{service.color}}-500 pb-2 mb-8">
-                {{ service.name }}
-            </h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                @for (item of service.items; track item.title) {
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl hover:translate-y-[-2px]">
-
-                    <div class="relative w-full h-48 bg-gray-100">
-                        
-                        @if (!imageLoadedState[item.title]) {
-                            <div class="absolute inset-0 animate-pulse bg-gray-300 z-10"></div>
-                            }
-
-                        <img 
-                            [ngSrc]="item.imageUrl" 
-                            [alt]="item.title"
-                            fill
-                            class="object-cover"
-                            (load)="onImageLoad(item.title)"
-                            onerror="'https://placehold.co/400x300/a8a29e/ffffff?text=Image+Unavailable'"
-                        >
+    <section class="py-16 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                @for (faq of faqs(); track faq.question; let i = $index) {
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300" [class.shadow-md]="faq.isOpen">
+                        <button (click)="toggleFaq(i)" class="w-full flex justify-between items-center p-5 text-left focus:outline-none">
+                            <span class="text-lg font-medium text-gray-900">{{ faq.question }}</span>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-gray-400" [class.rotate-180]="faq.isOpen"></i>
+                        </button>
+                        <div class="overflow-hidden transition-all duration-300 bg-gray-50" [style.max-height]="faq.isOpen ? '200px' : '0px'">
+                            <p class="p-5 pt-0 text-gray-600 leading-relaxed border-t border-gray-100 mt-2">
+                                {{ faq.answer }}
+                            </p>
+                        </div>
                     </div>
-
-                    <div class="p-4">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ item.title }}</h4>
-                        <p class="text-sm text-gray-600">{{ item.description }}</p>
-                    </div>
-                </div>
                 }
             </div>
         </div>
-        }
-    </div>
-</section>
+    </section>
+
+    <section class="py-20 bg-blue-900 text-center text-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-6">Ready to Elevate Your Brand?</h2>
+            <p class="text-xl text-blue-100 mb-10">Join 500+ companies who trust BeanArts for their corporate needs.</p>
+            <a routerLink="/contact" class="inline-block px-10 py-4 bg-white text-blue-900 font-bold text-lg rounded-full shadow-lg hover:bg-blue-50 transition transform hover:-translate-y-1">
+                Start Your Project Today
+            </a>
+        </div>
+    </section>
+
 </div>
