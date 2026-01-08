@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { SvgIcon } from './svg-icon/svg-icon';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import Aos from 'aos';
 
 @Component({
   selector: 'app-services',
@@ -21,9 +22,20 @@ export class Services implements OnInit {
   
   currentYear = signal(new Date().getFullYear());
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(private meta: Meta, private title: Title,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      Aos.init({
+        duration: 400, // Fast transition (was defaulting to 1000ms)
+        once: true,    // Animate only once
+        easing: 'ease-out-quart', // Smoother deceleration
+        offset: 50     // Trigger sooner
+      });
+    }
+    
     this.title.setTitle('Our Services - Corporate Gifting, Printing & Custom Packaging | BeanArts');
     this.meta.updateTag({ 
       name: 'description', 
@@ -37,10 +49,10 @@ export class Services implements OnInit {
 
   // --- NEW: Statistics Data ---
   stats = signal([
-    { label: 'Happy Clients', value: '500+', icon: 'fa-smile', color: 'text-yellow-400' },
-    { label: 'Projects Delivered', value: '1,200+', icon: 'fa-box-open', color: 'text-blue-400' },
-    { label: 'Years Experience', value: '10+', icon: 'fa-star', color: 'text-orange-400' },
-    { label: 'Cities Covered', value: '25+', icon: 'fa-map-marker-alt', color: 'text-green-400' }
+    { label: 'Happy Clients', value: '50+', icon: 'fa-smile', color: 'text-yellow-400' },
+    { label: 'Projects Delivered', value: '120+', icon: 'fa-box-open', color: 'text-blue-400' },
+    { label: 'Years Experience', value: '1+', icon: 'fa-star', color: 'text-orange-400' },
+    { label: 'Cities Covered', value: '2+', icon: 'fa-map-marker-alt', color: 'text-green-400' }
   ]);
 
   // --- NEW: FAQ Data ---

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import * as Aos from 'aos'; // Import AOS
 
 @Component({
   selector: 'app-about',
@@ -17,9 +18,24 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class About implements OnInit {
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(
+    private meta: Meta, 
+    private title: Title,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
+    // 1. Initialize AOS (fixes lag)
+    if (isPlatformBrowser(this.platformId)) {
+      Aos.init({
+        duration: 400, // Fast 400ms transition
+        once: true,
+        easing: 'ease-out-quart',
+        offset: 50
+      });
+    }
+
+    // 2. SEO Tags
     this.title.setTitle('Our Story & Vision | BeanArts Corporate Gifting');
 
     this.meta.updateTag({ 

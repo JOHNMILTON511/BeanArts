@@ -46,7 +46,9 @@ export class Contact implements OnInit {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private zone: NgZone
+    private zone: NgZone,
+    private meta: Meta,   // Added Meta
+    private title: Title  // Added Title
   ) {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
@@ -58,8 +60,14 @@ export class Contact implements OnInit {
       message: ['', Validators.required]
     });
   }
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    // SEO & Title Update
+    this.title.setTitle('Contact Us - Quote for Gifting & Packaging | BeanArts');
+    this.meta.updateTag({ 
+      name: 'description', 
+      content: 'Get a custom quote for corporate gifting, employee kits, and printing services. Contact BeanArts today for premium solutions in India.' 
+    });
   }
 
   // Helper for HTML validation  
@@ -68,7 +76,7 @@ export class Contact implements OnInit {
       this.contactForm.get(controlName)?.hasError(error);
   }
 
-  // 🔥 Handle form submit  
+  // Handle form submit  
   onSubmit() {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
@@ -115,7 +123,7 @@ export class Contact implements OnInit {
       })
       .catch(() => {
         this.zone.run(() => {
-          this.isSubmitting = false;   // 🔥 FIX
+          this.isSubmitting = false;
           this.isSuccess = false;
           this.submissionMessage = "Something went wrong. Please try again.";
 
@@ -125,6 +133,5 @@ export class Contact implements OnInit {
           });
         });
       });
-
   }
 }

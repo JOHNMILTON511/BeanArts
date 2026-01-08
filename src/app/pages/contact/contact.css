@@ -1,0 +1,17 @@
+/* Animated Gradient for Header */
+.animate-gradient {
+  background: linear-gradient(-45deg, #0f172a, #1e3a8a, #1e40af, #312e81);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Form Focus States */
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}

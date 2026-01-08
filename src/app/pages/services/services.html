@@ -1,7 +1,8 @@
 <div class="min-h-screen bg-gray-50 font-sans text-gray-800">
 
     <header class="relative shadow-2xl mt-8 overflow-hidden animate-gradient text-white">
-        <div class="absolute inset-0 bg-black opacity-10"></div> <div class="relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center z-10">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center z-10">
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 drop-shadow-md">
                 Comprehensive Corporate Solutions
             </h1>
@@ -35,10 +36,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @for (feature of features(); track feature.id; let i = $index) {
-                <div data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)"
+                <div data-aos="fade-up" [attr.data-aos-delay]="50 * (i + 1)"
                     class="bg-white p-6 rounded-xl shadow-xl transition duration-500 transform hover:scale-[1.03] border-t-4 border-{{feature.color}}-500 group hover:shadow-2xl">
-                    <div
-                        class="flex items-center justify-center h-14 w-14 rounded-full bg-{{feature.color}}-50 text-{{feature.color}}-600 mb-6 group-hover:bg-{{feature.color}}-100 transition-colors">
+                    <div class="flex items-center justify-center h-14 w-14 rounded-full bg-{{feature.color}}-50 text-{{feature.color}}-600 mb-6 group-hover:bg-{{feature.color}}-100 transition-colors">
                         <app-svg-icon [name]="feature.icon" class="w-7 h-7"></app-svg-icon>
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-900">{{ feature.title }}</h3>
@@ -52,20 +52,16 @@
     <section class="py-20 bg-indigo-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center mb-16 text-gray-900">Our Seamless 4-Step Process</h2>
-
             <div class="relative flex flex-col md:flex-row justify-between">
                 <div class="hidden md:block absolute top-6 left-0 right-0 h-1 bg-indigo-200 mx-10"></div>
-
                 @for (step of processSteps(); track step.id; let i = $index) {
-                <div class="relative flex-1 p-6 md:p-0" data-aos="fade-right" [attr.data-aos-delay]="100 * (i + 1)">
+                <div class="relative flex-1 p-6 md:p-0" data-aos="fade-right" [attr.data-aos-delay]="50 * (i + 1)">
                     <div class="flex items-center justify-start md:justify-center">
-                        <div
-                            class="z-10 w-14 h-14 flex items-center justify-center rounded-full bg-{{step.color}}-600 text-white font-bold text-xl shadow-lg ring-4 ring-white">
+                        <div class="z-10 w-14 h-14 flex items-center justify-center rounded-full bg-{{step.color}}-600 text-white font-bold text-xl shadow-lg ring-4 ring-white">
                             {{ step.id }}
                         </div>
                         <div class="md:hidden absolute top-0 bottom-0 left-9 w-1 bg-indigo-200 -translate-x-1/2 -z-0"></div>
                     </div>
-
                     <div class="mt-4 md:mt-8 ml-20 md:ml-0 text-left md:text-center">
                         <h3 class="text-lg font-bold text-gray-900 mb-2">{{ step.title }}</h3>
                         <p class="text-sm text-gray-600 leading-relaxed">{{ step.description }}</p>
@@ -81,19 +77,15 @@
             <h2 class="text-4xl font-extrabold text-center mb-20 text-gray-900">Explore Our Services</h2>
 
             @for (service of services(); track service.name; let i = $index) {
-            <div class="mb-20" data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
-                
+            <div class="mb-20" data-aos="fade-up" [attr.data-aos-delay]="50 * (i + 1)">
                 <div class="flex items-center gap-4 mb-10 border-b border-gray-200 pb-4">
                     <div class="h-10 w-2 bg-{{service.color}}-600 rounded-full"></div>
-                    <h3 class="text-3xl font-bold text-gray-800">
-                        {{ service.name }}
-                    </h3>
+                    <h3 class="text-3xl font-bold text-gray-800">{{ service.name }}</h3>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     @for (item of service.items; track item.title) {
                     <div class="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-100 relative">
-
                         <div class="relative w-full h-56 bg-gray-100 overflow-hidden">
                             @if (!imageLoadedState[item.title]) {
                             <div class="absolute inset-0 animate-pulse bg-gray-200 z-10"></div>
@@ -106,14 +98,12 @@
                                 (load)="onImageLoad(item.title)"
                                 onerror="'https://placehold.co/400x300/a8a29e/ffffff?text=Image+Unavailable'"
                             >
-                            
                             <div class="absolute inset-0 bg-indigo-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
                                 <a routerLink="/contact" class="px-6 py-2 bg-white text-indigo-900 font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg hover:bg-indigo-50">
                                     Get a Quote
                                 </a>
                             </div>
                         </div>
-
                         <div class="p-6">
                             <h4 class="text-lg font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">{{ item.title }}</h4>
                             <p class="text-sm text-gray-600 leading-relaxed">{{ item.description }}</p>
@@ -156,5 +146,4 @@
             </a>
         </div>
     </section>
-
 </div>
