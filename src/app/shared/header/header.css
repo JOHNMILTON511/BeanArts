@@ -1,57 +1,9 @@
-/* src/app/shared/header/header.component.css */
-
-/* --- Desktop Link Styling (Keep this) --- */
-.active-link {
-  color: #f107a3 !important;
-  font-weight: 600;
-  position: relative;
-  padding-bottom: 5px;
-}
-.active-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 100%; 
-  background-color: #f107a3;
-  transition: width 0.3s ease-in-out;
+/* Active nav state */
+a.active-nav {
+  color: #4f46e5 !important;
+  background-color: #eef2ff !important;
+  font-weight: 600 !important;
 }
 
-/* --- Mobile Menu Item Styling (Refined) --- */
-
-/* Target the Mat Menu Item when the 'active-link' class is present */
-.mat-mdc-menu-item.active-link {
-  /* Apply the light pink background for the active state */
-  background-color: #f107a31a !important; /* light pink background */
-  
-  /* Apply the primary text color (your dark color) */
-  color: #333333 !important; 
-}
-
-/* Add a custom separator style to make it look uniform (only needed if you manually added separators) */
-.mat-mdc-menu-item {
-    border-bottom: 1px solid #ddd; /* Light grey separator for all items */
-}
-
-/* Remove the separator on the last item */
-.mat-mdc-menu-item:last-child {
-    border-bottom: none;
-}
-
-@media (width >= 48rem) {
-    .md\:hidden {
-        display: none !important;
-    }
-}
-
-.sticky-toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 999; /* Ensures the toolbar stays on top of other elements */
-      /* background: var(--mat-sys-primary-container); */
-       --mat-toolbar-container-background-color: var(--mat-primary);
-  --mat-toolbar-container-text-color: var(--mat-on-primary);
-}
+/* Sticky toolbar compensation */
+:host { display: block; }

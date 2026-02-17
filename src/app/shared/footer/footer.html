@@ -1,83 +1,236 @@
-<footer class="bg-slate-900 text-slate-300 font-['Inter'] border-t border-slate-800">
-  <div class="max-w-7xl mx-auto px-6 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-      
-      <div class="space-y-6">
-        <a routerLink="/" class="flex items-center gap-3 group">
-          <img 
-            src="assets/logo/Bean Logo 03_page-0001.jpg" 
-            alt="BeanArts Logo" 
-            class="w-10 h-10 rounded-full shadow-md group-hover:scale-105 transition-transform duration-300"
+<footer class="bg-primary-950 text-slate-300 font-sans">
+
+  <!-- CTA Banner inside footer -->
+  <div class="relative overflow-hidden">
+    <div class="ba-container py-14 lg:py-16">
+      <div
+        class="relative rounded-3xl overflow-hidden
+               bg-gradient-to-r from-primary-700 to-violet-700
+               px-8 py-12 lg:px-16 lg:py-14"
+      >
+        <!-- Decorative circles -->
+        <div class="absolute -top-12 -right-12 w-48 h-48 rounded-full
+                    bg-white/5 blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-8 -left-8 w-36 h-36 rounded-full
+                    bg-accent-500/10 blur-xl pointer-events-none"></div>
+
+        <div class="relative flex flex-col lg:flex-row items-center
+                    justify-between gap-8 text-center lg:text-left">
+          <div>
+            <p class="ba-pill ba-pill-gold mb-4">🎁 Ready to Impress?</p>
+            <h3 class="text-2xl lg:text-3xl font-black text-white leading-tight">
+              Let's Build Something<br class="hidden lg:block"/>
+              <span class="text-accent-400">Extraordinary Together</span>
+            </h3>
+            <p class="text-white/70 mt-2 text-sm max-w-md">
+              From 50 to 50,000 units — we deliver premium gifting experiences that
+              your team and clients will remember.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+            <a routerLink="/contact" class="ba-btn-primary !px-7">
+              <i class="fas fa-envelope text-sm"></i> Request a Quote
+            </a>
+            <a href="tel:+918147540690" class="ba-btn-ghost !px-7">
+              <i class="fas fa-phone text-sm"></i> Call Us Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main footer grid -->
+  <div class="ba-container pb-12 pt-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-1 space-y-5">
+        <a routerLink="/" class="flex items-center gap-3 no-underline group">
+          <img
+            src="assets/logo/Bean Logo 03_page-0001.jpg"
+            alt="BeanArts Logo"
+            class="w-10 h-10 rounded-full shadow-md object-cover
+                   group-hover:scale-105 transition-transform duration-300"
           />
-          <span class="text-2xl font-bold text-white font-serif tracking-wide">BeanArts</span>
+          <span class="text-xl font-black text-white tracking-tight">Bean<span class="text-primary-300">Arts</span></span>
         </a>
-        <p class="text-sm leading-relaxed text-slate-400">
-          India's trusted partner for premium corporate gifting, custom printing, and bespoke packaging. Elevating brand experiences through quality and precision.
+        <p class="text-sm leading-relaxed text-slate-400 max-w-[280px]">
+          India's trusted partner for premium corporate gifting, custom printing, and
+          bespoke packaging. Elevating brand experiences through quality and precision.
         </p>
-        
-        <div class="flex gap-4 pt-2">
-          <a href="https://www.linkedin.com/in/beanarts-sales-71b927392?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 hover:bg-blue-600 hover:text-white transition-all duration-300">
+        <!-- Rating badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl
+                    bg-white/5 border border-white/10 text-sm">
+          <div class="flex text-accent-400 text-xs">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <span class="text-white/80 text-xs font-medium">4.9 · 200+ Happy Clients</span>
+        </div>
+        <!-- Socials -->
+        <div class="flex gap-3 pt-1">
+          <a
+            href="https://www.linkedin.com/in/beanarts-sales-71b927392"
+            target="_blank" rel="noopener"
+            aria-label="LinkedIn"
+            class="w-9 h-9 flex items-center justify-center rounded-xl
+                   bg-white/8 border border-white/10 text-slate-400
+                   hover:bg-[#0077b5] hover:text-white hover:border-transparent
+                   transition-all duration-200"
+          >
             <i class="fab fa-linkedin-in text-sm"></i>
           </a>
-          <a href="https://www.instagram.com/beanart.s/p/DRP0e1vk6mY/" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 hover:bg-pink-600 hover:text-white transition-all duration-300">
+          <a
+            href="https://www.instagram.com/beanart.s/"
+            target="_blank" rel="noopener"
+            aria-label="Instagram"
+            class="w-9 h-9 flex items-center justify-center rounded-xl
+                   bg-white/8 border border-white/10 text-slate-400
+                   hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500
+                   hover:text-white hover:border-transparent transition-all duration-200"
+          >
             <i class="fab fa-instagram text-sm"></i>
           </a>
-          <a href="https://www.facebook.com/share/14VvdpRGR97/" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 hover:bg-blue-800 hover:text-white transition-all duration-300">
+          <a
+            href="https://www.facebook.com/share/14VvdpRGR97/"
+            target="_blank" rel="noopener"
+            aria-label="Facebook"
+            class="w-9 h-9 flex items-center justify-center rounded-xl
+                   bg-white/8 border border-white/10 text-slate-400
+                   hover:bg-[#1877f2] hover:text-white hover:border-transparent
+                   transition-all duration-200"
+          >
             <i class="fab fa-facebook-f text-sm"></i>
+          </a>
+          <a
+            href="https://wa.me/918147540690"
+            target="_blank" rel="noopener"
+            aria-label="WhatsApp"
+            class="w-9 h-9 flex items-center justify-center rounded-xl
+                   bg-white/8 border border-white/10 text-slate-400
+                   hover:bg-[#25d366] hover:text-white hover:border-transparent
+                   transition-all duration-200"
+          >
+            <i class="fab fa-whatsapp text-sm"></i>
           </a>
         </div>
       </div>
 
+      <!-- Company -->
       <div>
-        <h4 class="text-white font-bold mb-6 font-serif text-lg tracking-wide">Company</h4>
-        <ul class="space-y-3 text-sm">
-          <li><a routerLink="/" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Home</a></li>
-          <li><a routerLink="/about" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">About Us</a></li>
-          <li><a routerLink="/portfolio" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Our Portfolio</a></li>
-          <li><a routerLink="/contact" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Contact Us</a></li>
-          <li><a routerLink="/careers" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Careers</a></li>
+        <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Company</h4>
+        <ul class="space-y-3 list-none p-0 m-0">
+          @for (link of navLinks.slice(0,6); track link.link) {
+            <li>
+              <a
+                [routerLink]="link.link"
+                class="text-sm text-slate-400 hover:text-white hover:translate-x-1
+                       transition-all duration-200 flex items-center gap-2 no-underline group"
+              >
+                <span class="w-1 h-1 rounded-full bg-primary-500 opacity-0
+                             group-hover:opacity-100 transition-opacity"></span>
+                {{ link.label }}
+              </a>
+            </li>
+          }
         </ul>
       </div>
 
+      <!-- Services -->
       <div>
-        <h4 class="text-white font-bold mb-6 font-serif text-lg tracking-wide">Services</h4>
-        <ul class="space-y-3 text-sm">
-          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Corporate Gifting</a></li>
-          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Custom Printing</a></li>
-          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Product Packaging</a></li>
-          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors duration-200 block hover:translate-x-1">Global Fulfillment</a></li>
+        <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Services</h4>
+        <ul class="space-y-3 list-none p-0 m-0">
+          @for (s of serviceItems; track s.link) {
+            <li>
+              <a
+                [routerLink]="s.link"
+                class="text-sm text-slate-400 hover:text-white hover:translate-x-1
+                       transition-all duration-200 flex items-center gap-2 no-underline group"
+              >
+                <span class="w-1 h-1 rounded-full bg-primary-500 opacity-0
+                             group-hover:opacity-100 transition-opacity"></span>
+                {{ s.label }}
+              </a>
+            </li>
+          }
         </ul>
       </div>
 
+      <!-- Contact -->
       <div>
-        <h4 class="text-white font-bold mb-6 font-serif text-lg tracking-wide">Contact Us</h4>
-        <ul class="space-y-4 text-sm">
-          <li class="flex items-start gap-3">
-            <mat-icon class="text-blue-500 text-sm h-5 w-5 mt-0.5">location_on</mat-icon>
-            <span class="text-slate-400 leading-relaxed">
-              235, Binnamangala, 2nd Floor,<br>
-              Indira Nagar, Bengaluru - 560038
-            </span>
+        <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Get in Touch</h4>
+        <ul class="space-y-4 list-none p-0 m-0">
+          <li>
+            <a
+              href="https://maps.google.com/?q=Indira+Nagar+Bengaluru"
+              target="_blank" rel="noopener"
+              class="flex items-start gap-3 text-sm text-slate-400 hover:text-white
+                     transition-colors no-underline group"
+            >
+              <span class="w-8 h-8 rounded-lg bg-primary-900 flex items-center justify-center
+                           shrink-0 group-hover:bg-primary-800 transition-colors mt-0.5">
+                <mat-icon class="!text-sm !w-4 !h-4 text-primary-300">location_on</mat-icon>
+              </span>
+              <span class="leading-relaxed">
+                235, Binnamangala, 2nd Floor,<br/>
+                Indira Nagar, Bengaluru – 560038
+              </span>
+            </a>
           </li>
-          <li class="flex items-center gap-3">
-             <mat-icon class="text-blue-500 text-sm h-5 w-5">mail</mat-icon>
-             <a href="mailto:sales@beanarts.in" class="hover:text-white transition-colors">sales@beanarts.in</a>
+          <li>
+            <a
+              href="mailto:sales@beanarts.in"
+              class="flex items-center gap-3 text-sm text-slate-400 hover:text-white
+                     transition-colors no-underline group"
+            >
+              <span class="w-8 h-8 rounded-lg bg-primary-900 flex items-center justify-center
+                           shrink-0 group-hover:bg-primary-800 transition-colors">
+                <mat-icon class="!text-sm !w-4 !h-4 text-primary-300">mail</mat-icon>
+              </span>
+              sales&#64;beanarts.in
+            </a>
           </li>
-          <li class="flex items-center gap-3">
-             <mat-icon class="text-blue-500 text-sm h-5 w-5">phone</mat-icon>
-             <a href="tel:+918147540690" class="hover:text-white transition-colors">+91 8147540690</a>
+          <li><a
+            
+              href="tel:+918147540690"
+              class="flex items-center gap-3 text-sm text-slate-400 hover:text-white
+                     transition-colors no-underline group"
+            >
+              <span class="w-8 h-8 rounded-lg bg-primary-900 flex items-center justify-center
+                           shrink-0 group-hover:bg-primary-800 transition-colors">
+                <mat-icon class="!text-sm !w-4 !h-4 text-primary-300">phone</mat-icon>
+              </span>
+              +91 8147540690
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://wa.me/918147540690"
+              target="_blank" rel="noopener"
+              class="inline-flex items-center gap-2 mt-1 px-4 py-2 rounded-xl text-xs
+                     font-semibold text-[#25d366] border border-[#25d366]/30
+                     bg-[#25d366]/5 hover:bg-[#25d366]/15 transition-all no-underline"
+            >
+              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
           </li>
         </ul>
       </div>
 
     </div>
 
-    <div class="border-t border-slate-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-      <p>&copy; {{ currentYear() }} BeanArts. All rights reserved.</p>
-      <div class="flex gap-6 mt-4 md:mt-0">
-        <a routerLink="/privacy" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
-        <a routerLink="/terms-conditions" class="hover:text-slate-300 transition-colors">Terms of Service</a>
+    <!-- Divider -->
+    <div class="border-t border-white/8 mt-12 pt-7 flex flex-col md:flex-row
+                items-center justify-between gap-4 text-xs text-slate-500">
+      <p class="m-0">© {{ currentYear() }} BeanArts Pvt. Ltd. All rights reserved. Made with ❤️ in Bengaluru.</p>
+      <div class="flex gap-5">
+        <a routerLink="/privacy" class="hover:text-white transition-colors no-underline">Privacy Policy</a>
+        <a routerLink="/terms-conditions" class="hover:text-white transition-colors no-underline">Terms of Service</a>
+        <a routerLink="/sitemap" class="hover:text-white transition-colors no-underline">Sitemap</a>
       </div>
     </div>
   </div>
+
 </footer>
