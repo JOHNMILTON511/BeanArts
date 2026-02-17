@@ -1,25 +1,172 @@
-/* Animated Gradient Background */
-.animate-gradient {
-  background: linear-gradient(-45deg, #1e3a8a, #312e81, #1e40af, #3730a3);
-  background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
+/* ================================================================
+   BeanArts Homepage — Component Styles
+   File: src/app/pages/home/home.css
+   ================================================================ */
+
+/* ── Hero Carousel ───────────────────────────────────────────── */
+.hero-overlay {
+  background:
+    linear-gradient(to right,  rgba(15, 14, 60, 0.88) 0%, rgba(15, 14, 60, 0.55) 55%, rgba(15, 14, 60, 0.15) 100%),
+    linear-gradient(to top,    rgba(15, 14, 60, 0.50) 0%, transparent 50%);
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Owl carousel base overrides for hero */
+.hero-carousel .owl-stage-outer { overflow: hidden; }
+.hero-carousel .owl-dots {
+  position: absolute;
+  bottom: 32px;
+  width: 100%;
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+.hero-carousel .owl-dot span {
+  width: 8px !important;
+  height: 8px !important;
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-radius: 9999px !important;
+  margin: 0 !important;
+  transition: all 300ms ease !important;
+}
+.hero-carousel .owl-dot.active span {
+  width: 28px !important;
+  background: white !important;
 }
 
-/* Card Hover Overlay */
-.group:hover .group-hover\:opacity-100 {
+/* Hero text entrance — CSS animations triggered per-slide */
+.hero-eyebrow  { animation: heroFadeUp 0.7s 0.1s ease both; }
+.hero-title    { animation: heroFadeUp 0.7s 0.25s ease both; }
+.hero-subtitle { animation: heroFadeUp 0.7s 0.40s ease both; }
+.hero-cta      { animation: heroFadeUp 0.7s 0.55s ease both; }
+.hero-trust    { animation: heroFadeUp 0.7s 0.70s ease both; }
+.hero-scroll   { animation: heroFadeIn 1s 1.2s ease both; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Client Ticker ───────────────────────────────────────────── */
+.ticker-track {
+  display: flex;
+  animation: tickerScroll 28s linear infinite;
+  will-change: transform;
+}
+.ticker-track:hover { animation-play-state: paused; }
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Gallery Carousel ────────────────────────────────────────── */
+.gallery-carousel .owl-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.gallery-carousel .owl-prev,
+.gallery-carousel .owl-next {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  transition: background 200ms ease !important;
+}
+.gallery-carousel .owl-prev:hover,
+.gallery-carousel .owl-next:hover {
+  background: #4f46e5 !important;
+  color: white !important;
+}
+.gallery-carousel .owl-prev::before { content: '←'; }
+.gallery-carousel .owl-next::before { content: '→'; }
+
+/* ── Why Us Cards ────────────────────────────────────────────── */
+.why-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 20px;
+  padding: 28px;
+  transition: background 300ms ease, transform 300ms ease, box-shadow 300ms ease;
+  cursor: default;
+}
+.why-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.20);
+}
+.why-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: background 300ms ease;
+}
+.why-card:hover .why-card-icon {
+  background: rgba(79, 70, 229, 0.35);
+}
+
+/* ── CTA Banner ──────────────────────────────────────────────── */
+.cta-banner {
+  background: linear-gradient(135deg, #4338ca 0%, #5b21b6 45%, #2d2a7a 100%);
+  box-shadow: 0 24px 80px rgba(79, 70, 229, 0.30);
+}
+
+/* ── Scroll reveal ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.revealed {
   opacity: 1;
-}
-.group:hover .group-hover\:translate-y-0 {
   transform: translateY(0);
 }
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
 
-/* Smooth Image Zoom */
-.group:hover img {
-  transform: scale(1.1);
+/* ── Floating badge animations ───────────────────────────────── */
+.animate-float {
+  animation: floatBadge 5s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: floatBadge 7s ease-in-out infinite reverse;
+}
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── scale-106 utility (not in Tailwind by default) ─────────── */
+.group-hover\:scale-106:hover { transform: scale(1.06); }
+
+/* ── Testimonial card active state ───────────────────────────── */
+.ba-card button:focus { outline: none; }
+
+/* ── Mobile touch optimisations ─────────────────────────────── */
+@media (max-width: 640px) {
+  .hero-overlay {
+    background:
+      linear-gradient(to bottom, rgba(15, 14, 60, 0.65) 0%, rgba(15, 14, 60, 0.75) 100%);
+  }
 }

@@ -1,234 +1,401 @@
-<div class="min-h-screen bg-gray-50 font-['Inter']">
 
 
-    <main>
-        <section class="py-16 md:py-28 bg-blue-900 text-white shadow-xl">
-            <div class="max-w-5xl mx-auto px-6 text-center">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight">
-                    Crafting Impressions, <span class="text-amber-300">Delivering Excellence</span>
-                </h1>
-                <p class="text-lg md:text-xl font-light opacity-90 max-w-3xl mx-auto mb-8">
-                    At BeanArts, we transform corporate gifting and custom packaging into genuine brand experiences.
-                    Discover the passion and precision behind every creation.
-                </p>
-                <a routerLink="/contact"
-                    class="inline-block bg-amber-500 hover:bg-amber-600 text-blue-900 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-300 cursor-pointer">
-                    Start Your Project
-                </a>
+<!-- ════════════════════════════════════════════════════════════════
+  1. HERO BANNER
+════════════════════════════════════════════════════════════════ -->
+<section class="about-hero relative overflow-hidden min-h-[520px] flex items-center">
+
+  <!-- Grid watermark -->
+  <div class="about-grid-bg" aria-hidden="true"></div>
+
+  <!-- Blobs -->
+  <div class="about-blob about-blob--1"></div>
+  <div class="about-blob about-blob--2"></div>
+
+  <div class="ba-container relative z-10 py-24 lg:py-32">
+    <div class="max-w-3xl">
+
+      <div class="about-eyebrow-pill about-fade-1">
+        <i class="fas fa-medal" style="font-size:10px;"></i>
+        Our Story &amp; Vision
+      </div>
+
+      <h1 class="about-hero-title about-fade-2">
+        Crafting Impressions,<br/>
+        <span class="about-text-gold">Delivering Excellence</span>
+      </h1>
+
+      <p class="about-hero-sub about-fade-3">
+        At BeanArts, we transform corporate gifting and custom packaging into genuine
+        brand experiences. Discover the passion and precision behind every creation.
+      </p>
+
+      <div class="about-fade-4" style="display:flex; flex-wrap:wrap; gap:16px;">
+        <a routerLink="/contact" class="ba-btn-primary" style="font-size:15px; padding:14px 34px;">
+          <i class="fas fa-rocket" style="font-size:12px;"></i>
+          Start Your Project
+        </a>
+        <a routerLink="/services" class="ba-btn-ghost" style="font-size:15px; padding:14px 34px;">
+          <i class="fas fa-layer-group" style="font-size:12px;"></i>
+          Explore Services
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Wave -->
+  <div class="about-wave">
+    <svg viewBox="0 0 1440 64" fill="none" preserveAspectRatio="none"
+         xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,32 C360,64 1080,0 1440,32 L1440,64 L0,64 Z" fill="white"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  2. STATS BAR
+════════════════════════════════════════════════════════════════ -->
+<section style="background:#ffffff; padding:56px 0; border-bottom:1px solid #f3f4f6;">
+  <div class="ba-container">
+    <div class="about-stats-grid">
+      @for (stat of teamStats; track stat.label; let i = $index) {
+        <div class="reveal about-stat-item" [style.transitionDelay]="(i*90)+'ms'">
+          <p class="about-stat-value">{{ stat.value }}</p>
+          <p class="about-stat-label">{{ stat.label }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  3. WHO WE ARE  (two-column split)
+════════════════════════════════════════════════════════════════ -->
+<section style="padding:96px 0; background:#ffffff;">
+  <div class="ba-container">
+    <div class="about-split-grid">
+
+      <!-- Left: image stack -->
+      <div class="reveal about-img-col">
+        <div class="about-img-wrap">
+          <img
+            src="assets/about/team.jpg"
+            onerror="this.src='assets/New/5.jpg'"
+            alt="BeanArts team at work"
+            class="about-img-main"
+          />
+          <!-- Floating badge: established -->
+          <div class="about-float-badge about-float-badge--tl">
+            <div class="about-float-icon" style="background:linear-gradient(135deg,#4f46e5,#6366f1)">
+              <mat-icon style="color:white;font-size:16px;width:18px;height:18px;">verified</mat-icon>
             </div>
-        </section>
-
-        <section class="py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-12">
-                    The BeanArts Advantage: Your Partner in Premium Branding
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-indigo-500 transition duration-500 hover:shadow-2xl hover:bg-indigo-50">
-                        <div class="text-indigo-600 mb-4">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.044A12.007 12.007 0 002 12c0 3.072 1.85 5.86 4.618 7.394A12.007 12.007 0 0012 22c3.072 0 5.86-1.85 7.394-4.618A12.007 12.007 0 0022 12c0-2.311-.47-4.512-1.382-6.416z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Unrivaled Quality</h3>
-                        <p class="text-gray-600 text-sm">We commit to the highest standards, using only premium,
-                            sustainable materials for all printing, packaging, and custom merchandise. Zero compromise
-                            on finish.</p>
-                    </div>
-
-                    <!-- Bespoke Customization -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-amber-500 transition duration-500 hover:shadow-2xl hover:bg-amber-50">
-                        <div class="text-amber-600 mb-4">
-                            <!-- Icon: Customization / Magic Wand -->
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.387 6.002L21 9l-5.613 2.998L17 19l-4.387-3.998L8 19l2.387-6.002L3 9l5.613-2.998L11 3z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Bespoke Customization</h3>
-                        <p class="text-gray-600 text-sm">Every element, from gift contents to print finishes, is
-                            uniquely tailored to perfectly reflect your brand's identity and narrative.</p>
-                    </div>
-
-                    <!-- Seamless Execution -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-teal-500 transition duration-500 hover:shadow-2xl hover:bg-teal-50">
-                        <div class="text-teal-600 mb-4">
-                            <!-- Icon: Logistics / Global -->
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3.055 11H5a2 2 0 012 2v1m10-4h2m-6-10v2m5.72 12.177L16 21H8l-3.72-8.823A12.025 12.025 0 0112 3c3.075 0 5.86 1.18 8.055 3.055z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Seamless Execution</h3>
-                        <p class="text-gray-600 text-sm">Enjoy end-to-end service, covering design consultation,
-                            production, global logistics, and timely drop-shipping. Hassle-free gifting, guaranteed.</p>
-                    </div>
-
-                </div>
+            <div>
+              <p style="font-weight:800;font-size:13px;color:#111827;line-height:1.1;margin:0;">Since 2018</p>
+              <p style="font-size:11px;color:#6b7280;margin:3px 0 0;">8+ years of craft</p>
             </div>
-        </section>
-
-        <!-- Mission, Vision, Values (MVV) Section -->
-        <section id="vision" class="py-16 bg-gray-100">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-12">Our Guiding Principles</h2>
-
-                <!-- Mission & Vision -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    <!-- Mission -->
-                    <div
-                        class="p-8 rounded-xl shadow-xl bg-white flex flex-col items-center text-center transition duration-500 hover:ring-2 ring-indigo-300">
-                        <span class="text-4xl text-indigo-600 mb-4">🎯</span>
-                        <h3 class="text-2xl font-bold text-indigo-700 mb-3">Our Mission</h3>
-                        <p class="text-gray-600">To be the trusted partner for businesses seeking to elevate their
-                            corporate relationships through thoughtfully designed, high-impact gifting and branding
-                            solutions.</p>
-                    </div>
-                    <!-- Vision -->
-                    <div
-                        class="p-8 rounded-xl shadow-xl bg-white flex flex-col items-center text-center transition duration-500 hover:ring-2 ring-amber-300">
-                        <span class="text-4xl text-amber-600 mb-4">🌟</span>
-                        <h3 class="text-2xl font-bold text-amber-700 mb-3">Our Vision</h3>
-                        <p class="text-gray-600">To set the global standard for custom corporate expressions, ensuring
-                            every BeanArts creation is a powerful catalyst for connection and appreciation.</p>
-                    </div>
-                </div>
-
-                <!-- Core Values -->
-                <h3 class="text-2xl font-bold text-center text-gray-800 mt-16 mb-8">What We Value Most</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                        <span class="text-3xl text-teal-600 mb-3 block">💡</span>
-                        <h4 class="font-semibold text-lg text-gray-800">Innovation & Design</h4>
-                        <p class="text-gray-500 text-sm">We constantly seek new methods and materials to deliver fresh,
-                            cutting-edge designs.</p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                        <span class="text-3xl text-indigo-600 mb-3 block">🤝</span>
-                        <h4 class="font-semibold text-lg text-gray-800">Integrity</h4>
-                        <p class="text-gray-500 text-sm">Conducting business with transparency, honesty, and ethical
-                            responsibility at all times.</p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                        <span class="text-3xl text-amber-600 mb-3 block">🌎</span>
-                        <h4 class="font-semibold text-lg text-gray-800">Sustainability</h4>
-                        <p class="text-gray-500 text-sm">Prioritizing eco-friendly production and sourcing to reduce our
-                            environmental footprint.</p>
-                    </div>
-                </div>
+          </div>
+          <!-- Floating badge: rating -->
+          <div class="about-float-badge about-float-badge--br">
+            <div style="display:flex;gap:2px;color:#fbbf24;font-size:11px;">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i>
+              <i class="fas fa-star"></i><i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
             </div>
-        </section>
+            <span style="font-weight:700;font-size:13px;color:#374151;">4.9 / 5</span>
+            <p style="font-size:10.5px;color:#9ca3af;margin:3px 0 0;">200+ verified reviews</p>
+          </div>
+        </div>
+      </div>
 
-        <!-- Our Journey / Timeline -->
-        <section id="our-story" class="py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-12">The BeanArts Journey: A
-                    Timeline of Growth</h2>
+      <!-- Right: copy -->
+      <div class="reveal reveal-delay-1 about-copy-col">
 
-                <div class="relative">
-                    <!-- Vertical Line (Visible on medium screens and up) -->
-                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-200 hidden md:block">
-                    </div>
+        <div class="about-eyebrow-pill" style="margin-bottom:20px;">
+          About BeanArts
+        </div>
 
-                    <!-- Timeline Items Container -->
-                    <div class="space-y-16">
-                        <!-- Event 1: Founding -->
-                        <div
-                            class="relative flex flex-col md:flex-row md:items-center justify-start md:even:justify-end">
-                            <!-- Content Block -->
-                            <div class="md:w-1/2 md:pr-16 md:even:order-2 md:even:pl-16 md:even:pr-0">
-                                <div
-                                    class="p-6 bg-indigo-50 rounded-xl shadow-lg border-l-4 border-indigo-600 md:even:border-l-0 md:even:border-r-4 transform hover:scale-[1.02] transition duration-300">
-                                    <span class="text-sm font-bold text-indigo-600 mb-1 block">2018: The Seed is
-                                        Planted</span>
-                                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Inception: Redefining Corporate
-                                        Gifting</h4>
-                                    <p class="text-gray-600 text-sm">Founded with a vision to move past generic
-                                        merchandise. Our focus was immediately placed on high-quality, personalized
-                                        gifts that truly reflect brand values.</p>
-                                </div>
-                            </div>
-                            <!-- Timeline Dot -->
-                            <div
-                                class="absolute w-6 h-6 rounded-full bg-indigo-600 border-4 border-white shadow-lg top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2">
-                            </div>
-                        </div>
+        <h2 class="about-section-title" style="margin-bottom:24px;">
+          More Than a Vendor —<br/>
+          <span class="text-gradient">Your Brand's Creative Partner</span>
+        </h2>
 
-                        <!-- Event 2: Expansion -->
-                        <div
-                            class="relative flex flex-col md:flex-row md:items-center justify-start md:even:justify-end">
-                            <!-- Content Block -->
-                            <div class="md:w-1/2 md:pl-16 md:order-2 md:even:order-1 md:even:pr-16 md:even:pl-0">
-                                <div
-                                    class="p-6 bg-amber-50 rounded-xl shadow-lg border-l-4 border-amber-600 md:even:border-l-0 md:even:border-r-4 transform hover:scale-[1.02] transition duration-300">
-                                    <span class="text-sm font-bold text-amber-600 mb-1 block">2021: Integrated
-                                        Expertise</span>
-                                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Acquisition of Premium Print
-                                        Services</h4>
-                                    <p class="text-gray-600 text-sm">To ensure brand consistency, we integrated high-end
-                                        digital and offset printing services, offering a unified solution for branded
-                                        collateral and bespoke packaging.</p>
-                                </div>
-                            </div>
-                            <!-- Timeline Dot -->
-                            <div
-                                class="absolute w-6 h-6 rounded-full bg-amber-600 border-4 border-white shadow-lg top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2">
-                            </div>
-                        </div>
+        <div class="about-body-text">
+          <p>
+            Founded in 2018, BeanArts began with a simple but powerful belief:
+            corporate gifting deserves to be as thoughtful and premium as the brands
+            that give them. We set out to replace generic catalogue gifts with
+            intentional, beautifully crafted brand experiences.
+          </p>
+          <p>
+            Today we're India's premier corporate gifting and custom printing partner —
+            trusted by 50+ brands from agile startups to global enterprises. Our
+            Bengaluru studio handles everything from concept design and material
+            sourcing to production, quality control, and pan-India delivery.
+          </p>
+          <p>
+            Whether it's 50 welcome kits for a startup's first cohort or 10,000 Diwali
+            hampers for a multinational — we bring the same meticulous attention to
+            detail to every single order.
+          </p>
+        </div>
 
-                        <!-- Event 3: Future Focus -->
-                        <div
-                            class="relative flex flex-col md:flex-row md:items-center justify-start md:even:justify-end">
-                            <!-- Content Block -->
-                            <div class="md:w-1/2 md:pr-16 md:even:order-2 md:even:pl-16 md:even:pr-0">
-                                <div
-                                    class="p-6 bg-teal-50 rounded-xl shadow-lg border-l-4 border-teal-600 md:even:border-l-0 md:even:border-r-4 transform hover:scale-[1.02] transition duration-300">
-                                    <span class="text-sm font-bold text-teal-600 mb-1 block">Present: Global &
-                                        Sustainable</span>
-                                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Robust Global Fulfillment
-                                        Network</h4>
-                                    <p class="text-gray-600 text-sm">We now operate a secure, sustainable global
-                                        fulfillment network, capable of deploying personalized gifts directly to
-                                        recipients in over 50 countries.</p>
-                                </div>
-                            </div>
-                            <!-- Timeline Dot -->
-                            <div
-                                class="absolute w-6 h-6 rounded-full bg-teal-600 border-4 border-white shadow-lg top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Mini checklist -->
+        <div class="about-checklist">
+          @for (item of [
+            'ISO-grade quality control on every batch',
+            'Dedicated project manager per account',
+            'Eco-friendly materials & responsible sourcing',
+            'Express production — as fast as 5 business days'
+          ]; track item) {
+            <div class="about-check-item">
+              <span class="about-check-icon">
+                <i class="fas fa-check" style="font-size:8px;color:#ffffff;"></i>
+              </span>
+              <span style="font-size:14px;color:#374151;font-weight:500;">{{ item }}</span>
             </div>
-        </section>
+          }
+        </div>
+
+        <a routerLink="/contact" class="ba-btn-primary" style="margin-top:32px;width:fit-content;">
+          <i class="fas fa-paper-plane" style="font-size:12px;"></i>
+          Work With Us
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
 
 
-        <!-- Call to Action Section -->
-        <section id="contact" class="py-16 bg-indigo-800">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-                    Ready to Make Your Brand Unforgettable?
-                </h2>
-                <p class="text-lg text-indigo-200 mb-8">
-                    Let's discuss how our bespoke gifting and printing solutions can elevate your client retention and
-                    employee engagement strategies.
-                </p>
-                <a routerLink="/contact"
-                    class="inline-block bg-amber-400 hover:bg-amber-300 text-indigo-900 font-bold py-4 px-10 rounded-full text-xl shadow-2xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-200 cursor-pointer">
-                    Get a Personalized Quote
-                </a>
-            </div>
-        </section>
-    </main>
-</div>
+<!-- ════════════════════════════════════════════════════════════════
+  4. THE BEANARTS ADVANTAGE  (3 feature cards)
+════════════════════════════════════════════════════════════════ -->
+<section style="padding:96px 0; background:#f8f9ff;">
+  <div class="ba-container">
+
+    <div class="reveal" style="text-align:center; margin-bottom:56px;">
+      <div class="about-eyebrow-pill" style="margin-bottom:16px;">Our Advantage</div>
+      <h2 class="about-section-title">
+        The BeanArts Advantage —<br/>
+        <span class="text-gradient">Your Partner in Premium Branding</span>
+      </h2>
+      <p class="about-section-sub">
+        Three pillars that underpin every project we take on, regardless of size or complexity.
+      </p>
+    </div>
+
+    <div class="about-advantage-grid">
+      @for (item of advantages; track item.title; let i = $index) {
+        <div
+          class="about-advantage-card reveal"
+          [style.transitionDelay]="(i*100)+'ms'"
+          [style.--accent]="item.color"
+          [style.--accent-bg]="item.colorBg"
+          [style.--accent-border]="item.borderColor"
+        >
+          <div class="about-advantage-icon"
+               [style.background]="item.colorBg"
+               [style.borderColor]="item.borderColor">
+            <mat-icon [style.color]="item.color" style="font-size:22px;width:24px;height:24px;">
+              {{ item.icon }}
+            </mat-icon>
+          </div>
+          <h3 class="about-advantage-title">{{ item.title }}</h3>
+          <p class="about-advantage-desc">{{ item.desc }}</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  5. MISSION & VISION  (dark section)
+════════════════════════════════════════════════════════════════ -->
+<section class="about-mvv-section" id="vision">
+
+  <!-- Grid overlay -->
+  <div class="about-grid-bg" style="opacity:0.05;" aria-hidden="true"></div>
+
+  <div class="ba-container relative" style="z-index:1;">
+
+    <div class="reveal" style="text-align:center; margin-bottom:56px;">
+      <div class="about-eyebrow-pill about-pill-gold" style="margin-bottom:16px;">
+        Guiding Principles
+      </div>
+      <h2 style="font-size:clamp(28px,4vw,46px); font-weight:800; color:#ffffff;
+                  line-height:1.15; letter-spacing:-0.02em;">
+        What Drives Us<br/>
+        <span class="about-text-gold">Every Single Day</span>
+      </h2>
+    </div>
+
+    <!-- Mission + Vision cards -->
+    <div class="about-mvv-grid reveal">
+      @for (mv of mvv; track mv.label) {
+        <div class="about-mvv-card" [style.--mv-color]="mv.color">
+          <div class="about-mvv-emoji">{{ mv.emoji }}</div>
+          <h3 class="about-mvv-label" [style.color]="mv.color">{{ mv.label }}</h3>
+          <p class="about-mvv-text">{{ mv.text }}</p>
+        </div>
+      }
+    </div>
+
+    <!-- Values -->
+    <div style="margin-top:64px;">
+      <h3 class="reveal"
+          style="text-align:center; font-size:22px; font-weight:800;
+                 color:rgba(255,255,255,0.9); margin-bottom:32px;">
+        What We Value Most
+      </h3>
+      <div class="about-values-grid">
+        @for (val of values; track val.title; let i = $index) {
+          <div class="about-value-card reveal" [style.transitionDelay]="(i*100)+'ms'">
+            <span class="about-value-emoji">{{ val.emoji }}</span>
+            <h4 class="about-value-title">{{ val.title }}</h4>
+            <p class="about-value-desc">{{ val.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  6. TIMELINE / JOURNEY
+════════════════════════════════════════════════════════════════ -->
+<section style="padding:96px 0; background:#ffffff;" id="our-story">
+  <div class="ba-container">
+
+    <div class="reveal" style="text-align:center; margin-bottom:64px;">
+      <div class="about-eyebrow-pill" style="margin-bottom:16px;">Our Journey</div>
+      <h2 class="about-section-title">
+        A Timeline of<br/>
+        <span class="text-gradient">Growth &amp; Excellence</span>
+      </h2>
+      <p class="about-section-sub">
+        From a small Bengaluru studio with a big idea to India's most trusted
+        corporate gifting partner.
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="about-timeline">
+
+      <!-- Centre line (desktop) -->
+      <div class="about-timeline-line" aria-hidden="true"></div>
+
+      @for (event of timeline; track event.year; let i = $index) {
+        <div
+          class="about-timeline-row reveal"
+          [class.about-timeline-row--right]="i % 2 === 1"
+          [style.transitionDelay]="(i*120)+'ms'"
+        >
+
+          <!-- Card -->
+          <div class="about-timeline-card"
+               [style.borderLeftColor]="event.color"
+               [style.background]="event.colorLight">
+            <span class="about-timeline-year" [style.color]="event.color">
+              {{ event.year }}: {{ event.label }}
+            </span>
+            <h4 class="about-timeline-card-title">{{ event.title }}</h4>
+            <p class="about-timeline-card-desc">{{ event.desc }}</p>
+          </div>
+
+          <!-- Centre dot -->
+          <div class="about-timeline-dot"
+               [style.background]="event.color"
+               [style.boxShadow]="'0 0 0 4px white, 0 0 0 6px ' + event.color + '40'">
+          </div>
+
+        </div>
+      }
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  7. FINAL CTA BANNER
+════════════════════════════════════════════════════════════════ -->
+<section style="padding:96px 0; background:#f8f9ff;">
+  <div class="ba-container">
+    <div class="about-cta-banner reveal">
+
+      <!-- Blobs -->
+      <div style="position:absolute; top:-60px; right:-60px; width:220px; height:220px;
+                  border-radius:9999px; background:rgba(255,255,255,0.05);
+                  filter:blur(40px); pointer-events:none;"></div>
+      <div style="position:absolute; bottom:-40px; left:-40px; width:160px; height:160px;
+                  border-radius:9999px; background:rgba(245,158,11,0.08);
+                  filter:blur(28px); pointer-events:none;"></div>
+
+      <div class="about-cta-inner">
+
+        <div>
+          <div class="about-pill-gold" style="margin-bottom:20px;">
+            🚀 Let's Build Together
+          </div>
+          <h2 style="font-size:clamp(26px,4vw,46px); font-weight:900; color:#ffffff;
+                      line-height:1.12; letter-spacing:-0.02em; margin:0 0 16px;">
+            Ready to Make Your<br/>
+            <span class="about-text-gold">Brand Unforgettable?</span>
+          </h2>
+          <p style="font-size:16px; color:rgba(255,255,255,0.65); line-height:1.7;
+                    max-width:480px; margin:0;">
+            Let's discuss how our bespoke gifting and printing solutions can elevate
+            your client retention and employee engagement strategies.
+          </p>
+
+          <!-- Proofs -->
+          <div class="about-cta-proofs">
+            @for (p of [
+              {icon:'bolt',          label:'Quote in 24 hrs'},
+              {icon:'verified_user', label:'Quality Guaranteed'},
+              {icon:'local_shipping',label:'Pan-India Delivery'}
+            ]; track p.label) {
+              <div style="display:flex;align-items:center;gap:6px;
+                          font-size:13px;color:rgba(255,255,255,0.55);">
+                <mat-icon style="font-size:15px;width:16px;height:16px;color:#fbbf24;">
+                  {{ p.icon }}
+                </mat-icon>
+                {{ p.label }}
+              </div>
+            }
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;flex-shrink:0;">
+          <a routerLink="/contact"
+             style="display:inline-flex;align-items:center;gap:8px;
+                    padding:16px 40px;
+                    background:#ffffff; color:#4f46e5;
+                    font-weight:700; font-size:15px;
+                    border-radius:9999px; border:none;
+                    text-decoration:none; white-space:nowrap;
+                    transition:all 200ms ease; box-shadow:0 4px 20px rgba(0,0,0,0.15);"
+             onmouseover="this.style.background='#f5f3ff'; this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'">
+            <i class="fas fa-paper-plane" style="font-size:12px;"></i>
+            Get a Personalised Quote
+          </a>
+          <a href="tel:+918147540690"
+             class="ba-btn-ghost"
+             style="justify-content:center; font-size:15px; padding:15px 40px;">
+            <i class="fas fa-phone" style="font-size:12px;"></i>
+            +91 81475 40690
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

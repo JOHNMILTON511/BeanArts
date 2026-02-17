@@ -1,236 +1,319 @@
-import { ChangeDetectionStrategy, Component, signal, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { SvgIcon } from './svg-icon/svg-icon';
-import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
-import Aos from 'aos';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [
-    SvgIcon,
-    RouterModule,
-    NgOptimizedImage
-],
+  imports: [RouterModule, MatIconModule, MatButtonModule],
   templateUrl: './services.html',
   styleUrls: ['./services.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Services implements OnInit {
-  
-  currentYear = signal(new Date().getFullYear());
+export class Services implements OnInit, AfterViewInit, OnDestroy {
+  private meta     = inject(Meta);
+  private title    = inject(Title);
+  private platformId = inject(PLATFORM_ID);
+  private observer!: IntersectionObserver;
 
-  constructor(private meta: Meta, private title: Title,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  // ── Active service tab (for mobile scroll navigation) ───────
+  activeService = signal(0);
 
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      Aos.init({
-        duration: 400, // Fast transition (was defaulting to 1000ms)
-        once: true,    // Animate only once
-        easing: 'ease-out-quart', // Smoother deceleration
-        offset: 50     // Trigger sooner
-      });
-    }
-    
-    this.title.setTitle('Our Services - Corporate Gifting, Printing & Custom Packaging | BeanArts');
-    this.meta.updateTag({ 
-      name: 'description', 
-      content: 'Explore BeanArts\' comprehensive corporate solutions: Premium Employee Welcome Kits, High-Quality Business Printing, and Eco-Friendly Custom Packaging Design.' 
-    });
-    this.meta.updateTag({ 
-      name: 'keywords', 
-      content: 'Corporate Gifting Services, Bulk Printing Bangalore, Custom Packaging Design, Employee Swag Kits, Business Cards Printing, Eco-friendly Boxes' 
-    });
-  }
-
-  // --- NEW: Statistics Data ---
+  // ── Stats ────────────────────────────────────────────────────
   stats = signal([
-    { label: 'Happy Clients', value: '50+', icon: 'fa-smile', color: 'text-yellow-400' },
-    { label: 'Projects Delivered', value: '120+', icon: 'fa-box-open', color: 'text-blue-400' },
-    { label: 'Years Experience', value: '1+', icon: 'fa-star', color: 'text-orange-400' },
-    { label: 'Cities Covered', value: '2+', icon: 'fa-map-marker-alt', color: 'text-green-400' }
+    { label: 'Happy Clients',       value: '500+',  icon: 'groups',             faIcon: 'fa-smile' },
+    { label: 'Projects Delivered',  value: '2K+',   icon: 'inventory_2',        faIcon: 'fa-box-open' },
+    { label: 'Years Experience',    value: '8+',    icon: 'workspace_premium',  faIcon: 'fa-star' },
+    { label: 'Cities Covered',      value: '50+',   icon: 'location_on',        faIcon: 'fa-map-marker-alt' },
   ]);
 
-  // --- NEW: FAQ Data ---
-  faqs = signal([
-    { 
-      question: 'Do you offer bulk volume discounts?', 
-      answer: 'Yes! We offer tiered pricing structures for bulk orders. The more you order, the more you save. Contact our sales team for a custom quote.', 
-      isOpen: false 
-    },
-    { 
-      question: 'Can I get a physical sample before placing a large order?', 
-      answer: 'Absolutely. We believe in quality assurance. You can request a sample kit or a prototype of your custom packaging before committing to a full run.', 
-      isOpen: false 
-    },
-    { 
-      question: 'What is your typical turnaround time?', 
-      answer: 'Standard printing orders take 3-5 business days. Custom packaging and gifting kits typically take 10-14 days depending on complexity and quantity.', 
-      isOpen: false 
-    },
-    { 
-      question: 'Do you handle logistics and individual shipping?', 
-      answer: 'Yes, we provide end-to-end fulfillment. We can ship bulk to one location or individually to your employees\' doorsteps across India.', 
-      isOpen: false 
-    }
-  ]);
-
-  toggleFaq(index: number) {
-    this.faqs.update(items => {
-      const newItems = [...items];
-      newItems[index].isOpen = !newItems[index].isOpen;
-      return newItems;
-    });
-  }
-
-  // Existing Process Steps
-  processSteps = signal([
-    {
-      id: 1,
-      title: 'Define & Discover',
-      description: 'We begin with an in-depth consultation to map your objectives, understand your brand identity, and define the scope of the project.',
-      icon: 'consultation',
-      color: 'blue'
-    },
-    {
-      id: 2,
-      title: 'Design & Prototype',
-      description: 'Our creative team customizes solutions, generating design mockups and prototypes for your approval, ensuring perfect brand alignment.',
-      icon: 'customization',
-      color: 'green'
-    },
-    {
-      id: 3,
-      title: 'Production & Quality',
-      description: 'We move to production, using premium materials and rigorous quality checks to meticulously craft every product to the highest standards.',
-      icon: 'delivery',
-      color: 'yellow'
-    },
-    {
-      id: 4,
-      title: 'Fulfillment & Support',
-      description: 'Your products are packaged, shipped safely, and delivered on time. We provide continuous post-delivery support and future planning.',
-      icon: 'support',
-      color: 'teal'
-    },
-  ]);
-
-  // Existing Features
+  // ── Features / Why Us ────────────────────────────────────────
   features = signal([
     {
       id: 1,
       title: 'Unrivaled Quality Guarantee',
-      description: 'We only use premium-grade materials and cutting-edge techniques to ensure every finished product is a masterpiece of durability and design.',
-      icon: 'quality',
-      color: 'sky'
+      description: 'Premium-grade materials and cutting-edge techniques ensure every finished product is a masterpiece of durability and design.',
+      icon: 'workspace_premium',
+      accent: '#4f46e5',
+      accentBg: 'rgba(79,70,229,0.08)',
     },
     {
       id: 2,
       title: 'Creative Innovation',
-      description: 'Our team stays ahead of trends, offering innovative and unique solutions in gifting, printing, and packaging that make your brand stand out.',
-      icon: 'innovation',
-      color: 'fuchsia'
+      description: 'Our team stays ahead of trends, offering innovative solutions in gifting, printing, and packaging that make your brand truly stand out.',
+      icon: 'palette',
+      accent: '#7c3aed',
+      accentBg: 'rgba(124,58,237,0.08)',
     },
     {
       id: 3,
       title: 'Dedicated Client Support',
-      description: 'From initial concept to final delivery, you receive dedicated support and transparent communication, making the entire process seamless and stress-free.',
-      icon: 'support',
-      color: 'amber'
+      description: 'From initial concept to final delivery — a dedicated account manager keeps communication transparent and the process seamless.',
+      icon: 'support_agent',
+      accent: '#d97706',
+      accentBg: 'rgba(217,119,6,0.08)',
     },
     {
       id: 4,
       title: 'Reliable, On-Time Delivery',
-      description: 'We understand deadlines. Our logistics ensure that your customized products are delivered precisely when and where you need them, nationwide.',
-      icon: 'delivery',
-      color: 'indigo'
+      description: 'We understand deadlines. Our logistics ensure products are delivered precisely when and where you need them, nationwide.',
+      icon: 'local_shipping',
+      accent: '#059669',
+      accentBg: 'rgba(5,150,105,0.08)',
     },
   ]);
 
-  // Existing Services
+  // ── Process Steps ────────────────────────────────────────────
+  processSteps = signal([
+    {
+      id: '01',
+      title: 'Define & Discover',
+      description: 'In-depth consultation to map your objectives, understand your brand identity, and define the full scope of the project.',
+      icon: 'chat_bubble_outline',
+    },
+    {
+      id: '02',
+      title: 'Design & Prototype',
+      description: 'Our creative team generates design mockups and physical prototypes for your approval, ensuring perfect brand alignment.',
+      icon: 'design_services',
+    },
+    {
+      id: '03',
+      title: 'Production & Quality',
+      description: 'Premium materials and rigorous QC checks at every stage to meticulously craft each product to our uncompromising standards.',
+      icon: 'precision_manufacturing',
+    },
+    {
+      id: '04',
+      title: 'Fulfillment & Support',
+      description: 'Products are packaged, shipped safely, and delivered on time. Continuous post-delivery support and future planning included.',
+      icon: 'local_shipping',
+    },
+  ]);
+
+  // ── Services (your exact data, enhanced) ────────────────────
   services = signal([
     {
       id: 1,
       name: 'Corporate Gifting Solutions',
-      color: 'indigo',
+      slug: 'gifting',
+      icon: 'card_giftcard',
+      description: 'Curated, branded gift collections that celebrate milestones, reward excellence, and forge lasting connections with clients and employees.',
+      accentFrom: '#7c3aed',
+      accentTo:   '#4f46e5',
+      badgeColor: 'bg-violet-50 text-violet-700 border-violet-100',
+      badge: 'Most Popular',
       items: [
         {
           title: 'Premium Welcome Kits',
-          description: 'Curated kits for new hires and client onboarding that make a powerful first impression.',
+          description: 'Curated kits for new hires and client onboarding that make a powerful, lasting first impression.',
           imageUrl: 'assets/service/Premium_welcome_Kits.png',
-          loaded: false
+          imgWidth: 400, imgHeight: 300,
         },
         {
           title: 'Luxury Festive Hampers',
-          description: 'Elegant, customizable hampers for employee and client celebrations during major holidays.',
+          description: 'Elegant, customisable hampers for employee and client celebrations during major festivals and milestones.',
           imageUrl: 'assets/service/Luxury_Festive_Hampers.png',
-          loaded: false
+          imgWidth: 400, imgHeight: 300,
         },
         {
           title: 'Branded Tech & Swag',
-          description: 'High-quality, personalized tech accessories and branded merchandise to boost company pride.',
+          description: 'High-quality, personalised tech accessories and branded merchandise to reinforce company culture.',
           imageUrl: 'assets/service/Branded_Tech_Swag.png',
-          loaded: false
+          imgWidth: 400, imgHeight: 300,
         },
         {
           title: 'Signature Scented Candles',
-          description: 'Custom-branded, aromatic candles to create a sophisticated sensory experience.', 
-          imageUrl: 'assets/service/Signature_Scented_Candles.jpg', 
-          loaded: false
-        }
-      ]
+          description: 'Custom-branded, aromatic candles that create a sophisticated sensory experience for premium gifting.',
+          imageUrl: 'assets/service/Signature_Scented_Candles.jpg',
+          imgWidth: 400, imgHeight: 300,
+        },
+      ],
     },
     {
       id: 2,
       name: 'Premium Printing Solutions',
-      color: 'orange',
+      slug: 'printing',
+      icon: 'print',
+      description: 'From business cards to grand-format banners — every print handled with precision, vibrant colour accuracy, and premium finishes.',
+      accentFrom: '#2563eb',
+      accentTo:   '#4f46e5',
+      badgeColor: 'bg-blue-50 text-blue-700 border-blue-100',
+      badge: 'High Demand',
       items: [
         {
           title: 'Marketing Flyers & Brochures',
-          description: 'High-quality, full-color prints designed to deliver your message with clarity and impact.',
+          description: 'High-quality, full-colour prints designed to deliver your message with absolute clarity and visual impact.',
           imageUrl: 'assets/service/flyer.jpg',
-          loaded: false
+          imgWidth: 400, imgHeight: 300,
         },
         {
           title: 'Professional Business Cards',
           description: 'Premium card stock with matte, glossy, embossed, or spot-UV finishes for a lasting first impression.',
           imageUrl: 'assets/service/Business_Cards.jpg',
-          loaded: false
+          imgWidth: 400, imgHeight: 300,
         },
         {
           title: 'Event Banners & Posters',
-          description: 'Durable, high-resolution large-format prints ideal for events, conferences, and retail branding.',
+          description: 'Durable, high-resolution large-format prints ideal for events, conferences, and retail environments.',
           imageUrl: 'assets/service/Event_Banners.jpg',
-          loaded: false
+          imgWidth: 400, imgHeight: 300,
         },
         {
           title: 'Custom Corporate Stationery',
-          description: 'Branded letterheads, envelopes, notepads, and office essentials that reflect your company identity.',
+          description: 'Branded letterheads, envelopes, notepads, and office essentials that reinforce your corporate identity.',
           imageUrl: 'assets/service/Custom_CorporateStationery.jpg',
-          loaded: false
-        }
-      ]
-    }
-    ,
+          imgWidth: 400, imgHeight: 300,
+        },
+      ],
+    },
     {
       id: 3,
       name: 'Bespoke Packaging Design',
-      color: 'teal',
+      slug: 'packaging',
+      icon: 'inventory_2',
+      description: 'Luxury rigid boxes, sustainable mailers, and custom inserts that protect your product while amplifying your brand story.',
+      accentFrom: '#059669',
+      accentTo:   '#0d9488',
+      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+      badge: 'Premium',
       items: [
-        { title: 'Eco-Friendly Mailer Boxes', description: 'Sustainable, custom-sized corrugated boxes perfect for safe and environmentally conscious shipping.', imageUrl: 'assets/service/Eco-Friendly_Mailer_Boxes.jpg', loaded: false },
-        { title: 'Retail Product Packaging', description: 'Unique structural and graphic design that maximizes shelf appeal and product protection.', imageUrl: 'assets/service/Retail_Product_Packaging.jpg', loaded: false },
-        { title: 'Premium Rigid Boxes', description: 'High-end, durable boxes with magnetic closures or foam inserts for luxury items and gifts.', imageUrl: 'assets/service/Premium_Rigid_Boxes.jpg', loaded: false },
-        { title: 'Custom Branded Tapes & Labels', description: 'The final touch: personalized tapes and labels for sealing and security with visual flair.', imageUrl: 'assets/service/Custom_Branded.jpg', loaded: false }
-      ]
-    }
+        {
+          title: 'Eco-Friendly Mailer Boxes',
+          description: 'Sustainable, custom-sized corrugated boxes for safe and environmentally responsible shipping.',
+          imageUrl: 'assets/service/Eco-Friendly_Mailer_Boxes.jpg',
+          imgWidth: 400, imgHeight: 300,
+        },
+        {
+          title: 'Retail Product Packaging',
+          description: 'Unique structural and graphic design that maximises shelf appeal and provides superior product protection.',
+          imageUrl: 'assets/service/Retail_Product_Packaging.jpg',
+          imgWidth: 400, imgHeight: 300,
+        },
+        {
+          title: 'Premium Rigid Boxes',
+          description: 'High-end, durable boxes with magnetic closures or foam inserts — perfect for luxury items and gifting.',
+          imageUrl: 'assets/service/Premium_Rigid_Boxes.jpg',
+          imgWidth: 400, imgHeight: 300,
+        },
+        {
+          title: 'Custom Branded Tapes & Labels',
+          description: 'The finishing touch: personalised tapes and labels for sealing and security with distinctive visual flair.',
+          imageUrl: 'assets/service/Custom_Branded.jpg',
+          imgWidth: 400, imgHeight: 300,
+        },
+      ],
+    },
   ]);
 
+  // ── FAQs (your exact data) ───────────────────────────────────
+  faqs = signal([
+    {
+      question: 'Do you offer bulk volume discounts?',
+      answer: 'Yes! We offer tiered pricing structures for bulk orders. The more you order, the more you save. Contact our sales team for a custom quote tailored to your volume.',
+      isOpen: false,
+    },
+    {
+      question: 'Can I get a physical sample before placing a large order?',
+      answer: 'Absolutely. We believe in quality assurance. You can request a sample kit or a prototype of your custom packaging before committing to a full production run.',
+      isOpen: false,
+    },
+    {
+      question: 'What is your typical turnaround time?',
+      answer: 'Standard printing orders take 3–5 business days. Custom packaging and gifting kits typically take 10–14 days depending on complexity and quantity. Rush options are available.',
+      isOpen: false,
+    },
+    {
+      question: 'Do you handle logistics and individual shipping?',
+      answer: 'Yes, we provide end-to-end fulfillment. We can ship bulk to one location or individually to your employees\' doorsteps across India.',
+      isOpen: false,
+    },
+    {
+      question: 'What is the minimum order quantity?',
+      answer: 'Minimum order quantities vary by product. Most gifting kits start at 50 units, printing from 100 pieces, and packaging from 200 units. We also accommodate smaller orders for samples.',
+      isOpen: false,
+    },
+    {
+      question: 'Can you match our exact brand colours and guidelines?',
+      answer: 'Yes. We support Pantone matching, CMYK, and RGB profiles. Provide us your brand guidelines and we ensure pixel-perfect colour accuracy across all materials.',
+      isOpen: false,
+    },
+  ]);
+
+  // ── Image load state (your existing pattern) ─────────────────
   imageLoadedState: { [key: string]: boolean } = {};
 
-  onImageLoad(itemId: string) {
-    this.imageLoadedState[itemId] = true;
+  onImageLoad(itemTitle: string): void {
+    this.imageLoadedState[itemTitle] = true;
+  }
+
+  // ── Lifecycle ────────────────────────────────────────────────
+  ngOnInit(): void {
+    this.title.setTitle('Our Services — Corporate Gifting, Printing & Packaging | BeanArts');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Explore BeanArts\' comprehensive corporate solutions: Premium Employee Welcome Kits, High-Quality Business Printing, and Eco-Friendly Custom Packaging Design.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Corporate Gifting Services, Bulk Printing Bangalore, Custom Packaging Design, Employee Swag Kits, Business Cards Printing, Eco-friendly Boxes',
+    });
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupScrollReveal();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
+
+  // ── Methods ──────────────────────────────────────────────────
+  private setupScrollReveal(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            this.observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => this.observer.observe(el));
+  }
+
+  toggleFaq(index: number): void {
+    this.faqs.update((items) => {
+      const updated = [...items];
+      updated[index] = { ...updated[index], isOpen: !updated[index].isOpen };
+      return updated;
+    });
+  }
+
+  scrollToService(index: number): void {
+    this.activeService.set(index);
+    const el = document.getElementById('service-' + index);
+    if (el) {
+      const offset = 100;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   }
 }

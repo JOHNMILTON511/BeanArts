@@ -1,136 +1,183 @@
-<footer class="bg-primary-950 text-slate-300 font-sans">
+<!-- ================================================================
+  BeanArts Footer — FIXED VERSION
+  Root cause of white background: bg-primary-950 requires tailwind.config.js
+  to have the custom color. This version uses hardcoded style="" values
+  for all custom colors so it renders correctly in all environments.
+  File: src/app/shared/footer/footer.html
+  ================================================================ -->
 
-  <!-- CTA Banner inside footer -->
-  <div class="relative overflow-hidden">
-    <div class="ba-container py-14 lg:py-16">
-      <div
-        class="relative rounded-3xl overflow-hidden
-               bg-gradient-to-r from-primary-700 to-violet-700
-               px-8 py-12 lg:px-16 lg:py-14"
-      >
-        <!-- Decorative circles -->
-        <div class="absolute -top-12 -right-12 w-48 h-48 rounded-full
-                    bg-white/5 blur-2xl pointer-events-none"></div>
-        <div class="absolute -bottom-8 -left-8 w-36 h-36 rounded-full
-                    bg-accent-500/10 blur-xl pointer-events-none"></div>
+<footer style="background-color: #1e1b4b; color: #cbd5e1; font-family: 'Inter', sans-serif;">
 
-        <div class="relative flex flex-col lg:flex-row items-center
-                    justify-between gap-8 text-center lg:text-left">
+  <!-- ══════════════════════════════════════════════════════════════
+    CTA BANNER STRIP (inside footer top)
+  ══════════════════════════════════════════════════════════════ -->
+  <div style="padding: 56px 0 48px;">
+    <div class="ba-container">
+      <div style="
+        background: linear-gradient(135deg, #4338ca 0%, #6d28d9 50%, #312e81 100%);
+        border-radius: 24px;
+        padding: 48px 56px;
+        position: relative;
+        overflow: hidden;
+      ">
+        <!-- Blob decorations -->
+        <div style="
+          position: absolute; top: -40px; right: -40px;
+          width: 200px; height: 200px; border-radius: 9999px;
+          background: rgba(255,255,255,0.05); filter: blur(32px);
+          pointer-events: none;
+        "></div>
+        <div style="
+          position: absolute; bottom: -24px; left: -24px;
+          width: 140px; height: 140px; border-radius: 9999px;
+          background: rgba(245,158,11,0.08); filter: blur(24px);
+          pointer-events: none;
+        "></div>
+
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-8
+                    text-center lg:text-left relative z-10">
+
           <div>
-            <p class="ba-pill ba-pill-gold mb-4">🎁 Ready to Impress?</p>
-            <h3 class="text-2xl lg:text-3xl font-black text-white leading-tight">
+            <p style="
+              display: inline-flex; align-items: center; gap: 6px;
+              padding: 5px 14px; background: #fffbeb; color: #92400e;
+              font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+              text-transform: uppercase; border-radius: 9999px;
+              border: 1px solid #fde68a; margin-bottom: 16px;
+            ">🎁 Ready to Impress?</p>
+
+            <h3 style="font-size: clamp(22px, 3vw, 30px); font-weight: 900;
+                       color: #ffffff; line-height: 1.2; margin: 0 0 8px;">
               Let's Build Something<br class="hidden lg:block"/>
-              <span class="text-accent-400">Extraordinary Together</span>
+              <span style="color: #fbbf24;">Extraordinary Together</span>
             </h3>
-            <p class="text-white/70 mt-2 text-sm max-w-md">
-              From 50 to 50,000 units — we deliver premium gifting experiences that
-              your team and clients will remember.
+            <p style="color: rgba(255,255,255,0.65); font-size: 14px;
+                      max-width: 400px; line-height: 1.65; margin: 0;">
+              From 50 to 50,000 units — we deliver premium gifting experiences
+              that your team and clients will remember.
             </p>
           </div>
+
           <div class="flex flex-col sm:flex-row gap-3 shrink-0">
-            <a routerLink="/contact" class="ba-btn-primary !px-7">
-              <i class="fas fa-envelope text-sm"></i> Request a Quote
+            <a routerLink="/contact" style="
+              display: inline-flex; align-items: center; gap: 8px;
+              padding: 14px 28px;
+              background: linear-gradient(135deg, #4f46e5, #6366f1);
+              color: #ffffff; font-weight: 700; font-size: 14px;
+              border-radius: 9999px; border: none; text-decoration: none;
+              box-shadow: 0 4px 20px rgba(79,70,229,0.4);
+              transition: all 250ms ease; cursor: pointer; white-space: nowrap;
+            " onmouseover="this.style.transform='translateY(-2px)'"
+               onmouseout="this.style.transform='translateY(0)'">
+              <i class="fas fa-envelope" style="font-size: 12px;"></i>
+              Request a Quote
             </a>
-            <a href="tel:+918147540690" class="ba-btn-ghost !px-7">
-              <i class="fas fa-phone text-sm"></i> Call Us Now
+            <a href="tel:+918147540690" style="
+              display: inline-flex; align-items: center; gap: 8px;
+              padding: 13px 28px;
+              background: rgba(255,255,255,0.12);
+              color: #ffffff; font-weight: 600; font-size: 14px;
+              border-radius: 9999px;
+              border: 1.5px solid rgba(255,255,255,0.30);
+              text-decoration: none; white-space: nowrap;
+              backdrop-filter: blur(8px); transition: all 250ms ease;
+            " onmouseover="this.style.background='rgba(255,255,255,0.22)'"
+               onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+              <i class="fas fa-phone" style="font-size: 12px;"></i>
+              Call Us Now
             </a>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Main footer grid -->
-  <div class="ba-container pb-12 pt-4">
+  <!-- ══════════════════════════════════════════════════════════════
+    MAIN FOOTER GRID
+  ══════════════════════════════════════════════════════════════ -->
+  <div class="ba-container" style="padding-bottom: 48px; padding-top: 8px;">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
-      <!-- Brand column -->
-      <div class="lg:col-span-1 space-y-5">
-        <a routerLink="/" class="flex items-center gap-3 no-underline group">
+      <!-- ── Brand Column ───────────────────────────────────── -->
+      <div style="display: flex; flex-direction: column; gap: 18px;">
+
+        <!-- Logo + Name -->
+        <a routerLink="/" style="
+          display: flex; align-items: center; gap: 12px;
+          text-decoration: none;
+        ">
           <img
             src="assets/logo/Bean Logo 03_page-0001.jpg"
             alt="BeanArts Logo"
-            class="w-10 h-10 rounded-full shadow-md object-cover
-                   group-hover:scale-105 transition-transform duration-300"
+            style="width: 42px; height: 42px; border-radius: 9999px;
+                   object-fit: cover; box-shadow: 0 2px 10px rgba(0,0,0,0.3);"
           />
-          <span class="text-xl font-black text-white tracking-tight">Bean<span class="text-primary-300">Arts</span></span>
+          <span style="font-size: 20px; font-weight: 900; color: #ffffff;
+                       letter-spacing: -0.01em;">
+            Bean<span style="color: #a5b4fc;">Arts</span>
+          </span>
         </a>
-        <p class="text-sm leading-relaxed text-slate-400 max-w-[280px]">
-          India's trusted partner for premium corporate gifting, custom printing, and
-          bespoke packaging. Elevating brand experiences through quality and precision.
+
+        <!-- Tagline -->
+        <p style="font-size: 13px; line-height: 1.7; color: #94a3b8;
+                  max-width: 260px; margin: 0;">
+          India's trusted partner for premium corporate gifting, custom printing,
+          and bespoke packaging. Elevating brand experiences since 2016.
         </p>
-        <!-- Rating badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl
-                    bg-white/5 border border-white/10 text-sm">
-          <div class="flex text-accent-400 text-xs">
+
+        <!-- Star rating -->
+        <div style="
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 8px 12px; border-radius: 12px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.10);
+          width: fit-content;
+        ">
+          <div style="display: flex; gap: 2px; color: #fbbf24; font-size: 12px;">
             <i class="fas fa-star"></i><i class="fas fa-star"></i>
             <i class="fas fa-star"></i><i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
           </div>
-          <span class="text-white/80 text-xs font-medium">4.9 · 200+ Happy Clients</span>
+          <span style="color: rgba(255,255,255,0.75); font-size: 11.5px;
+                       font-weight: 600;">4.9 · 20+ Clients</span>
         </div>
-        <!-- Socials -->
-        <div class="flex gap-3 pt-1">
-          <a
-            href="https://www.linkedin.com/in/beanarts-sales-71b927392"
-            target="_blank" rel="noopener"
-            aria-label="LinkedIn"
-            class="w-9 h-9 flex items-center justify-center rounded-xl
-                   bg-white/8 border border-white/10 text-slate-400
-                   hover:bg-[#0077b5] hover:text-white hover:border-transparent
-                   transition-all duration-200"
-          >
-            <i class="fab fa-linkedin-in text-sm"></i>
+
+        <!-- Social icons -->
+        <div style="display: flex; gap: 10px;">
+          <a href="https://www.linkedin.com/in/beanarts-sales-71b927392"
+             target="_blank" rel="noopener" aria-label="LinkedIn"
+             class="footer-social" style="--hover-bg: #0077b5;">
+            <i class="fab fa-linkedin-in"></i>
           </a>
-          <a
-            href="https://www.instagram.com/beanart.s/"
-            target="_blank" rel="noopener"
-            aria-label="Instagram"
-            class="w-9 h-9 flex items-center justify-center rounded-xl
-                   bg-white/8 border border-white/10 text-slate-400
-                   hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500
-                   hover:text-white hover:border-transparent transition-all duration-200"
-          >
-            <i class="fab fa-instagram text-sm"></i>
+          <a href="https://www.instagram.com/beanart.s/"
+             target="_blank" rel="noopener" aria-label="Instagram"
+             class="footer-social" style="--hover-bg: #e1306c;">
+            <i class="fab fa-instagram"></i>
           </a>
-          <a
-            href="https://www.facebook.com/share/14VvdpRGR97/"
-            target="_blank" rel="noopener"
-            aria-label="Facebook"
-            class="w-9 h-9 flex items-center justify-center rounded-xl
-                   bg-white/8 border border-white/10 text-slate-400
-                   hover:bg-[#1877f2] hover:text-white hover:border-transparent
-                   transition-all duration-200"
-          >
-            <i class="fab fa-facebook-f text-sm"></i>
+          <a href="https://www.facebook.com/share/14VvdpRGR97/"
+             target="_blank" rel="noopener" aria-label="Facebook"
+             class="footer-social" style="--hover-bg: #1877f2;">
+            <i class="fab fa-facebook-f"></i>
           </a>
-          <a
-            href="https://wa.me/918147540690"
-            target="_blank" rel="noopener"
-            aria-label="WhatsApp"
-            class="w-9 h-9 flex items-center justify-center rounded-xl
-                   bg-white/8 border border-white/10 text-slate-400
-                   hover:bg-[#25d366] hover:text-white hover:border-transparent
-                   transition-all duration-200"
-          >
-            <i class="fab fa-whatsapp text-sm"></i>
+          <a href="https://wa.me/918147540690"
+             target="_blank" rel="noopener" aria-label="WhatsApp"
+             class="footer-social" style="--hover-bg: #25d366;">
+            <i class="fab fa-whatsapp"></i>
           </a>
         </div>
+
       </div>
 
-      <!-- Company -->
+      <!-- ── Company Links ──────────────────────────────────── -->
       <div>
-        <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Company</h4>
-        <ul class="space-y-3 list-none p-0 m-0">
-          @for (link of navLinks.slice(0,6); track link.link) {
+        <h4 class="footer-col-heading">Company</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;
+                   display: flex; flex-direction: column; gap: 12px;">
+          @for (link of navLinks.slice(0, 6); track link.link) {
             <li>
-              <a
-                [routerLink]="link.link"
-                class="text-sm text-slate-400 hover:text-white hover:translate-x-1
-                       transition-all duration-200 flex items-center gap-2 no-underline group"
-              >
-                <span class="w-1 h-1 rounded-full bg-primary-500 opacity-0
-                             group-hover:opacity-100 transition-opacity"></span>
+              <a [routerLink]="link.link" class="footer-nav-link">
+                <span class="footer-nav-dot"></span>
                 {{ link.label }}
               </a>
             </li>
@@ -138,19 +185,19 @@
         </ul>
       </div>
 
-      <!-- Services -->
+      <!-- ── Service Links ──────────────────────────────────── -->
       <div>
-        <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Services</h4>
-        <ul class="space-y-3 list-none p-0 m-0">
-          @for (s of serviceItems; track $index) {
+        <h4 class="footer-col-heading">Services</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;
+                   display: flex; flex-direction: column; gap: 12px;">
+          @for (s of serviceItems; track s.label) {
             <li>
               <a
                 [routerLink]="s.link"
-                class="text-sm text-slate-400 hover:text-white hover:translate-x-1
-                       transition-all duration-200 flex items-center gap-2 no-underline group"
+                [fragment]="s.fragment ?? undefined"
+                class="footer-nav-link"
               >
-                <span class="w-1 h-1 rounded-full bg-primary-500 opacity-0
-                             group-hover:opacity-100 transition-opacity"></span>
+                <span class="footer-nav-dot"></span>
                 {{ s.label }}
               </a>
             </li>
@@ -158,79 +205,110 @@
         </ul>
       </div>
 
-      <!-- Contact -->
+      <!-- ── Contact ────────────────────────────────────────── -->
       <div>
-        <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Get in Touch</h4>
-        <ul class="space-y-4 list-none p-0 m-0">
-          <li>
-            <a
-              href="https://maps.google.com/?q=Indira+Nagar+Bengaluru"
-              target="_blank" rel="noopener"
-              class="flex items-start gap-3 text-sm text-slate-400 hover:text-white
-                     transition-colors no-underline group"
-            >
-              <span class="w-8 h-8 rounded-lg bg-primary-900 flex items-center justify-center
-                           shrink-0 group-hover:bg-primary-800 transition-colors mt-0.5">
-                <mat-icon class="!text-sm !w-4 !h-4 text-primary-300">location_on</mat-icon>
-              </span>
-              <span class="leading-relaxed">
-                235, Binnamangala, 2nd Floor,<br/>
-                Indira Nagar, Bengaluru – 560038
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="mailto:sales@beanarts.in"
-              class="flex items-center gap-3 text-sm text-slate-400 hover:text-white
-                     transition-colors no-underline group"
-            >
-              <span class="w-8 h-8 rounded-lg bg-primary-900 flex items-center justify-center
-                           shrink-0 group-hover:bg-primary-800 transition-colors">
-                <mat-icon class="!text-sm !w-4 !h-4 text-primary-300">mail</mat-icon>
-              </span>
-              sales&#64;beanarts.in
-            </a>
-          </li>
-          <li><a
-            
-              href="tel:+918147540690"
-              class="flex items-center gap-3 text-sm text-slate-400 hover:text-white
-                     transition-colors no-underline group"
-            >
-              <span class="w-8 h-8 rounded-lg bg-primary-900 flex items-center justify-center
-                           shrink-0 group-hover:bg-primary-800 transition-colors">
-                <mat-icon class="!text-sm !w-4 !h-4 text-primary-300">phone</mat-icon>
-              </span>
-              +91 8147540690
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://wa.me/918147540690"
-              target="_blank" rel="noopener"
-              class="inline-flex items-center gap-2 mt-1 px-4 py-2 rounded-xl text-xs
-                     font-semibold text-[#25d366] border border-[#25d366]/30
-                     bg-[#25d366]/5 hover:bg-[#25d366]/15 transition-all no-underline"
-            >
-              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-            </a>
-          </li>
-        </ul>
+        <h4 class="footer-col-heading">Get in Touch</h4>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+
+          <!-- Address -->
+          <a href="https://maps.google.com/?q=235+Binnamangala+Indira+Nagar+Bengaluru"
+             target="_blank" rel="noopener"
+             style="display: flex; align-items: flex-start; gap: 12px;
+                    text-decoration: none; color: #94a3b8;
+                    transition: color 200ms ease;"
+             onmouseover="this.style.color='#ffffff'"
+             onmouseout="this.style.color='#94a3b8'">
+            <span class="footer-contact-chip">
+              <mat-icon style="font-size: 14px; width: 16px; height: 16px;
+                               color: #a5b4fc;">location_on</mat-icon>
+            </span>
+            <span style="font-size: 13px; line-height: 1.65;">
+              235, Binnamangala, 2nd Floor,<br/>
+              Indira Nagar, Bengaluru – 560038
+            </span>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:sales@beanarts.in"
+             style="display: flex; align-items: center; gap: 12px;
+                    text-decoration: none; color: #94a3b8;
+                    transition: color 200ms ease; font-size: 13px;"
+             onmouseover="this.style.color='#ffffff'"
+             onmouseout="this.style.color='#94a3b8'">
+            <span class="footer-contact-chip">
+              <mat-icon style="font-size: 14px; width: 16px; height: 16px;
+                               color: #a5b4fc;">mail</mat-icon>
+            </span>
+            sales&#64;beanarts.in
+          </a>
+
+          <!-- Phone -->
+          <a href="tel:+918147540690"
+             style="display: flex; align-items: center; gap: 12px;
+                    text-decoration: none; color: #94a3b8;
+                    transition: color 200ms ease; font-size: 13px;"
+             onmouseover="this.style.color='#ffffff'"
+             onmouseout="this.style.color='#94a3b8'">
+            <span class="footer-contact-chip">
+              <mat-icon style="font-size: 14px; width: 16px; height: 16px;
+                               color: #a5b4fc;">phone</mat-icon>
+            </span>
+            +91 8147540690
+          </a>
+
+          <!-- WhatsApp button -->
+          <a href="https://wa.me/918147540690" target="_blank" rel="noopener"
+             style="
+               display: inline-flex; align-items: center; gap: 8px;
+               padding: 8px 16px; border-radius: 12px;
+               font-size: 12px; font-weight: 700;
+               color: #25d366;
+               border: 1.5px solid rgba(37,211,102,0.3);
+               background: rgba(37,211,102,0.05);
+               text-decoration: none; width: fit-content;
+               transition: background 200ms ease;
+             "
+             onmouseover="this.style.background='rgba(37,211,102,0.12)'"
+             onmouseout="this.style.background='rgba(37,211,102,0.05)'">
+            <i class="fab fa-whatsapp" style="font-size: 14px;"></i>
+            Chat on WhatsApp
+          </a>
+
+        </div>
       </div>
 
     </div>
 
-    <!-- Divider -->
-    <div class="border-t border-white/8 mt-12 pt-7 flex flex-col md:flex-row
-                items-center justify-between gap-4 text-xs text-slate-500">
-      <p class="m-0">© {{ currentYear() }} BeanArts Pvt. Ltd. All rights reserved. Made with ❤️ in Bengaluru.</p>
-      <div class="flex gap-5">
-        <a routerLink="/privacy" class="hover:text-white transition-colors no-underline">Privacy Policy</a>
-        <a routerLink="/terms-conditions" class="hover:text-white transition-colors no-underline">Terms of Service</a>
-        <a routerLink="/sitemap" class="hover:text-white transition-colors no-underline">Sitemap</a>
+    <!-- ── Bottom Bar ─────────────────────────────────────── -->
+    <div style="
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 48px; padding-top: 24px;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 12px; font-size: 12px; color: #64748b;
+    ">
+      <p style="margin: 0;">
+        © {{ currentYear() }} BeanArts Pvt. Ltd. All rights reserved.
+        Made with <span style="color: #ef4444;">❤️</span> in Bengaluru.
+      </p>
+      <div style="display: flex; gap: 20px;">
+        <a routerLink="/privacy"
+           style="color: #64748b; text-decoration: none;
+                  transition: color 150ms ease;"
+           onmouseover="this.style.color='#ffffff'"
+           onmouseout="this.style.color='#64748b'">Privacy Policy</a>
+        <a routerLink="/terms-conditions"
+           style="color: #64748b; text-decoration: none;
+                  transition: color 150ms ease;"
+           onmouseover="this.style.color='#ffffff'"
+           onmouseout="this.style.color='#64748b'">Terms of Service</a>
+        <a routerLink="/sitemap"
+           style="color: #64748b; text-decoration: none;
+                  transition: color 150ms ease;"
+           onmouseover="this.style.color='#ffffff'"
+           onmouseout="this.style.color='#64748b'">Sitemap</a>
       </div>
     </div>
+
   </div>
-
 </footer>

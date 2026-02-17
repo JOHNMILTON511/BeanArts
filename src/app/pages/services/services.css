@@ -1,86 +1,106 @@
-/* Tailwind is assumed to be available, use custom styles for fine-tuning */
-:host {
-  display: block;
-  /* Using Inter font as required in guidelines */
-  font-family: 'Inter', sans-serif;
+/* ================================================================
+   BeanArts — Services Page Styles
+   File: src/app/pages/services/services.css
+   ================================================================ */
+
+/* ── Hero Section ────────────────────────────────────────────── */
+.services-hero {
+  background: linear-gradient(155deg, #1e1b4b 0%, #2d2a7a 50%, #3730a3 100%);
 }
 
-.process-card,
-.feature-card,
-.card-item,
-.testimonial-card {
-  /* Ensure rounded corners are used widely */
-  border-radius: 0.75rem;
-  /* Ensures smooth visual transitions */
-  transition: all 0.3s ease-in-out;
+/* Staggered entrance animations */
+.services-fade-1 { animation: svcFadeUp 0.65s 0.05s ease both; }
+.services-fade-2 { animation: svcFadeUp 0.65s 0.18s ease both; }
+.services-fade-3 { animation: svcFadeUp 0.65s 0.32s ease both; }
+.services-fade-4 { animation: svcFadeUp 0.65s 0.46s ease both; }
+
+@keyframes svcFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* Custom style for service card image zoom on hover */
-.card-item:hover img {
-  transform: scale(1.05);
+/* ── Sticky Nav Pills ────────────────────────────────────────── */
+.service-nav-btn {
+  transition: color 200ms ease, background 200ms ease,
+              border-color 200ms ease, box-shadow 200ms ease;
+}
+.service-nav-active {
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+  border-color: #c7d2fe !important;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  font-weight: 700;
 }
 
-.card-item img {
-  transition: transform 0.5s ease-in-out;
+/* Hide scrollbar for nav strip */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Product Card Image ───────────────────────────────────────── */
+.group-hover\:scale-108:hover { transform: scale(1.08); }
+
+/* Shimmer skeleton loader */
+@keyframes shimmerAnim {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0;  }
+}
+.shimmer {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 400px 100%;
+  animation: shimmerAnim 1.4s ease-in-out infinite;
 }
 
-/* Responsive adjustments for headings */
-h1 {
-  font-size: clamp(2rem, 5vw + 1rem, 4rem);
+/* ── FAQ Accordion ───────────────────────────────────────────── */
+.faq-item {
+  transition: border-color 250ms ease, box-shadow 250ms ease;
 }
 
-h2 {
-  font-size: clamp(1.75rem, 4vw + 0.5rem, 2.5rem);
+/* ── CTA Banner ──────────────────────────────────────────────── */
+.cta-banner {
+  background: linear-gradient(135deg, #4338ca 0%, #5b21b6 50%, #2d2a7a 100%);
+  box-shadow: 0 24px 80px rgba(79, 70, 229, 0.28);
 }
 
-
-
-
-
-
-
-@media (max-width: 767px) {
-  .relative.flex-col>.relative:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 60px;
-    /* Adjust based on circle position */
-    bottom: -20px;
-    /* Connects to the next item */
-    left: 24px;
-    width: 4px;
-    background-color: theme('colors.indigo.300');
-    z-index: 0;
-  }
+/* ── Scroll reveal ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-
-/* Animated Background for Hero */
-.animate-gradient {
-  background: linear-gradient(-45deg, #1e3a8a, #312e81, #1e40af, #3730a3);
-  background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
-}
-
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Card Hover Overlay Transitions */
-.group:hover .group-hover\:opacity-100 {
+.reveal.revealed {
   opacity: 1;
-}
-
-.group:hover .group-hover\:translate-y-0 {
   transform: translateY(0);
 }
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+
+/* ── Float animations (used on hero blobs) ───────────────────── */
+.animate-float {
+  animation: blobFloat 6s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: blobFloat 9s ease-in-out infinite reverse;
+}
+@keyframes blobFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-16px) scale(1.04); }
+}
+
+/* ── Material Icon sizing fix ────────────────────────────────── */
+mat-icon {
+  font-family: 'Material Icons' !important;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* ── shadow-ba-md utility ────────────────────────────────────── */
+.shadow-ba-md {
+  box-shadow: 0 4px 16px rgba(79,70,229,0.10), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ── Mobile tweaks ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .services-hero { min-height: 440px; }
+} 

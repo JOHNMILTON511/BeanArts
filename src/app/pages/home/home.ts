@@ -1,160 +1,275 @@
-import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  inject,
+  PLATFORM_ID,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Hero } from '../hero/hero'; // You might remove this if you use the slider in HTML
-import * as Aos from 'aos'; // Import AOS
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
+    CommonModule,
     CarouselModule,
     MatButtonModule,
+    MatIconModule,
     RouterModule,
-    Hero,
-    NgOptimizedImage
-],
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home implements OnInit {
-
-  private router = inject(Router);
+export class Home implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
+  private observer!: IntersectionObserver;
+  private testimonialInterval: any;
 
-  ngOnInit(): void {
-    // FIX: Initialize AOS with 400ms duration for snappy, non-laggy animations
-    if (isPlatformBrowser(this.platformId)) {
-      Aos.init({
-        duration: 400,
-        once: true,
-        easing: 'ease-out-quart',
-        offset: 50
-      });
-    }
-  }
+  activeTestimonial = signal(0);
 
-  // --- NEW: Stats for Credibility ---
-  stats = [
-    { label: 'Happy Clients', value: '500+', icon: 'fas fa-smile' },
-    { label: 'Kits Delivered', value: '10k+', icon: 'fas fa-box-open' },
-    { label: 'Quality Check', value: '100%', icon: 'fas fa-check-circle' },
-    { label: 'Pan India', value: '24/7', icon: 'fas fa-map-marker-alt' }
-  ];
-
-  // --- NEW: Testimonials ---
-  testimonials = [
-    {
-      text: "The onboarding kits were a massive hit! The quality of the hoodies and the packaging was premium. Highly recommended.",
-      author: "Sarah J.",
-      role: "HR Director, TechCorp",
-      initial: "S"
-    },
-    {
-      text: "BeanArts handled our Diwali gifting for 2000+ employees seamlessly. The logistics were flawless.",
-      author: "Rahul M.",
-      role: "Operations Head, FinServe",
-      initial: "R"
-    },
-    {
-      text: "Their design team really understood our brand. The custom rigid boxes came out looking exactly like the mockups.",
-      author: "Anita D.",
-      role: "Marketing Lead, LuxeCo",
-      initial: "A"
-    }
-  ];
-
-  // Hero Slider
+  // ── Hero Slider ──────────────────────────────────────────────────
   heroCarouselOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     dots: true,
     nav: false,
-    navSpeed: 600,
+    navSpeed: 800,
     autoplay: true,
-    autoplayTimeout: 4000,
+    autoplayTimeout: 5000,
     autoplayHoverPause: true,
-    animateOut: 'fadeOut', // Adds a nice fade effect between slides
-    responsive: { 0: { items: 1 }, 600: { items: 1 }, 900: { items: 1 } }
+    animateOut: 'fadeOut',
+    animateIn: 'fadeIn',
+    responsive: { 0: { items: 1 }, 600: { items: 1 }, 900: { items: 1 } },
   };
 
   slides = [
     {
       id: 1,
       imgSrc: 'assets/New/5.jpg',
+      eyebrow: 'Premium Corporate Gifting',
       title: 'Gifting That Speaks Gratitude',
-      subtitle: 'Celebrate people. Strengthen connections.'
+      subtitle: 'Celebrate people. Strengthen relationships. Leave a lasting impression.',
+      cta: { label: 'Explore Gifting', link: '/services' },
     },
     {
       id: 2,
       imgSrc: 'assets/New/2.jpg',
+      eyebrow: 'Employee Onboarding Kits',
       title: 'Elevate Every Occasion',
-      subtitle: 'From onboarding to milestones — make every moment memorable.'
+      subtitle: 'From onboarding kits to festive hampers — we make every moment unforgettable.',
+      cta: { label: 'View Catalog', link: '/services' },
     },
     {
       id: 3,
       imgSrc: 'assets/Slider/3.jpg',
-      title: 'Smart. Stylish. Memorable',
-      subtitle: 'Corporate gifts crafted to impress and inspire.'
-    }
+      eyebrow: 'Custom Printing & Packaging',
+      title: 'Smart. Stylish. Memorable.',
+      subtitle: 'Corporate gifts and packaging crafted to impress, inspire, and convert.',
+      cta: { label: 'Start a Project', link: '/contact' },
+    },
   ];
 
-  // Services List
-  servicesList = [
+  // ── Stats ────────────────────────────────────────────────────────
+  stats = [
+    { value: '50+', label: 'Brands Served',    icon: 'groups' },
+    { value: '5K+', label: 'Gifts Delivered',  icon: 'card_giftcard' },
+    { value: '100%', label: 'Quality Assured',  icon: 'verified' },
+    { value: '2+',   label: 'Years of Excellence', icon: 'workspace_premium' },
+  ];
+
+  // ── Services ─────────────────────────────────────────────────────
+  services = [
     {
       img: 'assets/services/2.jpg',
+      imgWidth: 600, imgHeight: 400,
+      icon: 'card_giftcard',
+      gradFrom: '#7c3aed', gradTo: '#4f46e5',
+      badge: 'Most Popular',
+      badgeClass: 'bg-violet-50 text-violet-700 border-violet-100',
       title: 'Corporate Gifting',
-      description: 'Tailored gifting solutions to make a lasting impression on your clients, employees, and partners.',
-      buttonText: 'View Catalog',
+      description:
+        'Premium curated gift collections that celebrate milestones, reward excellence, and build lasting client and employee loyalty.',
+      features: ['Custom branding', 'Bulk pricing', 'Pan-India delivery', 'Eco-friendly options'],
       link: '/services',
-      colorClass: 'text-blue-600'
     },
     {
       img: 'assets/services/5.jpg',
-      title: 'Printing Services',
-      description: 'High-quality prints for brochures, banners, business cards, and more, ensuring your brand stands out.',
-      buttonText: 'Explore Printing',
+      imgWidth: 600, imgHeight: 400,
+      icon: 'print',
+      gradFrom: '#2563eb', gradTo: '#4f46e5',
+      badge: 'High Demand',
+      badgeClass: 'bg-blue-50 text-blue-700 border-blue-100',
+      title: 'Custom Printing',
+      description:
+        'From business cards to grand-format banners — every print handled with precision, vibrant colour accuracy, and premium finishing.',
+      features: ['Offset & digital print', 'Embossing & foiling', 'Fast turnaround', 'Pantone matching'],
       link: '/services',
-      colorClass: 'text-green-600'
     },
     {
       img: 'assets/services/3.jpg',
-      title: 'Customized Packaging',
-      description: 'Elegant and functional packaging solutions that enhance product presentation.',
-      buttonText: 'See Options',
+      imgWidth: 600, imgHeight: 400,
+      icon: 'inventory_2',
+      gradFrom: '#059669', gradTo: '#0d9488',
+      badge: 'Premium',
+      badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+      title: 'Bespoke Packaging',
+      description:
+        'Luxury rigid boxes, sustainable mailers, and custom inserts that protect your product and amplify your brand story.',
+      features: ['Rigid & folding boxes', 'Sustainable materials', 'Custom inserts', 'Unboxing experiences'],
       link: '/services',
-      colorClass: 'text-yellow-600'
-    }
+    },
   ];
 
-  // Gallery
+  // ── Process ──────────────────────────────────────────────────────
+  process = [
+    {
+      step: '01', icon: 'chat_bubble_outline',
+      title: 'Consultation',
+      desc: 'Share your vision, budget, and timeline. Our experts craft the perfect strategy for your brand goals.',
+    },
+    {
+      step: '02', icon: 'design_services',
+      title: 'Design & Sample',
+      desc: 'We create custom designs and deliver physical samples for your approval before bulk production begins.',
+    },
+    {
+      step: '03', icon: 'precision_manufacturing',
+      title: 'Production',
+      desc: 'Strict quality control at every stage ensures every item meets our uncompromising premium standards.',
+    },
+    {
+      step: '04', icon: 'local_shipping',
+      title: 'Delivery',
+      desc: 'Pan-India delivery with real-time tracking. On time, every time — from 50 to 50,000 units.',
+    },
+  ];
+
+  // ── Why Choose Us ────────────────────────────────────────────────
+  whyUs = [
+    { icon: 'workspace_premium', title: 'Premium Quality Guaranteed',  desc: 'Every product passes rigorous QC checks before it reaches your hands. We never compromise.' },
+    { icon: 'speed',             title: 'Fast Turnaround',             desc: 'Express production options with committed timelines. Urgent order? We\'ve got you covered.' },
+    { icon: 'palette',           title: 'Full Custom Branding',        desc: 'Your logo, colours, message — on every item, printed or packaged to absolute perfection.' },
+    { icon: 'verified_user',     title: 'Trusted by 500+ Brands',     desc: 'From agile startups to Fortune 500 enterprises, leading brands trust us to deliver excellence.' },
+    { icon: 'eco',               title: 'Sustainable Options',         desc: 'Eco-friendly materials and responsible sourcing. Premium and planet-conscious, together.' },
+    { icon: 'support_agent',     title: 'Dedicated Account Manager',   desc: 'One point of contact for your entire project. No confusion. No delays. Just results.' },
+  ];
+
+  // ── Testimonials ─────────────────────────────────────────────────
+  testimonials = [
+    {
+      text: 'BeanArts transformed our employee onboarding experience. The welcome kits were stunning — every new hire was genuinely impressed. The attention to detail and lightning-fast delivery made us look amazing as an employer.',
+      author: 'Sarah J.',
+      role: 'HR Director',
+      company: 'TechCorp India',
+      initial: 'SJ',
+      gradFrom: '#7c3aed', gradTo: '#4f46e5',
+      rating: 5,
+    },
+    {
+      text: 'BeanArts handled our Diwali gifting for 2,000+ employees seamlessly. The logistics were flawless, the packaging premium, and our teams across India received their gifts on the exact promised date.',
+      author: 'Rahul M.',
+      role: 'Operations Head',
+      company: 'FinServe Solutions',
+      initial: 'RM',
+      gradFrom: '#2563eb', gradTo: '#4f46e5',
+      rating: 5,
+    },
+    {
+      text: 'Their design team really understood our brand language. The custom rigid boxes came out looking exactly like the mockups — impeccable finish. Our clients were thoroughly impressed.',
+      author: 'Anita D.',
+      role: 'Marketing Lead',
+      company: 'LuxeCo',
+      initial: 'AD',
+      gradFrom: '#059669', gradTo: '#0d9488',
+      rating: 5,
+    },
+  ];
+
+  // ── Gallery Carousel ─────────────────────────────────────────────
   galleryCarouselOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: true,
-    nav: false,
-    navSpeed: 800,
+    dots: false,
+    nav: true,
+    navText: ['', ''],
+    navSpeed: 700,
     autoplay: true,
-    autoplayTimeout: 3000,
+    autoplayTimeout: 3500,
     autoplayHoverPause: true,
-    responsive: {
-      0: { items: 1 },
-      500: { items: 2 },
-      900: { items: 3 }
-    }
+    responsive: { 0: { items: 1 }, 600: { items: 2 }, 960: { items: 3 } },
   };
 
   galleryImages = [
-    { src: 'assets/services/5.jpg', alt: 'Crafting Every Detail', title: 'Crafting Every Detail', caption: 'Where premium gifts take shape with precision and care.' },
-    { src: 'assets/gallery/2.jpg', alt: 'Thoughtful Packaging', title: 'Thoughtful Packaging', caption: 'Curated unboxing experiences that leave a lasting impression.' },
-    { src: 'assets/gallery/3.jpg', alt: 'Celebrating Every Moment', title: 'Celebrating Every Moment', caption: 'Making corporate milestones meaningful.' },
-    { src: 'assets/gallery/4.jpg', alt: 'Gifting That Inspires', title: 'Gifting That Inspires', caption: 'Unique collections curated to elevate appreciation.' },
-    { src: 'assets/gallery/5.jpg', alt: 'Premium Hamper Setups', title: 'Premium Hamper Setups', caption: 'Elegant arrangements for festive gifting.' },
-    { src: 'assets/gallery/6.jpg', alt: 'Behind the Scenes', title: 'Behind the Scenes', caption: 'Creativity and craftsmanship brought to life.' }
+    { src: 'assets/services/5.jpg',  alt: 'Crafting Every Detail',    title: 'Crafting Every Detail',    caption: 'Where premium gifts take shape with precision and care.' },
+    { src: 'assets/gallery/2.jpg',   alt: 'Thoughtful Packaging',     title: 'Thoughtful Packaging',     caption: 'Curated unboxing experiences that leave a lasting impression.' },
+    { src: 'assets/gallery/3.jpg',   alt: 'Celebrating Every Moment', title: 'Celebrating Every Moment', caption: 'Making corporate milestones meaningful and memorable.' },
+    { src: 'assets/gallery/4.jpg',   alt: 'Gifting That Inspires',    title: 'Gifting That Inspires',    caption: 'Unique collections curated to elevate appreciation.' },
+    { src: 'assets/gallery/5.jpg',   alt: 'Premium Hamper Setups',    title: 'Premium Hamper Setups',    caption: 'Elegant arrangements crafted for festive gifting.' },
+    { src: 'assets/gallery/6.jpg',   alt: 'Behind the Scenes',        title: 'Behind the Scenes',        caption: 'Creativity and craftsmanship brought to life every day.' },
   ];
+
+  // ── Client logos (text fallback) ────────────────────────────────
+  clients = [
+    'Infosys', 'Wipro', 'Accenture', 'Deloitte', 'KPMG', 'Swiggy',
+    'Meesho', 'Razorpay', 'Cred', 'PhonePe', 'Urban Company', 'Nykaa',
+  ];
+
+  // ── Lifecycle ────────────────────────────────────────────────────
+  ngOnInit(): void {
+    this.startTestimonialRotation();
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupScrollReveal();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    clearInterval(this.testimonialInterval);
+  }
+
+  // ── Methods ──────────────────────────────────────────────────────
+  private setupScrollReveal(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            this.observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => this.observer.observe(el));
+  }
+
+  private startTestimonialRotation(): void {
+    this.testimonialInterval = setInterval(() => {
+      this.activeTestimonial.update((i) => (i + 1) % this.testimonials.length);
+    }, 5500);
+  }
+
+  setTestimonial(index: number): void {
+    this.activeTestimonial.set(index);
+    clearInterval(this.testimonialInterval);
+    this.startTestimonialRotation();
+  }
+
+  get activeT() {
+    return this.testimonials[this.activeTestimonial()];
+  }
 }

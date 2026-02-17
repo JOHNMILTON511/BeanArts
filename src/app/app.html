@@ -1,6 +1,30 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 
 <main id="main-content" class="min-h-screen block">
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer> -->
+<!-- ================================================================
+  BeanArts — Root App Component Template
+  File: src/app/app.html  (or app.component.html)
+
+  IMPORTANT: The <header-spacer> div is OUTSIDE app-header.
+  app-header uses position:fixed internally. The spacer pushes
+  page content down so it doesn't hide behind the fixed header.
+  ================================================================ -->
+
+<app-header></app-header>
+
+<!--
+  This div compensates for the fixed header height.
+  On mobile: 68px (no top strip)
+  On desktop: 104px (36px top strip + 68px main header)
+  These values match header.css .header-spacer
+-->
+<div class="header-spacer"></div>
+
+<main>
   <router-outlet></router-outlet>
 </main>
 
