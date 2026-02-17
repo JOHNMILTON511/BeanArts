@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion'; 
 import { MatIconModule } from '@angular/material/icon';
 import { Meta, Title } from '@angular/platform-browser';
@@ -9,11 +9,10 @@ import { RouterModule } from '@angular/router';
   selector: 'app-faq',
   standalone: true,
   imports: [
-    CommonModule,
     MatExpansionModule,
     MatIconModule,
     RouterModule
-  ],
+],
   templateUrl: './faq.html',
   styles: [`
     .mat-expansion-panel-header-title { font-weight: 600; color: #1f2937; }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { SvgIcon } from './svg-icon/svg-icon';
-import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import Aos from 'aos';
@@ -10,10 +10,9 @@ import Aos from 'aos';
   standalone: true,
   imports: [
     SvgIcon,
-    CommonModule,
     RouterModule,
     NgOptimizedImage
-  ],
+],
   templateUrl: './services.html',
   styleUrls: ['./services.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

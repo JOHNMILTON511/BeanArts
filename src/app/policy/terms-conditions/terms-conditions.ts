@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -7,9 +7,8 @@ import { RouterModule } from '@angular/router';
   selector: 'app-terms-conditions',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule
-  ],
+],
   templateUrl: './terms-conditions.html',
   styles: [`
     /* Custom styles for list markers if needed, mostly relying on Tailwind */

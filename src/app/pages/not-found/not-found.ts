@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Added CommonModule
+ // Added CommonModule
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
@@ -8,10 +8,9 @@ import { Meta, Title } from '@angular/platform-browser';
   selector: 'app-not-found',
   standalone: true,
   imports: [
-    CommonModule,
-    MatButtonModule, 
+    MatButtonModule,
     RouterModule
-  ],
+],
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',
 })

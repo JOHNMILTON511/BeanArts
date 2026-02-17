@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
@@ -9,10 +9,9 @@ import * as Aos from 'aos'; // Import AOS
   selector: 'app-about',
   standalone: true,
   imports: [
-    CommonModule,
     MatButtonModule,
     RouterModule
-  ],
+],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-careers',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './careers.html',
   styles: []
 })

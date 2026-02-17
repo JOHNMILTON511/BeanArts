@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser, CommonModule, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
@@ -10,13 +10,12 @@ import * as Aos from 'aos'; // Import AOS
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule,
     CarouselModule,
     MatButtonModule,
     RouterModule,
-    Hero, 
+    Hero,
     NgOptimizedImage
-  ],
+],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,9 +11,13 @@ import { filter, Subscription } from 'rxjs';
   selector: 'app-header',
   standalone: true,
   imports: [
-    CommonModule, RouterLink, RouterLinkActive,
-    MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,
-  ],
+    RouterLink,
+    RouterLinkActive,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule
+],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
