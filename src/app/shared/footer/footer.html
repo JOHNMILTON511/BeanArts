@@ -142,7 +142,7 @@
       <div>
         <h4 class="text-white font-bold mb-5 text-sm tracking-widest uppercase">Services</h4>
         <ul class="space-y-3 list-none p-0 m-0">
-          @for (s of serviceItems; track s.link) {
+          @for (s of serviceItems; track $index) {
             <li>
               <a
                 [routerLink]="s.link"
