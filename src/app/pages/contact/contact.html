@@ -1,116 +1,187 @@
-<section class="min-h-[80vh] py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-  <div class="max-w-7xl mx-auto">
-    
-    <header class="relative shadow-2xl mb-12 overflow-hidden animate-gradient text-white py-20 px-4 sm:px-6 lg:px-8 text-center">
-    <div class="absolute inset-0 bg-black opacity-10"></div>
-    <div class="relative max-w-4xl mx-auto z-10">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight drop-shadow-lg" data-aos="fade-down">
+<!-- ================================================================
+  BeanArts — Contact / Quote Page
+  File: src/app/pages/contact/contact.html
+  ================================================================ -->
+
+<!-- ══════════════════════════════════════════════════════════════
+  HERO BANNER
+══════════════════════════════════════════════════════════════ -->
+<section class="contact-hero">
+  <div class="contact-grid-bg" aria-hidden="true"></div>
+  <div class="contact-blob contact-blob--1"></div>
+  <div class="contact-blob contact-blob--2"></div>
+
+  <div class="ba-container relative z-10 py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto text-center">
+
+      <div class="contact-pill contact-fade-1">
+        <i class="fas fa-paper-plane" style="font-size:10px;"></i>
         Get a Custom Quote
+      </div>
+
+      <h1 class="contact-hero-title contact-fade-2">
+        Let's Bring Your<br/>
+        <span class="contact-text-gold">Vision to Life</span>
       </h1>
-      <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="100">
-        Whether you need 50 welcome kits or 5,000 festive hampers, we are here to help. 
-        Fill out the form below for a quick consultation.
+
+      <p class="contact-hero-sub contact-fade-3">
+        Whether you need 50 welcome kits or 5,000 festive hampers — we're here to help.
+        Fill out the form below for a quick consultation or call us directly.
       </p>
+
     </div>
-  </header>
+  </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+  <!-- Wave -->
+  <div class="contact-wave">
+    <svg viewBox="0 0 1440 64" fill="none" preserveAspectRatio="none"
+         xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,32 C360,64 1080,0 1440,32 L1440,64 L0,64 Z" fill="#f9fafb"/>
+    </svg>
+  </div>
+</section>
 
-      <div class="lg:col-span-1 space-y-8 p-8 bg-white rounded-2xl shadow-xl h-full border-t-4 border-pink-500" >
-        
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Reach Us Directly</h2>
 
-        <div class="flex items-start">
-          <div class="bg-pink-50 p-3 rounded-lg mr-4">
-            <mat-icon class="text-pink-600">location_on</mat-icon>
+<!-- ══════════════════════════════════════════════════════════════
+  MAIN CONTENT — TWO COLUMN LAYOUT
+══════════════════════════════════════════════════════════════ -->
+<section style="padding:64px 0 96px; background:#f9fafb;">
+  <div class="ba-container">
+    <div class="contact-layout-grid">
+
+      <!-- ══════════════════════════════════════════════════════
+        LEFT COLUMN — CONTACT INFO + MAP
+      ══════════════════════════════════════════════════════ -->
+      <div class="reveal contact-info-col">
+
+        <h2 class="contact-info-heading">Reach Us Directly</h2>
+
+        <!-- Address -->
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="background:#fce7f3;">
+            <mat-icon style="color:#ec4899;font-size:20px;width:22px;height:22px;">
+              location_on
+            </mat-icon>
           </div>
           <div>
-            <h5 class="text-lg font-semibold text-gray-800">Headquarters</h5>
-            <address class="text-gray-600 mt-1 not-italic leading-relaxed">
-              235, Binnamangala, 2nd Floor,<br>
-              13th Cross Road, 2nd Stage,<br>
-              Indira Nagar, Bengaluru - 560038
+            <h5 class="contact-info-label">Headquarters</h5>
+            <address class="contact-info-text" style="font-style:normal;">
+              235, Binnamangala, 2nd Floor,<br/>
+              13th Cross Road, 2nd Stage,<br/>
+              Indira Nagar, Bengaluru – 560038
             </address>
           </div>
         </div>
 
         <!-- Email -->
-        <div class="flex items-start">
-          <div class="bg-blue-50 p-3 rounded-lg mr-4">
-            <mat-icon class="text-blue-600">mail</mat-icon>
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="background:#dbeafe;">
+            <mat-icon style="color:#2563eb;font-size:20px;width:22px;height:22px;">
+              mail
+            </mat-icon>
           </div>
           <div>
-            <h5 class="text-lg font-semibold text-gray-800">Sales Enquiry</h5>
-            <p class="text-gray-600 mt-1">
-              <a href="mailto:sales@beanarts.in" class="hover:text-blue-600 transition font-medium">sales@beanarts.in</a>
+            <h5 class="contact-info-label">Sales Enquiry</h5>
+            <p class="contact-info-text" style="margin:0;">
+              <a href="mailto:sales@beanarts.in" class="contact-link">
+                sales&#64;beanarts.in
+              </a>
             </p>
           </div>
         </div>
 
         <!-- Phone -->
-        <div class="flex items-start">
-          <div class="bg-green-50 p-3 rounded-lg mr-4">
-            <mat-icon class="text-green-600">phone</mat-icon>
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="background:#d1fae5;">
+            <mat-icon style="color:#059669;font-size:20px;width:22px;height:22px;">
+              phone
+            </mat-icon>
           </div>
           <div>
-            <h5 class="text-lg font-semibold text-gray-800">Call Us</h5>
-            <p class="text-gray-600 mt-1">
-              <a href="tel:+918147540690" class="hover:text-green-600 transition font-medium">+91 8147540690</a>
+            <h5 class="contact-info-label">Call Us</h5>
+            <p class="contact-info-text" style="margin:0;">
+              <a href="tel:+918147540690" class="contact-link">
+                +91 8147540690
+              </a>
             </p>
-            <p class="text-xs text-gray-400 mt-1">Mon - Sat, 9am - 7pm</p>
+            <p style="font-size:11.5px; color:#9ca3af; margin:4px 0 0;">
+              Mon – Sat, 9am – 7pm IST
+            </p>
           </div>
         </div>
 
+        <!-- WhatsApp CTA -->
+        <a href="https://wa.me/918147540690" target="_blank" rel="noopener"
+           class="contact-whatsapp-btn">
+          <i class="fab fa-whatsapp" style="font-size:18px;"></i>
+          <div>
+            <p style="font-weight:700;font-size:14px;margin:0;line-height:1.2;">
+              Chat on WhatsApp
+            </p>
+            <p style="font-size:11px;opacity:0.7;margin:2px 0 0;">
+              Fast response guaranteed
+            </p>
+          </div>
+        </a>
+
         <!-- Map -->
-        <div class="map-container overflow-hidden rounded-xl shadow-inner border border-gray-200 mt-6">
+        <div class="contact-map-wrap">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15551.54425615631!2d77.6178630291768!3d12.979138499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae178bf35724e9%3A0xec37eb7a6d3a81ba!2sProworks!5e0!3m2!1sen!2sin!4v1746719529255!5m2!1sen!2sin"
-            width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" 
-            title="BeanArts Office Location"></iframe>
+            width="100%"
+            height="240"
+            style="border:0; display:block; border-radius:16px;"
+            allowfullscreen=""
+            loading="lazy"
+            title="BeanArts Office Location"
+          ></iframe>
         </div>
+
       </div>
 
-      <!-- Contact Form Section (Right Column) -->
-      <div class="lg:col-span-2 p-8 bg-white rounded-2xl shadow-xl" >
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Tell Us About Your Project</h2>
+      <!-- ══════════════════════════════════════════════════════
+        RIGHT COLUMN — CONTACT FORM
+      ══════════════════════════════════════════════════════ -->
+      <div class="reveal reveal-delay-1 contact-form-col">
 
-        <!-- Submission Message Box -->
+        <h2 class="contact-form-heading">Tell Us About Your Project</h2>
+
+        <!-- Success / Error Message -->
         @if (submissionMessage) {
-          <div 
-            class="p-4 mb-8 rounded-lg flex items-center gap-3"
-            [ngClass]="{'bg-green-50 text-green-800 border border-green-200': isSuccess, 'bg-red-50 text-red-800 border border-red-200': !isSuccess}"
-            
-          >
-            <mat-icon>{{ isSuccess ? 'check_circle' : 'error' }}</mat-icon>
-            <span class="font-medium">{{ submissionMessage }}</span>
+          <div class="contact-alert"
+               [class.contact-alert--success]="isSuccess"
+               [class.contact-alert--error]="!isSuccess">
+            <mat-icon style="font-size:20px;width:22px;height:22px;">
+              {{ isSuccess ? 'check_circle' : 'error' }}
+            </mat-icon>
+            <span style="font-weight:600;font-size:14px;">{{ submissionMessage }}</span>
           </div>
         }
 
-        <!-- Reactive Form -->
-        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Form -->
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Name -->
-            <mat-form-field appearance="fill" class="w-full">
-              <mat-label>Your Name</mat-label>
-              <input matInput formControlName="name">
+          <!-- Row 1: Name + Company -->
+          <div class="contact-form-row">
+            <mat-form-field appearance="outline" class="contact-form-field">
+              <mat-label>Your Name *</mat-label>
+              <input matInput formControlName="name" />
               @if (hasError('name', 'required')) {
                 <mat-error>Name is required</mat-error>
               }
             </mat-form-field>
 
-            <!-- Company Name (Optional but good for B2B) -->
-            <mat-form-field appearance="fill" class="w-full">
+            <mat-form-field appearance="outline" class="contact-form-field">
               <mat-label>Company Name</mat-label>
-              <input matInput formControlName="companyName">
+              <input matInput formControlName="companyName" />
             </mat-form-field>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Email -->
-            <mat-form-field appearance="fill" class="w-full">
-              <mat-label>Work Email</mat-label>
-              <input matInput formControlName="email" type="email">
+          <!-- Row 2: Email + Phone -->
+          <div class="contact-form-row">
+            <mat-form-field appearance="outline" class="contact-form-field">
+              <mat-label>Work Email *</mat-label>
+              <input matInput formControlName="email" type="email" />
               @if (hasError('email', 'required')) {
                 <mat-error>Email is required</mat-error>
               } @else if (hasError('email', 'email')) {
@@ -118,11 +189,10 @@
               }
             </mat-form-field>
 
-            <!-- Phone -->
-            <mat-form-field appearance="fill" class="w-full">
-              <mat-label>Phone Number</mat-label>
-              <input matInput formControlName="phone" type="tel">
-              <mat-icon matSuffix>phone</mat-icon>
+            <mat-form-field appearance="outline" class="contact-form-field">
+              <mat-label>Phone Number *</mat-label>
+              <input matInput formControlName="phone" type="tel" />
+              <mat-icon matSuffix style="color:#9ca3af;font-size:18px;">phone</mat-icon>
               @if (hasError('phone', 'required')) {
                 <mat-error>Phone is required</mat-error>
               } @else if (hasError('phone', 'pattern')) {
@@ -131,13 +201,13 @@
             </mat-form-field>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Service Type Dropdown -->
-            <mat-form-field appearance="fill" class="w-full">
-              <mat-label>I am interested in...</mat-label>
+          <!-- Row 3: Service + Quantity -->
+          <div class="contact-form-row">
+            <mat-form-field appearance="outline" class="contact-form-field">
+              <mat-label>I am interested in... *</mat-label>
               <mat-select formControlName="serviceType">
                 @for (service of serviceOptions; track service) {
-                  <mat-option [value]="service">{{service}}</mat-option>
+                  <mat-option [value]="service">{{ service }}</mat-option>
                 }
               </mat-select>
               @if (hasError('serviceType', 'required')) {
@@ -145,17 +215,16 @@
               }
             </mat-form-field>
 
-            <!-- Quantity -->
-            <mat-form-field appearance="fill" class="w-full">
-              <mat-label>Estimated Quantity (approx)</mat-label>
-              <input matInput formControlName="quantity" type="number" min="1">
-              <span matSuffix class="text-gray-500 text-sm pr-2">units</span>
+            <mat-form-field appearance="outline" class="contact-form-field">
+              <mat-label>Estimated Quantity</mat-label>
+              <input matInput formControlName="quantity" type="number" min="1" />
+              <span matSuffix style="color:#9ca3af;font-size:13px;padding-right:8px;">units</span>
             </mat-form-field>
           </div>
 
-          <!-- Message Field -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Additional Details (Budget, Deadline, etc.)</mat-label>
+          <!-- Row 4: Message -->
+          <mat-form-field appearance="outline" class="contact-form-field contact-form-field--full">
+            <mat-label>Additional Details (Budget, Deadline, etc.) *</mat-label>
             <textarea matInput formControlName="message" rows="4"></textarea>
             @if (hasError('message', 'required')) {
               <mat-error>Please provide some details</mat-error>
@@ -163,28 +232,32 @@
           </mat-form-field>
 
           <!-- Submit Button -->
-          <button 
-            mat-flat-button 
-            color="primary" 
-            type="submit" 
+          <button
+            mat-flat-button
+            type="submit"
             [disabled]="isSubmitting"
-            class="w-full md:w-auto px-12 py-6 text-lg rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:bg-indigo-700"
+            class="contact-submit-btn"
           >
             @if (isSubmitting) {
-              <div class="flex items-center gap-2">
-                <mat-icon class="animate-spin text-base">refresh</mat-icon>
-                Sending...
-              </div>
+              <ng-container>
+                <mat-icon class="contact-spinner">refresh</mat-icon>
+                <span>Sending...</span>
+              </ng-container>
             } @else {
-              Send Enquiry
+              <ng-container>
+                <i class="fas fa-paper-plane" style="font-size:13px;"></i>
+                <span>Send Enquiry</span>
+              </ng-container>
             }
           </button>
-          
-          <p class="text-xs text-gray-500 mt-4 text-center md:text-left">
-            By submitting this form, you agree to our privacy policy. We typically respond within 24 hours.
+
+          <p class="contact-form-note">
+            By submitting this form, you agree to our privacy policy.
+            We typically respond within 24 hours.
           </p>
 
         </form>
+
       </div>
 
     </div>
