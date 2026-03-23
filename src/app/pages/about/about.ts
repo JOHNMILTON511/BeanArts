@@ -137,14 +137,12 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
   // ── Lifecycle ────────────────────────────────────────────────
   ngOnInit(): void {
     this.title.setTitle('Our Story & Vision | BeanArts Corporate Gifting');
-    this.meta.updateTag({
-      name: 'description',
-      content: 'Learn about BeanArts, India\'s premier corporate gifting partner. Founded in 2018, we specialise in sustainable, high-quality custom branding and global logistics.',
-    });
-    this.meta.updateTag({
-      name: 'keywords',
-      content: 'BeanArts Story, Corporate Gifting Company Profile, Sustainable Gifting India, Custom Packaging Company',
-    });
+    this.meta.updateTag({ name: 'description', content: 'Learn about BeanArts, India\'s premier corporate gifting partner. Founded in 2018, we specialise in sustainable, high-quality custom branding and pan-India logistics.' });
+    this.meta.updateTag({ name: 'keywords', content: 'BeanArts Story, Corporate Gifting Company Profile, Sustainable Gifting India, Custom Packaging Company' });
+    this.meta.updateTag({ property: 'og:title', content: 'Our Story & Vision | BeanArts Corporate Gifting' });
+    this.meta.updateTag({ property: 'og:description', content: 'Founded in 2018 in Bengaluru, BeanArts is India\'s trusted partner for premium corporate gifting, custom packaging, and printing.' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://beanarts.in/about' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
   }
 
   ngAfterViewInit(): void {

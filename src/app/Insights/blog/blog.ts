@@ -26,7 +26,7 @@ export class Blog implements OnInit {
       excerpt: 'Eco-friendly gifting is no longer a trend, it is a necessity. Discover our top picks for bamboo, cork, and recycled gifting options.',
       date: 'Oct 12, 2025',
       category: 'Trends',
-      image: 'assets/blog/sustainable-gifts.jpg',
+      image: 'assets/gallery/3.jpg',
       slug: 'sustainable-gift-ideas-2025'
     },
     {
@@ -35,7 +35,7 @@ export class Blog implements OnInit {
       excerpt: 'First impressions matter. Learn what the top tech companies in Bangalore are including in their new joinee welcome kits.',
       date: 'Sep 28, 2025',
       category: 'Guides',
-      image: 'assets/blog/onboarding-kit.jpg',
+      image: 'assets/gallery/5.jpg',
       slug: 'employee-onboarding-guide'
     },
     {
@@ -44,7 +44,7 @@ export class Blog implements OnInit {
       excerpt: 'Avoid the last-minute rush. Here is a timeline for ordering bulk festive hampers to ensure timely delivery across India.',
       date: 'Aug 15, 2025',
       category: 'Festive',
-      image: 'assets/blog/diwali-hampers.jpg',
+      image: 'assets/gallery/7.jpg',
       slug: 'diwali-gifting-timeline'
     }
   ]);
@@ -53,13 +53,11 @@ export class Blog implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Insights & Trends | BeanArts Corporate Gifting Blog');
-    this.meta.updateTag({ 
-      name: 'description', 
-      content: 'Read the latest insights on corporate gifting trends, employee engagement strategies, and sustainable packaging ideas from BeanArts.' 
-    });
-    this.meta.updateTag({ 
-      name: 'keywords', 
-      content: 'Corporate Gifting Blog, Gifting Trends 2025, Employee Engagement Ideas, Sustainable Gifting India' 
-    });
+    this.meta.updateTag({ name: 'description', content: 'Read the latest insights on corporate gifting trends, employee engagement strategies, and sustainable packaging ideas from BeanArts.' });
+    this.meta.updateTag({ name: 'keywords', content: 'Corporate Gifting Blog, Gifting Trends 2025, Employee Engagement Ideas, Sustainable Gifting India' });
+    this.meta.updateTag({ property: 'og:title', content: 'Insights & Trends | BeanArts Corporate Gifting Blog' });
+    this.meta.updateTag({ property: 'og:description', content: 'Expert advice on corporate gifting, packaging trends, and employee engagement from BeanArts.' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://beanarts.in/blog' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
   }
 }

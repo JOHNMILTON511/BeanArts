@@ -263,14 +263,12 @@ export class Services implements OnInit, AfterViewInit, OnDestroy {
   // ── Lifecycle ────────────────────────────────────────────────
   ngOnInit(): void {
     this.title.setTitle('Our Services — Corporate Gifting, Printing & Packaging | BeanArts');
-    this.meta.updateTag({
-      name: 'description',
-      content: 'Explore BeanArts\' comprehensive corporate solutions: Premium Employee Welcome Kits, High-Quality Business Printing, and Eco-Friendly Custom Packaging Design.',
-    });
-    this.meta.updateTag({
-      name: 'keywords',
-      content: 'Corporate Gifting Services, Bulk Printing Bangalore, Custom Packaging Design, Employee Swag Kits, Business Cards Printing, Eco-friendly Boxes',
-    });
+    this.meta.updateTag({ name: 'description', content: 'Explore BeanArts\' comprehensive corporate solutions: Premium Employee Welcome Kits, High-Quality Business Printing, and Eco-Friendly Custom Packaging Design.' });
+    this.meta.updateTag({ name: 'keywords', content: 'Corporate Gifting Services, Bulk Printing Bangalore, Custom Packaging Design, Employee Swag Kits, Business Cards Printing, Eco-friendly Boxes' });
+    this.meta.updateTag({ property: 'og:title', content: 'Our Services — Corporate Gifting, Printing & Packaging | BeanArts' });
+    this.meta.updateTag({ property: 'og:description', content: 'Premium corporate gifting, custom printing, and bespoke packaging solutions for India\'s leading brands. Get a free quote.' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://beanarts.in/services' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
   }
 
   ngAfterViewInit(): void {

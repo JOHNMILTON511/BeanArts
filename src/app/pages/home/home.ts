@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,8 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
+  private meta       = inject(Meta);
+  private title      = inject(Title);
   private observer!: IntersectionObserver;
   private testimonialInterval: any;
 
@@ -227,6 +230,14 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   // ── Lifecycle ────────────────────────────────────────────────────
   ngOnInit(): void {
+    this.title.setTitle('BeanArts | Premium Corporate Gifting & Custom Packaging Solutions');
+    this.meta.updateTag({ name: 'description', content: 'BeanArts provides premium corporate gifting, employee onboarding kits, bespoke printing, and eco-friendly packaging solutions across India. Get a free quote today.' });
+    this.meta.updateTag({ property: 'og:title', content: 'BeanArts — Premium Corporate Gifting & Packaging' });
+    this.meta.updateTag({ property: 'og:description', content: 'Elevate your brand with custom corporate gifts, packaging, and printing solutions. 50+ brands served. Pan-India delivery.' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://beanarts.in/' });
+    this.meta.updateTag({ property: 'og:image', content: 'https://beanarts.in/assets/logo/beanarts-logo-512.png' });
+    this.meta.updateTag({ name: 'twitter:title', content: 'BeanArts — Premium Corporate Gifting & Packaging' });
+    this.meta.updateTag({ name: 'twitter:description', content: 'Custom corporate gifts, onboarding kits, eco-friendly packaging and printing. 50+ brands. Pan-India delivery.' });
     this.startTestimonialRotation();
   }
 

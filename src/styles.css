@@ -226,3 +226,127 @@ mat-icon {
 .mat-mdc-flat-button {
   border-radius: 9999px !important;
 }
+
+/* ── SSR hydration guard ─────────────────────────────────────── */
+/*
+  Before afterNextRender adds .ba-ready to <html>, all .reveal elements
+  must remain fully visible. Without this, SSR-rendered content becomes
+  invisible briefly as Angular applies component CSS (opacity:0) before
+  the IntersectionObserver can mark elements as .revealed.
+*/
+html:not(.ba-ready) .reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: none !important;
+}
+
+/* ── Route-level top progress bar ───────────────────────────── */
+#ba-route-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #4f46e5, #818cf8, #fbbf24);
+  z-index: 100000;
+  transition: width 300ms ease, opacity 400ms ease;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+  pointer-events: none;
+  border-radius: 0 3px 3px 0;
+}
+#ba-route-bar.ba-bar-complete {
+  width: 100% !important;
+  opacity: 0;
+}
+
+/* ── Floating WhatsApp button ────────────────────────────────── */
+.ba-whatsapp-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9000;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ba-fab-pop 0.5s 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.ba-whatsapp-fab:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 36px rgba(37, 211, 102, 0.55);
+}
+.ba-whatsapp-fab svg {
+  width: 28px;
+  height: 28px;
+  fill: #ffffff;
+  flex-shrink: 0;
+}
+/* Tooltip */
+.ba-whatsapp-fab::before {
+  content: 'Chat with us';
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1a1a2e;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.ba-whatsapp-fab:hover::before {
+  opacity: 1;
+}
+@keyframes ba-fab-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@media (max-width: 640px) {
+  .ba-whatsapp-fab {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+  .ba-whatsapp-fab::before { display: none; }
+}
+
+/* ── Shimmer loading skeleton (global) ───────────────────────── */
+@keyframes ba-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e8e8e8 50%,
+    #f0f0f0 75%
+  );
+  background-size: 600px 100%;
+  animation: ba-shimmer 1.4s ease-in-out infinite;
+  border-radius: inherit;
+}
+
+/* ── Image CLS prevention ────────────────────────────────────── */
+/*
+  Give image wrapper containers an explicit aspect ratio so the page
+  doesn't reflow when images load. Applied globally so it cascades
+  to all components that use these class patterns.
+*/
+.hero-img-container { aspect-ratio: 16 / 9; }
+.gallery-img-container { aspect-ratio: 4 / 3; }

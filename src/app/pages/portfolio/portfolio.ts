@@ -47,10 +47,11 @@ export class Portfolio implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Our Work & Portfolio | BeanArts Corporate Gifting');
-    this.meta.updateTag({ 
-      name: 'description', 
-      content: 'Browse our portfolio of corporate gifts, custom packaging, and printing projects delivered to top companies in India.' 
-    });
+    this.meta.updateTag({ name: 'description', content: 'Browse our portfolio of corporate gifts, custom packaging, and printing projects delivered to top companies in India.' });
+    this.meta.updateTag({ property: 'og:title', content: 'Portfolio — Our Work | BeanArts Corporate Gifting' });
+    this.meta.updateTag({ property: 'og:description', content: 'Explore premium gifting, custom packaging, and printing projects we\'ve delivered for leading Indian brands.' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://beanarts.in/portfolio' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
   }
 
   setFilter(category: string) {

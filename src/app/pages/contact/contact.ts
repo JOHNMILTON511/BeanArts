@@ -62,13 +62,14 @@ export class Contact implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.title.setTitle('Contact Us — Quote for Corporate Gifting & Packaging | BeanArts');
-      this.meta.updateTag({
-        name: 'description',
-        content: 'Get a custom quote for corporate gifting, employee kits, and printing services. Contact BeanArts today for premium solutions across India.',
-      });
-    }
+    this.title.setTitle('Contact Us — Quote for Corporate Gifting & Packaging | BeanArts');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Get a custom quote for corporate gifting, employee kits, and printing services. Contact BeanArts today for premium solutions across India.',
+    });
+    this.meta.updateTag({ property: 'og:title', content: 'Contact BeanArts — Get a Free Quote' });
+    this.meta.updateTag({ property: 'og:description', content: 'Request a personalised quote for corporate gifts, employee onboarding kits, custom printing, and packaging. Pan-India delivery.' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://beanarts.in/contact' });
   }
 
   ngAfterViewInit(): void {
