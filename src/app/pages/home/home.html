@@ -91,19 +91,19 @@
   SECTION 2 — STATS BAR
   Social proof numbers in a clean horizontal band.
 ════════════════════════════════════════════════════════════════ -->
-<section class="bg-white border-b border-gray-100 py-12">
+<section class="bg-white border-b border-gray-100 py-12" id="home-stats">
   <div class="ba-container">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
-      @for (stat of stats; track stat.label; let i = $index) {
+      @for (cfg of statCfg; track cfg.label; let i = $index) {
       <div class="reveal text-center group" [style.transitionDelay]="(i * 100) + 'ms'">
         <div class="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center
                       mx-auto mb-3 group-hover:bg-primary-100 transition-colors duration-300">
-          <mat-icon class="text-primary-600 !text-xl">{{ stat.icon }}</mat-icon>
+          <mat-icon class="text-primary-600 !text-xl">{{ cfg.icon }}</mat-icon>
         </div>
-        <p class="text-3xl lg:text-4xl font-black text-primary-950 tracking-tight leading-none">
-          {{ stat.value }}
+        <p class="stat-num text-3xl lg:text-4xl font-black text-primary-950 tracking-tight leading-none">
+          {{ animatedStats()[i] }}
         </p>
-        <p class="text-sm text-gray-500 font-medium mt-1.5">{{ stat.label }}</p>
+        <p class="text-sm text-gray-500 font-medium mt-1.5">{{ cfg.label }}</p>
       </div>
       }
     </div>
@@ -115,7 +115,7 @@
   SECTION 3 — CLIENT TICKER
   Trusted brands marquee.
 ════════════════════════════════════════════════════════════════ -->
-<section class="py-7 bg-gray-50 border-b border-gray-100 overflow-hidden">
+<!-- <section class="py-7 bg-gray-50 border-b border-gray-100 overflow-hidden">
   <p class="text-center text-[10.5px] font-bold uppercase tracking-[0.18em]
              text-gray-400 mb-5">
     Trusted by India's leading organisations
@@ -133,7 +133,6 @@
         {{ client }}
       </span>
       }
-      <!-- Duplicate for seamless loop -->
       @for (client of clients; track client + '_dup') {
       <span class="ticker-item shrink-0 mx-8 text-sm font-bold
                      text-gray-400 hover:text-primary-600 transition-colors
@@ -143,7 +142,7 @@
       }
     </div>
   </div>
-</section>
+</section> -->
 
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -247,7 +246,72 @@
 
 
 <!-- ════════════════════════════════════════════════════════════════
-  SECTION 5 — ABOUT SNAPSHOT
+  SECTION 5 — INDUSTRIES WE SERVE
+════════════════════════════════════════════════════════════════ -->
+<section class="ba-section bg-gray-50 relative overflow-hidden" id="industries">
+
+  <!-- Subtle radial background -->
+  <div class="absolute inset-0 pointer-events-none"
+       style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(238,242,255,0.9) 0%, transparent 70%);">
+  </div>
+
+  <div class="ba-container relative z-10">
+
+    <!-- Header -->
+    <div class="text-center mb-14 reveal">
+      <span class="ba-pill mb-4">Who We Serve</span>
+      <h2 class="ba-section-title mb-4">
+        Trusted Across<br />
+        <span class="text-gradient">Every Industry</span>
+      </h2>
+      <p class="ba-section-subtitle mx-auto">
+        From agile startups to Fortune 500 enterprises — BeanArts partners with
+        organisations of every size and sector across India.
+      </p>
+    </div>
+
+    <!-- Industry cards -->
+    <div class="ind-grid">
+      @for (ind of industries; track ind.label; let i = $index) {
+        <div class="ind-card reveal" [style.transitionDelay]="(i * 80) + 'ms'">
+          <div class="ind-icon" [style.background]="ind.bg">
+            <mat-icon [style.color]="ind.color" class="!text-2xl">{{ ind.icon }}</mat-icon>
+          </div>
+          <h3 class="ind-title">{{ ind.label }}</h3>
+          <p class="ind-desc">{{ ind.desc }}</p>
+        </div>
+      }
+    </div>
+
+    <!-- Industry pill row -->
+    <div class="flex flex-wrap justify-center gap-3 mt-12 reveal">
+      @for (ind of industries; track ind.label) {
+        <span class="ind-pill"
+              [style.color]="ind.color"
+              [style.background]="ind.bg"
+              [style.borderColor]="ind.color + '44'">
+          {{ ind.label }}
+        </span>
+      }
+    </div>
+
+    <!-- CTA nudge -->
+    <div class="text-center mt-10 reveal">
+      <p class="text-gray-500 text-sm mb-4">
+        Don't see your industry? We work with every sector.
+      </p>
+      <a routerLink="/contact" class="ba-btn-outline !px-8">
+        <i class="fas fa-envelope text-sm"></i>
+        Tell Us About Your Project
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  SECTION 6 — ABOUT SNAPSHOT
   Two-col layout: copy left, image right.
 ════════════════════════════════════════════════════════════════ -->
 <section class="ba-section bg-gray-50 relative overflow-hidden" id="about">
@@ -273,7 +337,7 @@
               <mat-icon class="text-white !text-base">verified</mat-icon>
             </div>
             <div>
-              <p class="text-gray-900 font-black text-sm leading-none">Since 2018</p>
+              <p class="text-gray-900 font-black text-sm leading-none">Since 2024</p>
               <p class="text-gray-500 text-xs mt-0.5">2+ years of excellence</p>
             </div>
           </div>
@@ -423,7 +487,52 @@
 
 
 <!-- ════════════════════════════════════════════════════════════════
-  SECTION 7 — WHY CHOOSE US  (dark indigo section)
+  SECTION — PORTFOLIO PREVIEW
+  6-image masonry grid linking to full portfolio.
+════════════════════════════════════════════════════════════════ -->
+<section class="ba-section bg-white overflow-hidden" id="portfolio-preview">
+  <div class="ba-container">
+
+    <!-- Header -->
+    <div class="text-center mb-12 reveal">
+      <span class="ba-pill mb-4">Featured Work</span>
+      <h2 class="ba-section-title mb-4">
+        Real Results for<br />
+        <span class="text-gradient">Real Brands</span>
+      </h2>
+      <p class="ba-section-subtitle mx-auto">
+        A glimpse of the premium gifting, printing, and packaging projects
+        we've brought to life for India's leading companies.
+      </p>
+    </div>
+
+    <!-- Portfolio grid -->
+    <div class="port-grid reveal">
+      @for (item of portfolioShowcase; track item.src; let i = $index) {
+        <div class="port-item" [class.port-item--tall]="i === 0 || i === 3">
+          <img [src]="item.src" [alt]="item.label" loading="lazy" class="port-img" />
+          <div class="port-overlay">
+            <span class="port-category" [style.color]="item.color">{{ item.category }}</span>
+            <h4 class="port-label">{{ item.label }}</h4>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- View more CTA -->
+    <div class="text-center mt-10 reveal">
+      <a routerLink="/portfolio" class="ba-btn-primary !px-10">
+        <mat-icon class="!text-base">open_in_new</mat-icon>
+        Explore Full Portfolio
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  SECTION — WHY CHOOSE US  (dark indigo section)
 ════════════════════════════════════════════════════════════════ -->
 <section class="ba-section relative overflow-hidden" id="why-us"
   style="background: linear-gradient(155deg, #1e1b4b 0%, #2d2a7a 55%, #3730a3 100%);">
@@ -551,10 +660,9 @@
   SECTION 9 — TESTIMONIALS
   Auto-rotating featured quote + mini card row.
 ════════════════════════════════════════════════════════════════ -->
-<section class="ba-section bg-gray-50" id="testimonials">
+<!-- <section class="ba-section bg-gray-50" id="testimonials">
   <div class="ba-container">
 
-    <!-- Header -->
     <div class="text-center mb-14 reveal">
       <span class="ba-pill mb-4">Client Stories</span>
       <h2 class="ba-section-title mb-4">
@@ -563,28 +671,23 @@
       </h2>
     </div>
 
-    <!-- Featured quote card -->
     <div class="max-w-3xl mx-auto mb-8 reveal">
       <div class="ba-card p-8 lg:p-12 relative overflow-hidden">
 
-        <!-- Decorative quote -->
         <div class="absolute top-4 right-8 text-9xl font-serif text-primary-50
                     leading-none select-none pointer-events-none">"</div>
 
-        <!-- Stars -->
         <div class="flex text-amber-400 mb-6 gap-0.5">
           @for (s of [1,2,3,4,5]; track s) {
           <i class="fas fa-star text-lg"></i>
           }
         </div>
 
-        <!-- Quote -->
         <blockquote class="text-gray-700 text-lg lg:text-xl leading-relaxed font-medium
                            mb-8 relative z-10 italic">
           "{{ activeT.text }}"
         </blockquote>
 
-        <!-- Author row -->
         <div class="flex items-center gap-4">
           <div class="w-12 h-12 rounded-full flex items-center justify-center
                    text-white font-black text-sm shadow-md shrink-0"
@@ -599,7 +702,6 @@
       </div>
     </div>
 
-    <!-- Dot navigation -->
     <div class="flex justify-center gap-2.5 mb-10 reveal">
       @for (t of testimonials; track t.author; let i = $index) {
       <button type="button" class="h-2.5 rounded-full transition-all duration-300 cursor-pointer
@@ -610,7 +712,6 @@
       }
     </div>
 
-    <!-- Mini author cards -->
     <div class="grid sm:grid-cols-3 gap-4 reveal">
       @for (t of testimonials; track t.author; let i = $index) {
       <button type="button" class="text-left ba-card !rounded-2xl p-5 cursor-pointer border-0 w-full
@@ -638,11 +739,92 @@
     </div>
 
   </div>
+</section> -->
+
+
+<!-- ════════════════════════════════════════════════════════════════
+  SECTION — QUICK ENQUIRY STRIP
+  Urgency + three action buttons to convert undecided visitors.
+════════════════════════════════════════════════════════════════ -->
+<section class="ba-section bg-gray-50" id="quick-enquiry">
+  <div class="ba-container">
+    <div class="quick-strip reveal">
+
+      <!-- Decorative blobs -->
+      <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full
+                  bg-white/5 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-48 h-48 rounded-full
+                  bg-amber-400/8 blur-2xl pointer-events-none"></div>
+
+      <!-- Left: copy -->
+      <div class="quick-strip-copy relative z-10">
+
+        <span class="ba-pill ba-pill-gold mb-5">
+          <mat-icon class="!text-xs">bolt</mat-icon>
+          Quote in 24 Hours
+        </span>
+
+        <h2 class="text-3xl lg:text-[42px] font-black text-white leading-tight
+                   tracking-tight mb-4">
+          Ready to Make Your<br />
+          <span class="text-gradient-gold">Brand Unforgettable?</span>
+        </h2>
+
+        <p class="text-white/65 text-base lg:text-lg leading-relaxed max-w-md">
+          Tell us what you need — we'll come back with samples, pricing,
+          and a delivery timeline within one business day.
+        </p>
+
+        <!-- Micro proofs -->
+        <ul class="quick-proofs">
+          @for (p of [
+            'No hidden costs or setup fees',
+            'Physical sample before bulk production',
+            'Dedicated project manager for your account'
+          ]; track p) {
+            <li>
+              <i class="fas fa-check-circle text-emerald-400"></i>
+              {{ p }}
+            </li>
+          }
+        </ul>
+
+      </div>
+
+      <!-- Right: action buttons -->
+      <div class="quick-strip-actions relative z-10">
+
+        <a routerLink="/contact" class="quick-btn-primary">
+          <i class="fas fa-paper-plane"></i>
+          Get a Free Quote
+        </a>
+
+        <a href="https://wa.me/918147540690"
+           target="_blank" rel="noopener"
+           class="quick-btn-whatsapp">
+          <i class="fab fa-whatsapp text-lg"></i>
+          Chat on WhatsApp
+        </a>
+
+        <a href="tel:+918147540690" class="quick-btn-call">
+          <i class="fas fa-phone"></i>
+          +91 81475 40690
+        </a>
+
+        <p class="text-white/35 text-[11px] text-center mt-1 font-semibold
+                  tracking-widest uppercase">
+          Avg response · under 2 hours
+        </p>
+
+      </div>
+
+    </div>
+  </div>
 </section>
 
 
 <!-- ════════════════════════════════════════════════════════════════
-  SECTION 10 — FINAL CTA
+  SECTION — FINAL CTA
   Bold gradient banner with dual CTA.
 ════════════════════════════════════════════════════════════════ -->
 <section class="ba-section bg-white relative overflow-hidden">

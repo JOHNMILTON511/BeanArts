@@ -6,6 +6,7 @@ import {
   inject,
   PLATFORM_ID,
   signal,
+  computed,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
@@ -30,13 +31,29 @@ import { Meta, Title } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
-  private platformId = inject(PLATFORM_ID);
-  private meta       = inject(Meta);
-  private title      = inject(Title);
+  private platformId      = inject(PLATFORM_ID);
+  private meta            = inject(Meta);
+  private title           = inject(Title);
   private observer!: IntersectionObserver;
+  private counterObserver!: IntersectionObserver;
   private testimonialInterval: any;
+  private counterAnimated = false;
 
   activeTestimonial = signal(0);
+
+  // ── Counter animation state ───────────────────────────────────────
+  private animatedNums = signal([0, 0, 0, 0]);
+
+  readonly statCfg = [
+    { target: 10,   format: (n: number) => n + '+',                                        label: 'Brands Served',       icon: 'groups' },
+    { target: 50, format: (n: number) => n >= 1000 ? Math.round(n / 1000) + 'K+' : n + '', label: 'Gifts Delivered',  icon: 'card_giftcard' },
+    { target: 100,  format: (n: number) => n + '%',                                         label: 'Quality Assured',    icon: 'verified' },
+    { target: 2,    format: (n: number) => n + '+',                                         label: 'Years of Excellence', icon: 'workspace_premium' },
+  ];
+
+  animatedStats = computed(() =>
+    this.animatedNums().map((n, i) => this.statCfg[i].format(n))
+  );
 
   // ── Hero Slider ──────────────────────────────────────────────────
   heroCarouselOptions: OwlOptions = {
@@ -83,8 +100,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   // ── Stats ────────────────────────────────────────────────────────
   stats = [
-    { value: '50+', label: 'Brands Served',    icon: 'groups' },
-    { value: '5K+', label: 'Gifts Delivered',  icon: 'card_giftcard' },
+    { value: '10+', label: 'Brands Served',    icon: 'groups' },
+    { value: '200+', label: 'Gifts Delivered',  icon: 'card_giftcard' },
     { value: '100%', label: 'Quality Assured',  icon: 'verified' },
     { value: '2+',   label: 'Years of Excellence', icon: 'workspace_premium' },
   ];
@@ -228,6 +245,26 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     'Meesho', 'Razorpay', 'Cred', 'PhonePe', 'Urban Company', 'Nykaa',
   ];
 
+  // ── Industries We Serve ───────────────────────────────────────────
+  industries = [
+    { icon: 'computer',        label: 'Technology & IT',      desc: 'Welcome kits, offsite merchandise, dev-team swag & branded merch.', color: '#4f46e5', bg: 'rgba(79,70,229,0.08)' },
+    { icon: 'account_balance', label: 'Banking & Finance',    desc: 'Client appreciation boxes, milestone hampers & festive gifting.', color: '#0ea5e9', bg: 'rgba(14,165,233,0.08)' },
+    { icon: 'shopping_bag',    label: 'FMCG & Retail',        desc: 'Branded packaging, seasonal hampers & retail bags at scale.', color: '#d97706', bg: 'rgba(217,119,6,0.08)' },
+    { icon: 'rocket_launch',   label: 'Startups & SMEs',      desc: 'Founder kits, investor decks, first-hire welcome packs & swag.', color: '#7c3aed', bg: 'rgba(124,58,237,0.08)' },
+    { icon: 'local_hospital',  label: 'Healthcare & Pharma',  desc: 'Doctor appreciation gifts, conference kits & wellness hampers.', color: '#059669', bg: 'rgba(5,150,105,0.08)' },
+    { icon: 'celebration',     label: 'Events & Conferences', desc: 'Speaker gifts, attendee kits & branded conference collateral.', color: '#db2777', bg: 'rgba(219,39,119,0.08)' },
+  ];
+
+  // ── Portfolio showcase (uses existing image assets) ───────────────
+  portfolioShowcase = [
+    { src: 'assets/gallery/1.jpg',  label: 'Employee Onboarding Kit',  category: 'Gifting',   color: '#7c3aed' },
+    { src: 'assets/gallery/2.jpg',  label: 'Luxury Hamper Box',        category: 'Packaging', color: '#059669' },
+    { src: 'assets/gallery/4.jpg',  label: 'Festive Gift Collection',  category: 'Gifting',   color: '#d97706' },
+    { src: 'assets/services/3.jpg', label: 'Bespoke Rigid Packaging',  category: 'Packaging', color: '#059669' },
+    { src: 'assets/services/5.jpg', label: 'Custom Print Collateral',  category: 'Printing',  color: '#2563eb' },
+    { src: 'assets/gallery/6.jpg',  label: 'Branded Swag Collection',  category: 'Gifting',   color: '#7c3aed' },
+  ];
+
   // ── Lifecycle ────────────────────────────────────────────────────
   ngOnInit(): void {
     this.title.setTitle('BeanArts | Premium Corporate Gifting & Custom Packaging Solutions');
@@ -244,11 +281,13 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.setupScrollReveal();
+      this.setupCounterAnimation();
     }
   }
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    this.counterObserver?.disconnect();
     clearInterval(this.testimonialInterval);
   }
 
@@ -266,6 +305,34 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach((el) => this.observer.observe(el));
+  }
+
+  private setupCounterAnimation(): void {
+    const statsEl = document.getElementById('home-stats');
+    if (!statsEl) return;
+    this.counterObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !this.counterAnimated) {
+          this.counterAnimated = true;
+          this.counterObserver.disconnect();
+          this.runCounters();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    this.counterObserver.observe(statsEl);
+  }
+
+  private runCounters(): void {
+    const duration = 1800;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      this.animatedNums.set(this.statCfg.map(s => Math.round(s.target * eased)));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
 
   private startTestimonialRotation(): void {

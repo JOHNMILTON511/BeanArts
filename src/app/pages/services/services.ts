@@ -34,10 +34,10 @@ export class Services implements OnInit, AfterViewInit, OnDestroy {
 
   // ── Stats ────────────────────────────────────────────────────
   stats = signal([
-    { label: 'Happy Clients',       value: '500+',  icon: 'groups',             faIcon: 'fa-smile' },
-    { label: 'Projects Delivered',  value: '2K+',   icon: 'inventory_2',        faIcon: 'fa-box-open' },
-    { label: 'Years Experience',    value: '8+',    icon: 'workspace_premium',  faIcon: 'fa-star' },
-    { label: 'Cities Covered',      value: '50+',   icon: 'location_on',        faIcon: 'fa-map-marker-alt' },
+    { label: 'Happy Clients',       value: '50+',  icon: 'groups',             faIcon: 'fa-smile' },
+    { label: 'Projects Delivered',  value: '200+',   icon: 'inventory_2',        faIcon: 'fa-box-open' },
+    { label: 'Years Experience',    value: '2+',    icon: 'workspace_premium',  faIcon: 'fa-star' },
+    { label: 'Cities Covered',      value: '7+',   icon: 'location_on',        faIcon: 'fa-map-marker-alt' },
   ]);
 
   // ── Features / Why Us ────────────────────────────────────────
