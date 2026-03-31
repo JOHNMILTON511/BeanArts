@@ -1,15 +1,5 @@
 import { Routes } from '@angular/router';
-import { About } from './pages/about/about';
-import { Contact } from './pages/contact/contact';
 import { Home } from './pages/home/home';
-import { NotFound } from './pages/not-found/not-found';
-import { Services } from './pages/services/services';
-import { PrivacyPolicy } from './policy/privacy-policy/privacy-policy';
-import { TermsConditions } from './policy/terms-conditions/terms-conditions';
-import { Faq } from './policy/faq/faq';
-import { Portfolio } from './pages/portfolio/portfolio';
-import { Blog } from './Insights/blog/blog';
-import { Careers } from './Insights/careers/careers';
 
 export const routes: Routes = [
     {
@@ -25,57 +15,56 @@ export const routes: Routes = [
     },
     {
         path: 'about',
-        component: About,
+        loadComponent: () => import('./pages/about/about').then(m => m.About),
         title: 'About Us - Our Story | BeanArts'
     },
     {
         path: 'services',
-        component: Services,
+        loadComponent: () => import('./pages/services/services').then(m => m.Services),
         title: 'Our Services - Custom Gifting, Printing & Packaging | BeanArts'
     },
     {
         path: 'contact',
-        component: Contact,
+        loadComponent: () => import('./pages/contact/contact').then(m => m.Contact),
         title: 'Contact Us & Request a Quote | BeanArts'
     },
     {
-        path: 'privacy',
-        component: PrivacyPolicy,
-        title: 'Privacy Policy | BeanArts'
-    },
-    {
-        path: '404',
-        component: NotFound,
-        title: 'Page Not Found | BeanArts'
+        path: 'portfolio',
+        loadComponent: () => import('./pages/portfolio/portfolio').then(m => m.Portfolio),
+        title: 'Portfolio | BeanArts'
     },
     {
         path: 'blog',
-        component: Blog,
+        loadComponent: () => import('./Insights/blog/blog').then(m => m.Blog),
         title: 'Insights & Trends | BeanArts'
     },
     {
         path: 'careers',
-        component: Careers,
+        loadComponent: () => import('./Insights/careers/careers').then(m => m.Careers),
         title: 'Careers at BeanArts'
     },
     {
+        path: 'privacy',
+        loadComponent: () => import('./policy/privacy-policy/privacy-policy').then(m => m.PrivacyPolicy),
+        title: 'Privacy Policy | BeanArts'
+    },
+    {
         path: 'terms-conditions',
-        component: TermsConditions,
+        loadComponent: () => import('./policy/terms-conditions/terms-conditions').then(m => m.TermsConditions),
         title: 'Terms & Conditions | BeanArts'
     },
     {
         path: 'faq',
-        component: Faq,
+        loadComponent: () => import('./policy/faq/faq').then(m => m.Faq),
         title: 'FAQ | BeanArts'
     },
     {
-        path: 'portfolio',
-        component: Portfolio,
-        title: 'Portfolio | BeanArts'
+        path: '404',
+        loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFound),
+        title: 'Page Not Found | BeanArts'
     },
     {
         path: '**',
         redirectTo: '/404'
     }
-
 ];

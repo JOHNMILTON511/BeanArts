@@ -55,23 +55,37 @@
 
     </div>
 
-    <!-- Newsletter Signup (SEO Goldmine) -->
+    <!-- Newsletter Signup -->
     <div class="mt-20 bg-indigo-900 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
       <div class="relative z-10">
         <h2 class="text-3xl font-bold mb-4">Stay Ahead of the Curve</h2>
         <p class="text-indigo-200 mb-8 max-w-xl mx-auto">Get the latest corporate gifting trends and exclusive bulk discounts delivered to your inbox.</p>
-        
-        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
-          <input type="email" placeholder="Enter your work email" class="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-          <button type="button" class="bg-amber-400 hover:bg-amber-300 text-indigo-900 font-bold px-8 py-3 rounded-full transition shadow-lg">
-            Subscribe
-          </button>
-        </form>
+
+        @if (newsletterSubmitted()) {
+          <div class="max-w-md mx-auto py-4 px-6 bg-white/10 rounded-2xl border border-white/20">
+            <span class="text-2xl">🎉</span>
+            <p class="text-white font-semibold mt-2">You're subscribed! We'll be in touch soon.</p>
+          </div>
+        } @else {
+          <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3" (ngSubmit)="onNewsletterSubmit()">
+            <input
+              type="email"
+              placeholder="Enter your work email"
+              [(ngModel)]="newsletterEmail"
+              name="newsletterEmail"
+              required
+              class="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            >
+            <button type="submit" class="bg-amber-400 hover:bg-amber-300 text-indigo-900 font-bold px-8 py-3 rounded-full transition shadow-lg">
+              Subscribe
+            </button>
+          </form>
+        }
       </div>
-      
+
       <!-- Decorative background circle -->
       <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-         <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full"><circle cx="0" cy="100" r="50" fill="white" /></svg>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full"><circle cx="0" cy="100" r="50" fill="white" /></svg>
       </div>
     </div>
 

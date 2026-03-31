@@ -1,12 +1,13 @@
-import { Component, OnInit, signal } from '@angular/core';
-
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [RouterModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, FormsModule],
   templateUrl: './blog.html',
   styles: [`
     .blog-card-img {
@@ -18,6 +19,15 @@ import { Meta, Title } from '@angular/platform-browser';
   `]
 })
 export class Blog implements OnInit {
+
+  newsletterEmail = '';
+  newsletterSubmitted = signal(false);
+
+  onNewsletterSubmit(): void {
+    if (!this.newsletterEmail || !this.newsletterEmail.includes('@')) return;
+    this.newsletterSubmitted.set(true);
+    this.newsletterEmail = '';
+  }
 
   posts = signal([
     {

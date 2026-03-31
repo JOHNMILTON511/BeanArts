@@ -1,4 +1,4 @@
-import { Component, computed, signal, OnInit } from '@angular/core';
+import { Component, computed, signal, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,8 @@ interface Project {
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [RouterModule,MatButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, MatButtonModule],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })

@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(grep -r \"TODO\\\\|FIXME\\\\|XXX\\\\|HACK\" 'D:\\\\CodeBase\\\\Neethu Ma\\\\Angular\\\\V1-01\\\\BeanArts/src/app' --include=*.ts --include=*.html)"
     ]
   }
 }

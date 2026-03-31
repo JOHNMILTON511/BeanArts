@@ -65,7 +65,7 @@
 
     <div class="portfolio-grid">
       @for (project of filteredProjects(); track project.id) {
-        <div class="group relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer h-80">
+        <div class="portfolio-item group relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer h-80">
           <!-- Image with fallback -->
           <img 
             [src]="project.image" 

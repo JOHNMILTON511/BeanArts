@@ -87,3 +87,92 @@ a:hover .footer-contact-chip {
   display: inline-flex !important;
   align-items: center !important;
 }
+
+/* ── CTA buttons ─────────────────────────────────────────────── */
+.footer-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 9999px;
+  border: none;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.footer-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(79, 70, 229, 0.5);
+}
+
+.footer-cta-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.30);
+  text-decoration: none;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  transition: background 250ms ease, transform 250ms ease;
+}
+.footer-cta-call:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+/* ── Contact links ───────────────────────────────────────────── */
+.footer-contact-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 13px;
+  transition: color 200ms ease;
+}
+.footer-contact-link:hover {
+  color: #ffffff;
+}
+
+/* ── WhatsApp button ─────────────────────────────────────────── */
+.footer-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #25d366;
+  border: 1.5px solid rgba(37, 211, 102, 0.3);
+  background: rgba(37, 211, 102, 0.05);
+  text-decoration: none;
+  width: fit-content;
+  transition: background 200ms ease, transform 200ms ease;
+}
+.footer-whatsapp-btn:hover {
+  background: rgba(37, 211, 102, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ── Bottom bar links ────────────────────────────────────────── */
+.footer-bottom-link {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.footer-bottom-link:hover {
+  color: #ffffff;
+}

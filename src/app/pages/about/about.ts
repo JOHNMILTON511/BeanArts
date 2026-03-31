@@ -1,5 +1,6 @@
 import {
   Component,
+  ChangeDetectionStrategy,
   OnInit,
   AfterViewInit,
   OnDestroy,
@@ -15,6 +16,7 @@ import { Meta, Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-about',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './about.html',
   styleUrl: './about.css',

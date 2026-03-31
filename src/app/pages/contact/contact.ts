@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact',
@@ -129,12 +130,10 @@ export class Contact implements OnInit, AfterViewInit, OnDestroy {
       date:        new Date().toLocaleString(),
     };
 
-    const SERVICE_ID  = 'service_gk6yg89';
-    const TEMPLATE_ID = 'template_z9epm4d';
-    const PUBLIC_KEY  = 'VOA5cCVlS7fSwk7iC';
+    const { serviceId, templateId, publicKey } = environment.emailjs;
 
     emailjs
-      .send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+      .send(serviceId, templateId, templateParams, publicKey)
       .then(() => {
         this.zone.run(() => {
           this.isSubmitting = false;

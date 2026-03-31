@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-careers',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterModule],
   templateUrl: './careers.html',
-  styles: []
+  styleUrl: './careers.css',
 })
 export class Careers implements OnInit {
 
   positions = [
     { title: 'B2B Sales Manager', type: 'Full-time', location: 'Bengaluru', dept: 'Sales' },
     { title: 'Graphic Designer', type: 'Full-time', location: 'Bengaluru', dept: 'Creative' },
-    { title: 'Operations Executive', type: 'Full-time', location: 'Bengaluru', dept: 'Logistics' }
+    { title: 'Operations Executive', type: 'Full-time', location: 'Bengaluru', dept: 'Logistics' },
   ];
 
   constructor(private meta: Meta, private title: Title) {}
