@@ -4,43 +4,273 @@
    ================================================================ */
 
 /* ── Hero Carousel ───────────────────────────────────────────── */
+
+/* Cinematic dark overlay */
 .hero-overlay {
   background:
-    linear-gradient(to right,  rgba(15, 14, 60, 0.88) 0%, rgba(15, 14, 60, 0.55) 55%, rgba(15, 14, 60, 0.15) 100%),
-    linear-gradient(to top,    rgba(15, 14, 60, 0.50) 0%, transparent 50%);
+    linear-gradient(to right, rgba(8, 6, 40, 0.92) 0%, rgba(8, 6, 40, 0.65) 55%, rgba(8, 6, 40, 0.40) 100%),
+    linear-gradient(to top,   rgba(8, 6, 40, 0.60) 0%, transparent 55%);
 }
 
-/* Owl carousel base overrides for hero */
+/* Subtle grid pattern on top of overlay */
+.hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+/* Radial glow — right side purple */
+.hero-glow {
+  background: radial-gradient(ellipse 55% 70% at 85% 50%, rgba(99, 82, 234, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Hero CTA buttons ────────────────────────────────────────── */
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 34px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(79, 70, 229, 0.50), 0 0 0 1px rgba(255,255,255,0.08);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  white-space: nowrap;
+}
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(79, 70, 229, 0.60), 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.hero-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 30px;
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.30);
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 250ms ease, transform 250ms ease;
+  white-space: nowrap;
+}
+.hero-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+/* ── Hero title accent ───────────────────────────────────────── */
+.hero-title-accent {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 60%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Hero trust strip ────────────────────────────────────────── */
+.hero-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.60);
+  font-weight: 500;
+}
+
+/* ── Scroll indicator ────────────────────────────────────────── */
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+/* ── Product Showcase (right side) ──────────────────────────── */
+.hero-showcase-wrap {
+  animation: showcaseEntrance 0.9s 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes showcaseEntrance {
+  from { opacity: 0; transform: translateX(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateX(0)    scale(1);    }
+}
+
+.hero-showcase-frame {
+  width: 360px;
+  height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.55),
+    0 0 0 1.5px rgba(255, 255, 255, 0.10);
+  position: relative;
+  animation: showcaseFloat 7s ease-in-out infinite;
+}
+.hero-showcase-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 7s ease;
+}
+.hero-showcase-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 12, 60, 0.35) 0%, transparent 60%);
+}
+@keyframes showcaseFloat {
+  0%, 100% { transform: translateY(0)    rotate(-1.2deg); }
+  50%       { transform: translateY(-14px) rotate(0.8deg); }
+}
+
+/* ── Floating glass badges ───────────────────────────────────── */
+.hero-float-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255,255,255,0.7);
+  z-index: 10;
+}
+
+.hero-float-badge--tl {
+  top: -18px;
+  left: -44px;
+  animation: floatBadgeA 5.5s ease-in-out infinite;
+}
+.hero-float-badge--br {
+  bottom: -18px;
+  right: -28px;
+  animation: floatBadgeB 6.5s ease-in-out infinite;
+}
+@keyframes floatBadgeA {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes floatBadgeB {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+.hero-float-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+/* Decorative ring behind showcase */
+.hero-showcase-ring {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 9999px;
+  border: 1.5px dashed rgba(255,255,255,0.12);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringRotate 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes ringRotate {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to   { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+/* ── Owl carousel overrides for hero ────────────────────────── */
 .hero-carousel .owl-stage-outer { overflow: hidden; }
+
+/* Dots */
 .hero-carousel .owl-dots {
   position: absolute;
-  bottom: 32px;
-  width: 100%;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex !important;
-  justify-content: center;
   gap: 8px;
   z-index: 10;
 }
 .hero-carousel .owl-dot span {
   width: 8px !important;
   height: 8px !important;
-  background: rgba(255, 255, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.30) !important;
   border-radius: 9999px !important;
   margin: 0 !important;
   transition: all 300ms ease !important;
 }
 .hero-carousel .owl-dot.active span {
-  width: 28px !important;
+  width: 30px !important;
   background: white !important;
 }
 
-/* Hero text entrance — CSS animations triggered per-slide */
-.hero-eyebrow  { animation: heroFadeUp 0.7s 0.1s ease both; }
-.hero-title    { animation: heroFadeUp 0.7s 0.25s ease both; }
-.hero-subtitle { animation: heroFadeUp 0.7s 0.40s ease both; }
-.hero-cta      { animation: heroFadeUp 0.7s 0.55s ease both; }
-.hero-trust    { animation: heroFadeUp 0.7s 0.70s ease both; }
-.hero-scroll   { animation: heroFadeIn 1s 1.2s ease both; }
+/* Nav arrows — bottom right corner */
+.hero-carousel .owl-nav {
+  position: absolute;
+  bottom: 22px;
+  right: 48px;
+  display: flex !important;
+  gap: 10px;
+  z-index: 20;
+}
+.hero-carousel .owl-prev,
+.hero-carousel .owl-next {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  font-size: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  transition: background 200ms ease, transform 200ms ease !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+}
+.hero-carousel .owl-prev:hover,
+.hero-carousel .owl-next:hover {
+  background: rgba(255, 255, 255, 0.26) !important;
+  transform: scale(1.08) !important;
+}
+.hero-carousel .owl-prev.disabled,
+.hero-carousel .owl-next.disabled {
+  opacity: 0.35 !important;
+}
+
+/* Hero text entrance animations */
+.hero-eyebrow  { animation: heroFadeUp 0.65s 0.08s ease both; }
+.hero-title    { animation: heroFadeUp 0.70s 0.22s ease both; }
+.hero-subtitle { animation: heroFadeUp 0.65s 0.38s ease both; }
+.hero-cta      { animation: heroFadeUp 0.65s 0.52s ease both; }
+.hero-trust    { animation: heroFadeUp 0.65s 0.68s ease both; }
+.hero-scroll   { animation: heroFadeIn 1s  1.10s ease both; }
 
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(28px); }
@@ -51,10 +281,42 @@
   to   { opacity: 1; }
 }
 
+/* ── Stats bar ───────────────────────────────────────────────── */
+.stats-bar {
+  background: linear-gradient(to right, #fafafa 0%, #ffffff 50%, #fafafa 100%);
+  border-bottom: 1px solid #f1f5f9;
+  padding: 56px 0;
+}
+.stats-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  border: 1px solid #c7d2fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stats-item {
+  position: relative;
+}
+.stats-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: #e5e7eb;
+}
+@media (max-width: 1023px) {
+  .stats-item::after { display: none; }
+}
+
 /* ── Client Ticker ───────────────────────────────────────────── */
 .ticker-track {
   display: flex;
-  animation: tickerScroll 28s linear infinite;
+  animation: tickerScroll 30s linear infinite;
   will-change: transform;
 }
 .ticker-track:hover { animation-play-state: paused; }
@@ -167,8 +429,9 @@
 @media (max-width: 640px) {
   .hero-overlay {
     background:
-      linear-gradient(to bottom, rgba(15, 14, 60, 0.65) 0%, rgba(15, 14, 60, 0.75) 100%);
+      linear-gradient(to bottom, rgba(8, 6, 40, 0.72) 0%, rgba(8, 6, 40, 0.85) 100%);
   }
+  .hero-carousel .owl-nav { display: none !important; }
 }
 
 /* ── Stat counter number ─────────────────────────────────────── */

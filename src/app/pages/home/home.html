@@ -5,67 +5,75 @@
 
 <!-- ════════════════════════════════════════════════════════════════
   SECTION 1 — HERO CAROUSEL
-  Full-viewport slider with cinematic overlay, eyebrow label,
-  animated headline, and dual CTA per slide.
+  Split layout: text left + floating product showcase right.
 ════════════════════════════════════════════════════════════════ -->
 <section class="relative overflow-hidden">
   <owl-carousel-o [options]="heroCarouselOptions" class="w-full hero-carousel">
     @for (slide of slides; track slide.id) {
     <ng-template carouselSlide>
-      <div class="relative w-full h-[92vh] min-h-[580px] max-h-[860px]">
+      <div class="relative w-full h-[92vh] min-h-[600px] max-h-[900px]">
 
         <!-- Background image -->
-        <img [src]="slide.imgSrc" [alt]="slide.title" class="absolute inset-0 w-full h-full object-cover object-center"
-          loading="eager" />
+        <img [src]="slide.imgSrc" [alt]="slide.titleLine1 + ' ' + slide.titleLine2"
+          class="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
 
         <!-- Multi-layer cinematic overlay -->
         <div class="absolute inset-0 hero-overlay"></div>
 
+        <!-- Subtle grid overlay -->
+        <div class="absolute inset-0 hero-grid-bg" aria-hidden="true"></div>
+
+        <!-- Decorative radial glow -->
+        <div class="absolute inset-0 hero-glow" aria-hidden="true"></div>
+
         <!-- Content -->
         <div class="absolute inset-0 flex items-center">
-          <div class="ba-container w-full">
+          <div class="ba-container w-full py-10">
             <div class="max-w-2xl">
 
-              <!-- Eyebrow -->
-              <div class="ba-pill ba-pill-gold mb-5 hero-eyebrow">
-                <i class="fas fa-medal text-[10px]"></i>
+              <!-- Eyebrow pill -->
+              <div class="ba-pill ba-pill-gold mb-6 hero-eyebrow inline-flex">
+                <i class="fas fa-star text-[9px]"></i>
                 {{ slide.eyebrow }}
               </div>
 
               <!-- Headline -->
-              <h1 class="text-4xl sm:text-5xl lg:text-[64px] font-black text-white
-                            leading-[1.08] tracking-tight mb-5 hero-title">
-                {{ slide.title }}
+              <h1 class="text-[42px] sm:text-[54px] lg:text-[68px] font-black text-white
+                            leading-[1.06] tracking-[-0.03em] mb-6 hero-title">
+                {{ slide.titleLine1 }}<br />
+                <span class="hero-title-accent">{{ slide.titleLine2 }}</span>
               </h1>
 
               <!-- Subtitle -->
-              <p class="text-white/75 text-lg lg:text-xl leading-relaxed mb-8
-                           max-w-xl hero-subtitle">
+              <p class="text-white/70 text-lg lg:text-[18px] leading-[1.75] mb-9 max-w-lg hero-subtitle">
                 {{ slide.subtitle }}
               </p>
 
               <!-- CTAs -->
               <div class="flex flex-wrap gap-4 hero-cta">
-                <a [routerLink]="slide.cta.link" class="ba-btn-primary !py-3.5 !px-9 text-base">
-                  <i class="fas fa-rocket text-sm"></i>
+                <a [routerLink]="slide.cta.link" class="hero-btn-primary">
+                  <i class="fas fa-rocket text-[12px]"></i>
                   {{ slide.cta.label }}
                 </a>
-                <a routerLink="/contact" class="ba-btn-ghost !py-3.5 !px-9 text-base">
-                  <i class="fas fa-phone text-sm"></i>
+                <a routerLink="/contact" class="hero-btn-ghost">
+                  <i class="fas fa-phone text-[12px]"></i>
                   Get a Free Quote
                 </a>
               </div>
 
               <!-- Trust strip -->
-              <div class="flex flex-wrap gap-6 mt-10 hero-trust">
-                <span class="flex items-center gap-2 text-sm text-white/60">
-                  <i class="fas fa-check-circle text-emerald-400"></i> 50+ Brands Served
+              <div class="flex flex-wrap gap-5 mt-10 hero-trust">
+                <span class="hero-trust-item">
+                  <i class="fas fa-check-circle text-emerald-400 text-sm"></i>
+                  50+ Brands Served
                 </span>
-                <span class="flex items-center gap-2 text-sm text-white/60">
-                  <i class="fas fa-check-circle text-emerald-400"></i> 100+ Gifts Delivered
+                <span class="hero-trust-item">
+                  <i class="fas fa-check-circle text-emerald-400 text-sm"></i>
+                  500+ Gifts Delivered
                 </span>
-                <span class="flex items-center gap-2 text-sm text-white/60">
-                  <i class="fas fa-check-circle text-emerald-400"></i> Pan-India Delivery
+                <span class="hero-trust-item">
+                  <i class="fas fa-check-circle text-emerald-400 text-sm"></i>
+                  Pan-India Delivery
                 </span>
               </div>
 
@@ -74,10 +82,10 @@
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2
-                      flex flex-col items-center gap-2 text-white/40 hero-scroll">
-          <span class="text-[10px] font-semibold tracking-widest uppercase">Scroll</span>
-          <div class="w-px h-10 bg-gradient-to-b from-white/40 to-transparent"></div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2
+                    flex flex-col items-center gap-2 hero-scroll">
+          <span class="text-[9px] font-bold tracking-[0.2em] uppercase text-white/35">Scroll</span>
+          <div class="hero-scroll-line"></div>
         </div>
 
       </div>
@@ -89,21 +97,19 @@
 
 <!-- ════════════════════════════════════════════════════════════════
   SECTION 2 — STATS BAR
-  Social proof numbers in a clean horizontal band.
 ════════════════════════════════════════════════════════════════ -->
-<section class="bg-white border-b border-gray-100 py-12" id="home-stats">
+<section class="stats-bar" id="home-stats">
   <div class="ba-container">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
       @for (cfg of statCfg; track cfg.label; let i = $index) {
-      <div class="reveal text-center group" [style.transitionDelay]="(i * 100) + 'ms'">
-        <div class="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center
-                      mx-auto mb-3 group-hover:bg-primary-100 transition-colors duration-300">
-          <mat-icon class="text-primary-600 !text-xl">{{ cfg.icon }}</mat-icon>
+      <div class="reveal text-center group stats-item" [style.transitionDelay]="(i * 100) + 'ms'">
+        <div class="stats-icon-wrap mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+          <mat-icon class="text-primary-600 !text-2xl">{{ cfg.icon }}</mat-icon>
         </div>
-        <p class="stat-num text-3xl lg:text-4xl font-black text-primary-950 tracking-tight leading-none">
+        <p class="stat-num text-3xl lg:text-[42px] font-black text-primary-950 tracking-tight leading-none">
           {{ animatedStats()[i] }}
         </p>
-        <p class="text-sm text-gray-500 font-medium mt-1.5">{{ cfg.label }}</p>
+        <p class="text-sm text-gray-500 font-medium mt-2">{{ cfg.label }}</p>
       </div>
       }
     </div>
@@ -111,38 +117,7 @@
 </section>
 
 
-<!-- ════════════════════════════════════════════════════════════════
-  SECTION 3 — CLIENT TICKER
-  Trusted brands marquee.
-════════════════════════════════════════════════════════════════ -->
-<!-- <section class="py-7 bg-gray-50 border-b border-gray-100 overflow-hidden">
-  <p class="text-center text-[10.5px] font-bold uppercase tracking-[0.18em]
-             text-gray-400 mb-5">
-    Trusted by India's leading organisations
-  </p>
-  <div class="relative">
-    <div class="absolute left-0 inset-y-0 w-20 z-10
-                bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
-    <div class="absolute right-0 inset-y-0 w-20 z-10
-                bg-gradient-to-l from-gray-50 to-transparent pointer-events-none"></div>
-    <div class="ticker-track flex items-center">
-      @for (client of clients; track client) {
-      <span class="ticker-item shrink-0 mx-8 text-sm font-bold
-                     text-gray-400 hover:text-primary-600 transition-colors
-                     tracking-widest uppercase whitespace-nowrap cursor-default">
-        {{ client }}
-      </span>
-      }
-      @for (client of clients; track client + '_dup') {
-      <span class="ticker-item shrink-0 mx-8 text-sm font-bold
-                     text-gray-400 hover:text-primary-600 transition-colors
-                     tracking-widest uppercase whitespace-nowrap cursor-default" aria-hidden="true">
-        {{ client }}
-      </span>
-      }
-    </div>
-  </div>
-</section> -->
+
 
 
 <!-- ════════════════════════════════════════════════════════════════
