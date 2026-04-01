@@ -7,7 +7,7 @@
   SECTION 1 — HERO CAROUSEL
   Split layout: text left + floating product showcase right.
 ════════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden">
+<section class="relative overflow-hidden h-[92vh] min-h-[600px] max-h-[900px]">
   <owl-carousel-o [options]="heroCarouselOptions" class="w-full hero-carousel">
     @for (slide of slides; track slide.id) {
     <ng-template carouselSlide>
@@ -15,7 +15,9 @@
 
         <!-- Background image -->
         <img [src]="slide.imgSrc" [alt]="slide.titleLine1 + ' ' + slide.titleLine2"
-          class="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+          width="1920" height="1080"
+          class="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager" fetchpriority="high" />
 
         <!-- Multi-layer cinematic overlay -->
         <div class="absolute inset-0 hero-overlay"></div>

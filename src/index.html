@@ -63,6 +63,9 @@
   <meta http-equiv="accept-ch" content="DPR, Viewport-Width, Width">
   <meta name="theme-color" content="#0f172a">
 
+  <!-- Preload LCP hero image (first carousel slide) -->
+  <link rel="preload" as="image" href="assets/New/5.jpg" fetchpriority="high">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -98,13 +101,13 @@
 
   <meta name="msapplication-TileColor" content="#0f172a">
   <meta name="msapplication-TileImage" content="/mstile-150x150.png">
-<!-- Google Fonts -->
+<!-- Google Fonts — display=swap prevents invisible text while loading -->
 <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
   rel="stylesheet">
 
 <!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 
 
   <script type="application/ld+json">

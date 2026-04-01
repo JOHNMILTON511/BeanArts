@@ -100,108 +100,24 @@
   50%       { opacity: 1; }
 }
 
-/* ── Product Showcase (right side) ──────────────────────────── */
-.hero-showcase-wrap {
-  animation: showcaseEntrance 0.9s 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-@keyframes showcaseEntrance {
-  from { opacity: 0; transform: translateX(40px) scale(0.95); }
-  to   { opacity: 1; transform: translateX(0)    scale(1);    }
-}
-
-.hero-showcase-frame {
-  width: 360px;
-  height: 420px;
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow:
-    0 50px 100px rgba(0, 0, 0, 0.55),
-    0 0 0 1.5px rgba(255, 255, 255, 0.10);
-  position: relative;
-  animation: showcaseFloat 7s ease-in-out infinite;
-}
-.hero-showcase-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.04);
-  transition: transform 7s ease;
-}
-.hero-showcase-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(15, 12, 60, 0.35) 0%, transparent 60%);
-}
-@keyframes showcaseFloat {
-  0%, 100% { transform: translateY(0)    rotate(-1.2deg); }
-  50%       { transform: translateY(-14px) rotate(0.8deg); }
-}
-
-/* ── Floating glass badges ───────────────────────────────────── */
-.hero-float-badge {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 18px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255,255,255,0.7);
-  z-index: 10;
-}
-
-.hero-float-badge--tl {
-  top: -18px;
-  left: -44px;
-  animation: floatBadgeA 5.5s ease-in-out infinite;
-}
-.hero-float-badge--br {
-  bottom: -18px;
-  right: -28px;
-  animation: floatBadgeB 6.5s ease-in-out infinite;
-}
-@keyframes floatBadgeA {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
-}
-@keyframes floatBadgeB {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(8px); }
-}
-
-.hero-float-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #ffffff;
-}
-
-/* Decorative ring behind showcase */
-.hero-showcase-ring {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 9999px;
-  border: 1.5px dashed rgba(255,255,255,0.12);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: ringRotate 20s linear infinite;
-  pointer-events: none;
-}
-@keyframes ringRotate {
-  from { transform: translate(-50%,-50%) rotate(0deg); }
-  to   { transform: translate(-50%,-50%) rotate(360deg); }
-}
-
 /* ── Owl carousel overrides for hero ────────────────────────── */
+
+/*
+  Prevent CLS: lock carousel to section height before owl initializes.
+  Without this, all 3 slides stack vertically (~276vh) until owl collapses
+  them to 1 slide, causing a massive layout shift on first paint.
+*/
+.hero-carousel,
+.hero-carousel .owl-carousel {
+  height: 100%;
+  min-height: 600px;
+  max-height: 900px;
+}
+.hero-carousel .owl-stage-outer,
+.hero-carousel .owl-stage,
+.hero-carousel .owl-item {
+  height: 100%;
+}
 .hero-carousel .owl-stage-outer { overflow: hidden; }
 
 /* Dots */
