@@ -1,15 +1,17 @@
 <div class="admin-shell">
+
   <!-- Sidebar -->
   <aside class="admin-sidebar" [class.open]="sidebarOpen()">
+
     <div class="admin-sidebar-header">
       <div class="admin-logo">
         <img src="assets/logo.png" alt="BeanArts" />
         <div>
           <span class="admin-brand">BeanArts</span>
-          <span class="admin-panel-tag">Admin</span>
+          <span class="admin-panel-tag">Admin Panel</span>
         </div>
       </div>
-      <button class="admin-close-btn" (click)="sidebarOpen.set(false)">
+      <button class="admin-close-btn" (click)="sidebarOpen.set(false)" aria-label="Close menu">
         <span class="material-icons">close</span>
       </button>
     </div>
@@ -29,7 +31,7 @@
     </nav>
 
     <div class="admin-sidebar-footer">
-      <a routerLink="/dashboard" class="admin-nav-item">
+      <a routerLink="/dashboard" class="admin-nav-item" (click)="sidebarOpen.set(false)">
         <span class="material-icons">person</span>
         <span>My Account</span>
       </a>
@@ -45,12 +47,37 @@
   }
 
   <div class="admin-main">
+
     <header class="admin-topbar">
-      <button class="admin-menu-btn" (click)="sidebarOpen.set(true)">
-        <span class="material-icons">menu</span>
-      </button>
-      <span class="admin-topbar-title">Admin Panel</span>
+
+      <!-- Left: burger + logo -->
+      <div class="admin-topbar-left">
+        <button class="admin-menu-btn" (click)="sidebarOpen.set(true)" aria-label="Open menu">
+          <span class="material-icons">menu</span>
+        </button>
+        <a routerLink="/" class="admin-topbar-logo">
+          <img src="assets/logo.png" alt="BeanArts" class="admin-topbar-logo-img" />
+          <div class="admin-topbar-logo-text">
+            <span class="admin-topbar-logo-name">BeanArts</span>
+            <span class="admin-topbar-logo-tag">Admin</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right: My Account + Sign Out -->
+      <div class="admin-topbar-right">
+        <a routerLink="/dashboard" class="admin-topbar-action" title="My Account">
+          <span class="material-icons">person_outline</span>
+          <span class="admin-topbar-action-label">My Account</span>
+        </a>
+        <button class="admin-signout-btn" (click)="logout()" title="Sign Out">
+          <span class="material-icons">logout</span>
+          <span class="admin-topbar-action-label">Sign Out</span>
+        </button>
+      </div>
+
     </header>
+
     <main class="admin-content">
       <router-outlet></router-outlet>
     </main>

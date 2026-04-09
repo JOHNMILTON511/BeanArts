@@ -12,7 +12,8 @@
       "Bash(node:*)",
       "Bash(npm install:*)",
       "Bash(node_modules/.bin/playwright install:*)",
-      "Bash(node_modules/.bin/playwright test:*)"
+      "Bash(node_modules/.bin/playwright test:*)",
+      "Bash(npx ng:*)"
     ]
   }
 }

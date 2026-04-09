@@ -1,8 +1,11 @@
-import { afterNextRender, Component, inject, OnDestroy, signal } from '@angular/core';
+import { afterNextRender, Component, inject, OnDestroy, signal, computed } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Header } from './shared/header/header';
 import { Footer } from './shared/footer/footer';
+
+/** Routes that should render without the public header/footer shell */
+const STANDALONE_PREFIXES = ['/dashboard', '/admin', '/login', '/register', '/forgot-password'];
 
 @Component({
   selector: 'app-root',
@@ -13,12 +16,24 @@ import { Footer } from './shared/footer/footer';
 export class App implements OnDestroy {
   protected readonly title = signal('BeanArts');
 
+  /** Tracks current URL path, updated on every NavigationEnd */
+  protected readonly currentUrl = signal('/');
+
+  /** True only on public marketing/catalog pages */
+  protected readonly showPublicShell = computed(() => {
+    const url = this.currentUrl();
+    return !STANDALONE_PREFIXES.some(prefix => url.startsWith(prefix));
+  });
+
   private router      = inject(Router);
   private routerSub!: Subscription;
   private barEl: HTMLElement | null = null;
   private barTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
+    // Set initial URL synchronously so SSR renders correctly
+    this.currentUrl.set(this.router.url || '/');
+
     afterNextRender(() => {
       // Mark doc as JS-ready → scroll-reveal animations activate,
       // SSR hydration flash is prevented (see styles.css ba-ready guard)
@@ -36,6 +51,11 @@ export class App implements OnDestroy {
       // Wire up route-level progress bar
       this.barEl = document.getElementById('ba-route-bar');
       this.routerSub = this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          // Update current URL for shell visibility
+          this.currentUrl.set(event.urlAfterRedirects);
+        }
+
         if (!this.barEl) return;
         if (event instanceof NavigationStart) {
           this.barEl.classList.remove('ba-bar-complete');

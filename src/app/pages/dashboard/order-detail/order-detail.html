@@ -91,14 +91,14 @@
           @if (order()!.shippingAddress.line2) { <br />{{ order()!.shippingAddress.line2 }} }
           <br />{{ order()!.shippingAddress.city }}, {{ order()!.shippingAddress.state }} — {{ order()!.shippingAddress.pincode }}<br />
           {{ order()!.shippingAddress.country }}<br />
-          <span style="color:rgba(255,255,255,.5);">📞 {{ order()!.shippingAddress.phone }}</span>
+          <span class="od-phone">📞 {{ order()!.shippingAddress.phone }}</span>
         </address>
       </div>
 
       @if (order()!.notes) {
         <div class="od-card">
           <h3 class="od-card-title">Order Notes</h3>
-          <p style="color:rgba(255,255,255,.6);font-size:.875rem;line-height:1.6;">{{ order()!.notes }}</p>
+          <p class="od-notes-text">{{ order()!.notes }}</p>
         </div>
       }
     </div>
