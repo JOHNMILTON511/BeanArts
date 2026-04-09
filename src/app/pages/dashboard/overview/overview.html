@@ -1,0 +1,102 @@
+<div class="overview">
+  <!-- Welcome -->
+  <div class="overview-welcome">
+    <div>
+      <h1 class="ov-heading">Welcome back, {{ (profile()?.displayName?.split(' ') ?? ['there'])[0] }}!</h1>
+      <p class="ov-sub">Here's what's happening with your account.</p>
+    </div>
+    <a routerLink="/products" class="ov-shop-btn">
+      <span class="material-icons">storefront</span>
+      Browse Products
+    </a>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="ov-stats">
+    <div class="ov-stat-card">
+      <div class="ov-stat-icon" style="background:rgba(193,123,45,.15);color:#c17b2d;">
+        <span class="material-icons">shopping_bag</span>
+      </div>
+      <div>
+        <div class="ov-stat-value">{{ recentOrders().length }}</div>
+        <div class="ov-stat-label">Recent Orders</div>
+      </div>
+    </div>
+    <div class="ov-stat-card">
+      <div class="ov-stat-icon" style="background:rgba(59,130,246,.12);color:#60a5fa;">
+        <span class="material-icons">shopping_cart</span>
+      </div>
+      <div>
+        <div class="ov-stat-value">{{ cartCount() }}</div>
+        <div class="ov-stat-label">Items in Cart</div>
+      </div>
+    </div>
+    <div class="ov-stat-card">
+      <div class="ov-stat-icon" style="background:rgba(52,211,153,.12);color:#34d399;">
+        <span class="material-icons">business</span>
+      </div>
+      <div>
+        <div class="ov-stat-value">{{ profile()?.companyName || '—' }}</div>
+        <div class="ov-stat-label">Company</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent orders -->
+  <div class="ov-section">
+    <div class="ov-section-header">
+      <h2 class="ov-section-title">Recent Orders</h2>
+      <a routerLink="/dashboard/orders" class="ov-view-all">View all</a>
+    </div>
+
+    @if (recentOrders().length === 0) {
+      <div class="ov-empty">
+        <span class="material-icons" style="font-size:2.5rem;color:rgba(255,255,255,.15);">inbox</span>
+        <p>No orders yet. <a routerLink="/products" style="color:#c17b2d;">Start shopping!</a></p>
+      </div>
+    } @else {
+      <div class="ov-orders-list">
+        @for (order of recentOrders(); track order.id) {
+          <a [routerLink]="['/dashboard/orders', order.id]" class="ov-order-row">
+            <div class="ov-order-info">
+              <span class="ov-order-id">#{{ order.id?.slice(-8)?.toUpperCase() }}</span>
+              <span class="ov-order-items">{{ order.items.length }} item(s)</span>
+            </div>
+            <div class="ov-order-mid">
+              <span class="ov-status-pill" [style.background]="statusColors[order.status] + '22'" [style.color]="statusColors[order.status]">
+                {{ statusLabels[order.status] }}
+              </span>
+            </div>
+            <div class="ov-order-amount">
+              ₹{{ order.total.toLocaleString('en-IN') }}
+            </div>
+            <span class="material-icons" style="color:rgba(255,255,255,.25);">chevron_right</span>
+          </a>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Quick links -->
+  <div class="ov-section">
+    <h2 class="ov-section-title">Quick Links</h2>
+    <div class="ov-quick-links">
+      <a routerLink="/dashboard/cart" class="ov-quick-card">
+        <span class="material-icons">shopping_cart</span>
+        <span>My Cart</span>
+      </a>
+      <a routerLink="/dashboard/profile" class="ov-quick-card">
+        <span class="material-icons">person_outline</span>
+        <span>Edit Profile</span>
+      </a>
+      <a routerLink="/contact" class="ov-quick-card">
+        <span class="material-icons">headset_mic</span>
+        <span>Get Support</span>
+      </a>
+      <a routerLink="/products" class="ov-quick-card">
+        <span class="material-icons">storefront</span>
+        <span>Shop Now</span>
+      </a>
+    </div>
+  </div>
+</div>

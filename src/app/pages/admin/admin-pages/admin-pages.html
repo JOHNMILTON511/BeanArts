@@ -1,0 +1,245 @@
+<!-- ══════════════════════════════════════════════════════════
+     LIST VIEW
+══════════════════════════════════════════════════════════ -->
+@if (view() === 'list') {
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Pages</h1>
+      <p class="page-sub">{{ filtered.length }} page(s) — manage your site content</p>
+    </div>
+    <div class="header-actions">
+      <div class="search-wrap">
+        <span class="material-icons search-icon">search</span>
+        <input type="text" class="search-input" placeholder="Search pages…"
+          [ngModel]="search()" (ngModelChange)="search.set($event)" />
+      </div>
+      <button class="btn-add" (click)="openAdd()">
+        <span class="material-icons">add</span>
+        New Page
+      </button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state"><div class="spinner-ring"></div></div>
+  } @else if (filtered.length === 0) {
+    <div class="empty-state">
+      <span class="material-icons empty-icon">article</span>
+      <p>No pages yet.</p>
+      <button class="btn-add" (click)="openAdd()">Create your first page</button>
+    </div>
+  } @else {
+    <div class="pages-table-wrap">
+      <table class="pages-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Slug / URL</th>
+            <th>Status</th>
+            <th>Order</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (page of filtered; track page.id) {
+            <tr>
+              <td>
+                <p class="page-name">{{ page.title }}</p>
+                @if (page.metaDescription) {
+                  <p class="page-meta-desc">{{ page.metaDescription }}</p>
+                }
+              </td>
+              <td>
+                <span class="slug-chip">/page/{{ page.slug }}</span>
+              </td>
+              <td>
+                <button class="status-toggle"
+                  [class.published]="page.status === 'published'"
+                  (click)="toggleStatus(page)">
+                  <span class="material-icons status-dot">
+                    {{ page.status === 'published' ? 'radio_button_checked' : 'radio_button_unchecked' }}
+                  </span>
+                  {{ page.status === 'published' ? 'Published' : 'Draft' }}
+                </button>
+              </td>
+              <td class="center-cell">{{ page.sortOrder }}</td>
+              <td class="date-cell">{{ page.updatedAt | date:'dd MMM yyyy' }}</td>
+              <td>
+                <div class="action-btns">
+                  <a [href]="'/page/' + page.slug" target="_blank"
+                    class="action-btn" title="View live page"
+                    [class.disabled-link]="page.status !== 'published'">
+                    <span class="material-icons">open_in_new</span>
+                  </a>
+                  <button class="action-btn" (click)="openEdit(page)" title="Edit">
+                    <span class="material-icons">edit</span>
+                  </button>
+                  <button class="action-btn action-danger" (click)="deletePage(page)" title="Delete">
+                    <span class="material-icons">delete_outline</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+}
+
+<!-- ══════════════════════════════════════════════════════════
+     FORM VIEW  (Add / Edit)
+══════════════════════════════════════════════════════════ -->
+@if (view() === 'form') {
+  <div class="form-header">
+    <button class="back-btn" (click)="cancel()">
+      <span class="material-icons">arrow_back</span>
+      Pages
+    </button>
+    <h1 class="page-title">{{ editingPage() ? 'Edit Page' : 'New Page' }}</h1>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="cms-form" novalidate>
+    <div class="cms-grid">
+
+      <!-- ── Left column: content ── -->
+      <div class="cms-main">
+
+        <!-- Title -->
+        <div class="field-group">
+          <label class="field-label">Page Title <span class="req">*</span></label>
+          <input type="text" formControlName="title" class="field-input"
+            placeholder="e.g. About BeanArts"
+            (input)="onTitleChange($any($event.target).value)" />
+          @if (form.get('title')?.invalid && form.get('title')?.touched) {
+            <span class="field-err">Title is required (min 2 characters).</span>
+          }
+        </div>
+
+        <!-- Slug -->
+        <div class="field-group">
+          <label class="field-label">
+            URL Slug <span class="req">*</span>
+            <span class="field-hint"> — only lowercase letters, numbers and hyphens</span>
+          </label>
+          <div class="slug-wrap">
+            <span class="slug-prefix">/page/</span>
+            <input type="text" formControlName="slug" class="field-input slug-input"
+              placeholder="about-beanarts" />
+          </div>
+          @if (form.get('slug')?.invalid && form.get('slug')?.touched) {
+            <span class="field-err">
+              Slug is required and must only contain lowercase letters, numbers and hyphens.
+            </span>
+          }
+        </div>
+
+        <!-- Content editor -->
+        <div class="field-group">
+          <div class="editor-header">
+            <label class="field-label" style="margin:0;">Content</label>
+            <div class="editor-tabs">
+              <button type="button" class="editor-tab" [class.active]="editorTab()==='write'"
+                (click)="switchTab('write')">Write</button>
+              <button type="button" class="editor-tab" [class.active]="editorTab()==='preview'"
+                (click)="switchTab('preview')">Preview</button>
+            </div>
+          </div>
+
+          @if (editorTab() === 'write') {
+            <textarea formControlName="content" class="content-editor"
+              rows="20"
+              placeholder="Write your page content here. You can use HTML tags for formatting.&#10;&#10;Example:&#10;&lt;h2&gt;Section Title&lt;/h2&gt;&#10;&lt;p&gt;Your paragraph text here.&lt;/p&gt;&#10;&lt;ul&gt;&lt;li&gt;List item&lt;/li&gt;&lt;/ul&gt;">
+            </textarea>
+            <p class="editor-hint">
+              <span class="material-icons" style="font-size:.8rem;vertical-align:middle;">info</span>
+              HTML is supported — use &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;, &lt;a&gt;, etc.
+            </p>
+          }
+
+          @if (editorTab() === 'preview') {
+            <div class="content-preview" [innerHTML]="previewHtml">
+            </div>
+            @if (!form.value.content) {
+              <p class="preview-empty">Nothing to preview — write some content first.</p>
+            }
+          }
+        </div>
+
+      </div>
+
+      <!-- ── Right column: settings ── -->
+      <div class="cms-sidebar">
+
+        <!-- Publish -->
+        <div class="sidebar-card">
+          <h3 class="sidebar-card-title">Publish</h3>
+
+          <div class="field-group">
+            <label class="field-label">Status</label>
+            <select formControlName="status" class="field-select">
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Sort Order</label>
+            <input type="number" formControlName="sortOrder" class="field-input" min="0" />
+            <span class="field-hint">Lower numbers appear first in lists.</span>
+          </div>
+
+          @if (error()) {
+            <div class="form-error">
+              <span class="material-icons">error_outline</span>
+              {{ error() }}
+            </div>
+          }
+
+          <div class="sidebar-actions">
+            <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn-save" [disabled]="saving()">
+              @if (saving()) {
+                <span class="btn-spinner"></span>
+              }
+              {{ saving() ? 'Saving…' : (editingPage() ? 'Update Page' : 'Create Page') }}
+            </button>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="sidebar-card">
+          <h3 class="sidebar-card-title">SEO / Meta</h3>
+
+          <div class="field-group">
+            <label class="field-label">Meta Title</label>
+            <input type="text" formControlName="metaTitle" class="field-input"
+              placeholder="Leave blank to use page title" />
+            <span class="field-hint">{{ (form.value.metaTitle?.length ?? 0) }}/60 chars recommended</span>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Meta Description</label>
+            <textarea formControlName="metaDescription" class="field-textarea" rows="3"
+              placeholder="Short description shown in search results…">
+            </textarea>
+            <span class="field-hint">{{ (form.value.metaDescription?.length ?? 0) }}/160 chars recommended</span>
+          </div>
+        </div>
+
+        <!-- Live URL -->
+        @if (editingPage()?.status === 'published') {
+          <div class="sidebar-card">
+            <h3 class="sidebar-card-title">Live URL</h3>
+            <a [href]="'/page/' + form.value.slug" target="_blank" class="live-url-link">
+              /page/{{ form.value.slug }}
+              <span class="material-icons" style="font-size:.9rem;">open_in_new</span>
+            </a>
+          </div>
+        }
+
+      </div>
+    </div>
+  </form>
+}

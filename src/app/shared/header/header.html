@@ -98,10 +98,17 @@
     <!-- Desktop CTAs -->
     <div class="header-ctas">
       <a routerLink="/contact" class="header-btn-outline">Get a Quote</a>
-      <a routerLink="/contact" class="header-btn-primary">
-        <i class="fas fa-rocket" style="font-size:11px;"></i>
-        Start Project
-      </a>
+      @if (authService.isLoggedIn) {
+        <a routerLink="/dashboard" class="header-btn-primary">
+          <i class="fas fa-user-circle" style="font-size:11px;"></i>
+          My Account
+        </a>
+      } @else {
+        <a routerLink="/login" class="header-btn-primary">
+          <i class="fas fa-sign-in-alt" style="font-size:11px;"></i>
+          Sign In
+        </a>
+      }
     </div>
 
     <!-- Mobile burger -->
@@ -144,10 +151,17 @@
         <a routerLink="/contact" class="header-btn-outline" style="justify-content:center;">
           Get a Quote
         </a>
-        <a routerLink="/contact" class="header-btn-primary" style="justify-content:center;">
-          <i class="fas fa-rocket" style="font-size:11px;"></i>
-          Start Project
-        </a>
+        @if (authService.isLoggedIn) {
+          <a routerLink="/dashboard" class="header-btn-primary" style="justify-content:center;">
+            <i class="fas fa-user-circle" style="font-size:11px;"></i>
+            My Account
+          </a>
+        } @else {
+          <a routerLink="/login" class="header-btn-primary" style="justify-content:center;">
+            <i class="fas fa-sign-in-alt" style="font-size:11px;"></i>
+            Sign In
+          </a>
+        }
       </div>
     </div>
   }

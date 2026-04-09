@@ -1,0 +1,62 @@
+.page-header { margin-bottom: 1.75rem; }
+.page-title { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 .3rem; }
+.page-sub { color: rgba(255,255,255,.4); font-size: .875rem; margin: 0; }
+
+.loading-state, .empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 1rem;
+  padding: 4rem 1rem; color: rgba(255,255,255,.4);
+  text-align: center;
+}
+.empty-icon { font-size: 3rem !important; color: rgba(255,255,255,.12); }
+.empty-state h3 { color: #fff; font-size: 1.1rem; margin: 0; }
+.empty-state p { margin: 0; font-size: .875rem; }
+.btn-primary-sm {
+  background: linear-gradient(135deg,#c17b2d,#9a5c1e);
+  color: #fff; text-decoration: none;
+  padding: .6rem 1.25rem; border-radius: 8px;
+  font-size: .85rem; font-weight: 600;
+  transition: opacity .2s;
+}
+.btn-primary-sm:hover { opacity: .85; }
+
+.spinner-ring {
+  width: 36px; height: 36px;
+  border: 3px solid rgba(255,255,255,.12);
+  border-top-color: #c17b2d;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.orders-table-wrap {
+  background: #1a1a1a; border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px; overflow-x: auto;
+}
+.orders-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.orders-table thead tr {
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.orders-table th {
+  text-align: left; padding: 1rem 1.25rem;
+  color: rgba(255,255,255,.4); font-weight: 600;
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .5px;
+}
+.orders-table td { padding: .9rem 1.25rem; color: rgba(255,255,255,.8); }
+.orders-table tbody tr { border-bottom: 1px solid rgba(255,255,255,.05); transition: background .15s; }
+.orders-table tbody tr:last-child { border: none; }
+.orders-table tbody tr:hover { background: rgba(255,255,255,.03); }
+
+.order-id { font-family: monospace; color: #fff; font-weight: 600; }
+.tracking-id { display: block; font-size: .72rem; color: rgba(255,255,255,.35); font-family: monospace; }
+.order-date { color: rgba(255,255,255,.5); }
+.order-total { font-weight: 700; color: #fff; }
+
+.status-pill { padding: .25rem .65rem; border-radius: 99px; font-size: .75rem; font-weight: 600; white-space: nowrap; }
+
+.view-btn {
+  display: inline-flex; align-items: center;
+  color: #c17b2d; text-decoration: none; font-weight: 600;
+  font-size: .8rem; transition: color .2s;
+}
+.view-btn:hover { color: #e09d4a; }

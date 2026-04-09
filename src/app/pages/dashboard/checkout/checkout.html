@@ -1,0 +1,118 @@
+<div class="checkout-page">
+  <div class="page-header">
+    <h1 class="page-title">Checkout</h1>
+    <a routerLink="/dashboard/cart" class="back-link">
+      <span class="material-icons">arrow_back</span> Back to Cart
+    </a>
+  </div>
+
+  <div class="checkout-layout">
+    <!-- Shipping Form -->
+    <div class="checkout-form-wrap">
+      <h3 class="section-title">Shipping Address</h3>
+      <form [formGroup]="form" (ngSubmit)="placeOrder()" class="checkout-form" novalidate>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Contact name *</label>
+            <input formControlName="name" class="field-input" placeholder="Riya Sharma" type="text" />
+            @if (form.get('name')?.invalid && form.get('name')?.touched) {
+              <span class="field-msg">Required.</span>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label">Phone *</label>
+            <input formControlName="phone" class="field-input" placeholder="9876543210" type="tel" />
+            @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
+              <span class="field-msg">Valid 10-digit Indian mobile number required.</span>
+            }
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Address Line 1 *</label>
+          <input formControlName="line1" class="field-input" placeholder="Flat / Building / Street" type="text" />
+          @if (form.get('line1')?.invalid && form.get('line1')?.touched) {
+            <span class="field-msg">Required.</span>
+          }
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Address Line 2</label>
+          <input formControlName="line2" class="field-input" placeholder="Landmark / Area (optional)" type="text" />
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">City *</label>
+            <input formControlName="city" class="field-input" placeholder="Mumbai" type="text" />
+            @if (form.get('city')?.invalid && form.get('city')?.touched) {
+              <span class="field-msg">Required.</span>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label">State *</label>
+            <input formControlName="state" class="field-input" placeholder="Maharashtra" type="text" />
+            @if (form.get('state')?.invalid && form.get('state')?.touched) {
+              <span class="field-msg">Required.</span>
+            }
+          </div>
+          <div class="field-group field-group-sm">
+            <label class="field-label">Pincode *</label>
+            <input formControlName="pincode" class="field-input" placeholder="400001" type="text" maxlength="6" />
+            @if (form.get('pincode')?.invalid && form.get('pincode')?.touched) {
+              <span class="field-msg">6-digit pincode required.</span>
+            }
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Order Notes / Custom Requirements</label>
+          <textarea formControlName="notes" class="field-input field-textarea" placeholder="E.g. Company logo to be printed, packaging colour preference, etc." rows="3"></textarea>
+        </div>
+
+        @if (error()) {
+          <div class="error-banner">
+            <span class="material-icons">error_outline</span>
+            {{ error() }}
+          </div>
+        }
+
+        <button type="submit" class="btn-place" [disabled]="loading()">
+          @if (loading()) {
+            <span class="btn-spinner"></span> Placing Order…
+          } @else {
+            Place Order — ₹{{ total.toLocaleString('en-IN') }}
+          }
+        </button>
+      </form>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="checkout-summary">
+      <h3 class="section-title">Your Order ({{ items().length }} items)</h3>
+      <div class="co-items">
+        @for (item of items(); track (item.productId + item.variantId)) {
+          <div class="co-item">
+            <img [src]="item.imageUrl || 'assets/placeholder.jpg'" [alt]="item.name" class="co-img" />
+            <div class="co-item-info">
+              <p class="co-name">{{ item.name }}</p>
+              @if (item.variantName) { <p class="co-variant">{{ item.variantName }}</p> }
+              <p class="co-qty">Qty: {{ item.quantity }}</p>
+            </div>
+            <p class="co-price">₹{{ (item.price * item.quantity).toLocaleString('en-IN') }}</p>
+          </div>
+        }
+      </div>
+      <div class="co-total-rows">
+        <div class="co-row"><span>Subtotal</span><span>₹{{ subtotal().toLocaleString('en-IN') }}</span></div>
+        <div class="co-row"><span>GST (18%)</span><span>₹{{ tax.toLocaleString('en-IN') }}</span></div>
+        <div class="co-row co-grand"><span>Total</span><span>₹{{ total.toLocaleString('en-IN') }}</span></div>
+      </div>
+      <p class="co-note">
+        <span class="material-icons" style="font-size:.9rem;vertical-align:middle;">info</span>
+        Payment is collected offline by our team after order confirmation.
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="admin-shell">
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" [class.open]="sidebarOpen()">
+    <div class="admin-sidebar-header">
+      <div class="admin-logo">
+        <img src="assets/logo.png" alt="BeanArts" />
+        <div>
+          <span class="admin-brand">BeanArts</span>
+          <span class="admin-panel-tag">Admin</span>
+        </div>
+      </div>
+      <button class="admin-close-btn" (click)="sidebarOpen.set(false)">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <nav class="admin-nav">
+      @for (item of navItems; track item.route) {
+        <a
+          class="admin-nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          (click)="sidebarOpen.set(false)"
+        >
+          <span class="material-icons">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="admin-sidebar-footer">
+      <a routerLink="/dashboard" class="admin-nav-item">
+        <span class="material-icons">person</span>
+        <span>My Account</span>
+      </a>
+      <button class="admin-nav-item admin-logout" (click)="logout()">
+        <span class="material-icons">logout</span>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  @if (sidebarOpen()) {
+    <div class="admin-overlay" (click)="sidebarOpen.set(false)"></div>
+  }
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="admin-menu-btn" (click)="sidebarOpen.set(true)">
+        <span class="material-icons">menu</span>
+      </button>
+      <span class="admin-topbar-title">Admin Panel</span>
+    </header>
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="products-page">
+  <!-- Page Header -->
+  <div class="products-hero">
+    <h1 class="products-title">Our Products</h1>
+    <p class="products-sub">Premium corporate gifts, custom packaging & branded merchandise — crafted for your business.</p>
+  </div>
+
+  <!-- Filters & Search -->
+  <div class="products-toolbar">
+    <div class="category-tabs">
+      @for (cat of categories; track cat) {
+        <button
+          class="cat-tab"
+          [class.active]="activeFilter() === cat"
+          (click)="activeFilter.set(cat)"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+    <div class="search-wrap">
+      <span class="material-icons search-icon">search</span>
+      <input type="text" class="search-input" placeholder="Search products…"
+        [ngModel]="search()" (ngModelChange)="search.set($event)" />
+    </div>
+  </div>
+
+  <!-- Grid -->
+  @if (loading()) {
+    <div class="loading-state"><div class="spinner-ring"></div><p>Loading products…</p></div>
+  } @else if (filtered.length === 0) {
+    <div class="empty-state">
+      <span class="material-icons" style="font-size:3rem;color:rgba(255,255,255,.12);">search_off</span>
+      <p>No products found. Try a different filter.</p>
+    </div>
+  } @else {
+    <div class="products-count">Showing {{ filtered.length }} product(s)</div>
+    <div class="products-grid">
+      @for (product of filtered; track product.id) {
+        <div class="product-card">
+          <!-- Image -->
+          <a [routerLink]="['/products', product.id]" class="product-img-wrap">
+            @if (product.images?.[0]) {
+              <img [src]="product.images[0]" [alt]="product.name" class="product-img" loading="lazy" />
+            } @else {
+              <div class="product-img-placeholder">
+                <span class="material-icons">image</span>
+              </div>
+            }
+            @if (product.featured) {
+              <span class="product-badge">Featured</span>
+            }
+          </a>
+
+          <!-- Info -->
+          <div class="product-info">
+            <span class="product-category">{{ product.category }}</span>
+            <a [routerLink]="['/products', product.id]" class="product-name">{{ product.name }}</a>
+            <p class="product-desc">{{ product.description }}</p>
+
+            <div class="product-meta">
+              <div>
+                <p class="product-price">₹{{ product.price.toLocaleString('en-IN') }}</p>
+                <p class="product-min-qty">Min. {{ product.minQty }} units</p>
+              </div>
+              @if (product.variants?.length) {
+                <span class="product-variants-tag">{{ product.variants.length }} variants</span>
+              }
+            </div>
+
+            <div class="product-actions">
+              <a [routerLink]="['/products', product.id]" class="btn-details">View Details</a>
+              <button
+                class="btn-add-cart"
+                (click)="addToCart(product)"
+                [class.added]="addedId() === product.id"
+                [disabled]="!product.inStock"
+              >
+                @if (addedId() === product.id) {
+                  <span class="material-icons">check</span> Added
+                } @else if (!product.inStock) {
+                  Out of Stock
+                } @else {
+                  <span class="material-icons">add_shopping_cart</span>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,63 @@
+<div class="page-header">
+  <h1 class="page-title">My Orders</h1>
+  <p class="page-sub">Track and manage all your BeanArts orders.</p>
+</div>
+
+@if (loading()) {
+  <div class="loading-state">
+    <div class="spinner-ring"></div>
+    <p>Loading orders…</p>
+  </div>
+} @else if (orders().length === 0) {
+  <div class="empty-state">
+    <span class="material-icons empty-icon">shopping_bag</span>
+    <h3>No orders yet</h3>
+    <p>Once you place an order, you'll see it here.</p>
+    <a routerLink="/products" class="btn-primary-sm">Browse Products</a>
+  </div>
+} @else {
+  <div class="orders-table-wrap">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders(); track order.id) {
+          <tr>
+            <td class="order-id">
+              #{{ order.id?.slice(-8)?.toUpperCase() }}
+              @if (order.trackingId) {
+                <span class="tracking-id">TRK: {{ order.trackingId }}</span>
+              }
+            </td>
+            <td class="order-date">
+              {{ order.createdAt | date:'dd MMM yyyy' }}
+            </td>
+            <td>{{ order.items.length }} item(s)</td>
+            <td class="order-total">₹{{ order.total.toLocaleString('en-IN') }}</td>
+            <td>
+              <span class="status-pill"
+                [style.background]="statusColors[order.status] + '22'"
+                [style.color]="statusColors[order.status]"
+              >
+                {{ statusLabels[order.status] }}
+              </span>
+            </td>
+            <td>
+              <a [routerLink]="['/dashboard/orders', order.id]" class="view-btn">
+                View <span class="material-icons" style="font-size:.9rem;">chevron_right</span>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

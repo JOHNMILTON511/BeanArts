@@ -1,0 +1,80 @@
+<div class="profile-page">
+  <div class="page-header">
+    <h1 class="page-title">My Profile</h1>
+    <p class="page-sub">Update your account information.</p>
+  </div>
+
+  <div class="profile-layout">
+    <!-- Avatar card -->
+    <div class="profile-avatar-card">
+      <div class="profile-avatar-circle">
+        {{ profile()?.displayName?.charAt(0)?.toUpperCase() || 'U' }}
+      </div>
+      <p class="profile-name">{{ profile()?.displayName || 'Your Name' }}</p>
+      <p class="profile-company">{{ profile()?.companyName || '' }}</p>
+      <p class="profile-email">{{ profile()?.email || '' }}</p>
+      <span class="profile-role-badge">
+        <span class="material-icons" style="font-size:.85rem;">verified_user</span>
+        {{ profile()?.role === 'admin' ? 'Admin' : 'Customer' }}
+      </span>
+    </div>
+
+    <!-- Form card -->
+    <div class="profile-form-card">
+      <form [formGroup]="form" (ngSubmit)="save()" class="profile-form" novalidate>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Full name *</label>
+            <input formControlName="displayName" class="field-input" type="text" placeholder="Riya Sharma" />
+            @if (form.get('displayName')?.invalid && form.get('displayName')?.touched) {
+              <span class="field-msg">At least 2 characters required.</span>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label">Company / Organisation *</label>
+            <input formControlName="companyName" class="field-input" type="text" placeholder="Acme Pvt. Ltd." />
+            @if (form.get('companyName')?.invalid && form.get('companyName')?.touched) {
+              <span class="field-msg">Required.</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Phone</label>
+            <input formControlName="phone" class="field-input" type="tel" placeholder="9876543210" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">GST Number</label>
+            <input formControlName="gstNumber" class="field-input" type="text" placeholder="22AAAAA0000A1Z5" />
+          </div>
+        </div>
+
+        @if (error()) {
+          <div class="error-banner">
+            <span class="material-icons">error_outline</span>
+            {{ error() }}
+          </div>
+        }
+
+        @if (saved()) {
+          <div class="success-banner">
+            <span class="material-icons">check_circle</span>
+            Profile saved successfully!
+          </div>
+        }
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save" [disabled]="saving()">
+            @if (saving()) {
+              <span class="btn-spinner"></span> Saving…
+            } @else {
+              Save Changes
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem; }
+.page-title { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 .3rem; }
+.page-sub { color: rgba(255,255,255,.4); font-size: .875rem; margin: 0; }
+.search-wrap { position: relative; }
+.search-icon { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.3); font-size: 1.1rem !important; }
+.search-input { background: #1a1a1a; border: 1.5px solid rgba(255,255,255,.1); border-radius: 8px; color: #fff; font-size: .875rem; padding: .55rem .85rem .55rem 2.35rem; outline: none; font-family: inherit; min-width: 280px; }
+.search-input:focus { border-color: #c17b2d; }
+
+.loading-state, .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 1rem; gap: 1rem; color: rgba(255,255,255,.4); }
+.empty-icon { font-size: 3rem !important; color: rgba(255,255,255,.12); }
+.spinner-ring { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,.12); border-top-color: #c17b2d; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.customers-table-wrap { background: #1a1a1a; border: 1px solid rgba(255,255,255,.07); border-radius: 14px; overflow-x: auto; }
+.customers-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.customers-table thead tr { border-bottom: 1px solid rgba(255,255,255,.08); }
+.customers-table th { text-align: left; padding: .9rem 1.1rem; color: rgba(255,255,255,.4); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .5px; }
+.customers-table td { padding: .85rem 1.1rem; color: rgba(255,255,255,.7); vertical-align: middle; }
+.customers-table tbody tr { border-bottom: 1px solid rgba(255,255,255,.05); transition: background .15s; }
+.customers-table tbody tr:last-child { border: none; }
+.customers-table tbody tr:hover { background: rgba(255,255,255,.03); }
+
+.cust-name-cell { display: flex; align-items: center; gap: .75rem; }
+.cust-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg,#c17b2d,#9a5c1e); display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+.cust-name { font-weight: 600; color: #fff; }
+.cust-company { color: rgba(255,255,255,.5); }
+.cust-email { color: rgba(255,255,255,.55); font-size: .82rem; }
+.cust-gst { font-family: monospace; font-size: .8rem; color: rgba(255,255,255,.4); }
+.cust-date { color: rgba(255,255,255,.4); white-space: nowrap; }

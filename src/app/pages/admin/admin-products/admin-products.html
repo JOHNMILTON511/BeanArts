@@ -1,0 +1,88 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Products</h1>
+    <p class="page-sub">{{ filtered.length }} product(s)</p>
+  </div>
+  <div class="header-actions">
+    <div class="search-wrap">
+      <span class="material-icons search-icon">search</span>
+      <input type="text" class="search-input" placeholder="Search products…"
+        [ngModel]="search()" (ngModelChange)="search.set($event)" />
+    </div>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="loading-state"><div class="spinner-ring"></div></div>
+} @else if (filtered.length === 0) {
+  <div class="empty-state">
+    <span class="material-icons empty-icon">inventory_2</span>
+    <p>No products found. Add products via Firebase Console.</p>
+  </div>
+} @else {
+  <div class="products-table-wrap">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Base Price</th>
+          <th>Min Qty</th>
+          <th>Variants</th>
+          <th>Stock</th>
+          <th>Featured</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of filtered; track product.id) {
+          <tr>
+            <td class="product-name-cell">
+              @if (product.images?.[0]) {
+                <img [src]="product.images[0]" [alt]="product.name" class="product-thumb" />
+              } @else {
+                <div class="product-thumb-placeholder">
+                  <span class="material-icons">image</span>
+                </div>
+              }
+              <div>
+                <p class="product-name">{{ product.name }}</p>
+                <p class="product-tags">{{ product.tags?.join(', ') }}</p>
+              </div>
+            </td>
+            <td><span class="category-badge">{{ product.category }}</span></td>
+            <td class="price-cell">₹{{ product.price.toLocaleString('en-IN') }}</td>
+            <td>{{ product.minQty }}</td>
+            <td>{{ product.variants?.length || 0 }}</td>
+            <td>
+              <button class="toggle-btn"
+                [class.active]="product.inStock"
+                (click)="toggleStock(product)"
+                [attr.aria-label]="product.inStock ? 'Mark out of stock' : 'Mark in stock'"
+              >
+                {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+              </button>
+            </td>
+            <td>
+              <span class="material-icons featured-icon" [style.color]="product.featured ? '#c17b2d' : 'rgba(255,255,255,.15)'">
+                {{ product.featured ? 'star' : 'star_outline' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn action-danger" (click)="toggleStock(product)">
+                  <span class="material-icons">{{ product.inStock ? 'visibility_off' : 'visibility' }}</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="admin-note">
+    <span class="material-icons" style="font-size:.9rem;vertical-align:middle;">info</span>
+    To add or edit products, use Firebase Console → Firestore → products collection.
+  </p>
+}

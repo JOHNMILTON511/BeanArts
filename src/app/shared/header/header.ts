@@ -12,6 +12,7 @@ import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/ro
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +22,9 @@ import { filter } from 'rxjs/operators';
   styleUrl: './header.css',
 })
 export class Header implements OnInit, OnDestroy {
-  private router     = inject(Router);
-  private platformId = inject(PLATFORM_ID);
+  private router      = inject(Router);
+  private platformId  = inject(PLATFORM_ID);
+  readonly authService = inject(AuthService);
   private routerSub!: Subscription;
 
   /** True once user scrolls past 24px — triggers shadow on header */
@@ -35,11 +37,12 @@ export class Header implements OnInit, OnDestroy {
   servDrop   = signal(false);
 
   navItems = [
-    { label: 'Home',      link: '/',          exact: true },
-    { label: 'About',     link: '/about',      exact: false },
-    { label: 'Services',  link: '/services',   exact: false, hasDropdown: true },
-    { label: 'Portfolio', link: '/portfolio',  exact: false },
-    { label: 'Contact',   link: '/contact',    exact: false },
+    { label: 'Home',      link: '/',           exact: true },
+    { label: 'About',     link: '/about',       exact: false },
+    { label: 'Services',  link: '/services',    exact: false, hasDropdown: true },
+    { label: 'Products',  link: '/products',    exact: false },
+    { label: 'Portfolio', link: '/portfolio',   exact: false },
+    { label: 'Contact',   link: '/contact',     exact: false },
   ];
 
   serviceLinks = [

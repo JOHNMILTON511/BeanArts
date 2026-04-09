@@ -1,0 +1,50 @@
+.pv-shell { min-height: 70vh; padding-top: 96px; background: #0d0d0d; }
+
+.pv-loading { display: flex; align-items: center; justify-content: center; min-height: 50vh; }
+.pv-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,.1); border-top-color: #c17b2d; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.pv-not-found { display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 50vh; gap: 1rem; text-align: center; color: rgba(255,255,255,.5); padding: 2rem; }
+.pv-nf-icon  { font-size: 3.5rem !important; color: rgba(255,255,255,.1); }
+.pv-not-found h1 { color: #fff; font-size: 1.75rem; margin: 0; }
+.pv-not-found p  { margin: 0; }
+.pv-home-btn { display: inline-block; margin-top: .5rem; background: #c17b2d; color: #fff;
+  padding: .6rem 1.5rem; border-radius: 9px; text-decoration: none; font-weight: 700; }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.pv-hero      { background: linear-gradient(135deg, #1a1209 0%, #1c1208 50%, #0d0d0d 100%);
+  border-bottom: 1px solid rgba(193,123,45,.15); padding: 4rem 1.5rem 3rem; }
+.pv-hero-inner { max-width: 860px; margin: 0 auto; }
+.pv-title     { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff; margin: 0 0 .75rem;
+  line-height: 1.15; }
+.pv-subtitle  { font-size: 1.1rem; color: rgba(255,255,255,.5); margin: 0; max-width: 600px; line-height: 1.65; }
+
+/* ── Body ───────────────────────────────────────────────── */
+.pv-body    { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+/* ── Content typography ─────────────────────────────────── */
+.pv-content { color: rgba(255,255,255,.8); font-size: 1.05rem; line-height: 1.8; }
+.pv-content :is(h1,h2,h3,h4,h5,h6) { color: #fff; font-weight: 700; margin: 2rem 0 .75rem; line-height: 1.3; }
+.pv-content h1 { font-size: 2rem; }
+.pv-content h2 { font-size: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.08); padding-bottom: .5rem; }
+.pv-content h3 { font-size: 1.2rem; }
+.pv-content p  { margin: 0 0 1.2rem; }
+.pv-content a  { color: #c17b2d; text-decoration: underline; text-underline-offset: 3px; }
+.pv-content a:hover { color: #e8993e; }
+.pv-content strong, .pv-content b { color: #fff; font-weight: 700; }
+.pv-content em, .pv-content i     { color: rgba(255,255,255,.7); }
+.pv-content ul, .pv-content ol    { padding-left: 1.75rem; margin: 0 0 1.2rem; }
+.pv-content li  { margin-bottom: .4rem; }
+.pv-content blockquote { border-left: 4px solid #c17b2d; margin: 1.5rem 0; padding: .75rem 1.25rem;
+  background: rgba(193,123,45,.06); border-radius: 0 8px 8px 0; color: rgba(255,255,255,.6); font-style: italic; }
+.pv-content hr  { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 2rem 0; }
+.pv-content code { background: rgba(255,255,255,.06); border-radius: 4px; padding: .15em .4em;
+  font-family: monospace; font-size: .9em; color: #e8993e; }
+.pv-content pre { background: #111; border: 1px solid rgba(255,255,255,.08); border-radius: 9px;
+  padding: 1.25rem; overflow-x: auto; margin: 0 0 1.2rem; }
+.pv-content pre code { background: none; padding: 0; color: rgba(255,255,255,.8); }
+.pv-content img { max-width: 100%; border-radius: 10px; margin: .5rem 0; }
+.pv-content table { width: 100%; border-collapse: collapse; margin: 0 0 1.2rem; font-size: .9rem; }
+.pv-content th { background: rgba(255,255,255,.05); color: #fff; font-weight: 600; text-align: left; padding: .6rem .9rem; border: 1px solid rgba(255,255,255,.08); }
+.pv-content td { padding: .55rem .9rem; border: 1px solid rgba(255,255,255,.06); }

@@ -1,0 +1,64 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Orders</h1>
+    <p class="page-sub">{{ filteredOrders.length }} order(s)</p>
+  </div>
+  <div class="filter-wrap">
+    <select class="filter-select" [(ngModel)]="filter" (ngModelChange)="filter.set($event)">
+      @for (opt of filterOptions; track opt.value) {
+        <option [value]="opt.value">{{ opt.label }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="loading-state"><div class="spinner-ring"></div></div>
+} @else if (filteredOrders.length === 0) {
+  <div class="empty-state">
+    <span class="material-icons empty-icon">inbox</span>
+    <p>No orders found.</p>
+  </div>
+} @else {
+  <div class="orders-table-wrap">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Company</th>
+          <th>Date</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of filteredOrders; track order.id) {
+          <tr>
+            <td class="order-id">#{{ order.id?.slice(-8)?.toUpperCase() }}</td>
+            <td>{{ order.userName }}</td>
+            <td class="company-cell">{{ order.companyName }}</td>
+            <td class="date-cell">{{ order.createdAt | date:'dd MMM yy' }}</td>
+            <td>{{ order.items.length }}</td>
+            <td class="total-cell">₹{{ order.total.toLocaleString('en-IN') }}</td>
+            <td>
+              <span class="status-pill"
+                [style.background]="statusColors[order.status] + '22'"
+                [style.color]="statusColors[order.status]"
+              >
+                {{ statusLabels[order.status] }}
+              </span>
+            </td>
+            <td>
+              <a [routerLink]="['/admin/orders', order.id]" class="view-btn">
+                Manage <span class="material-icons">chevron_right</span>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

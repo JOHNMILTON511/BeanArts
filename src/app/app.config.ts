@@ -5,8 +5,9 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideAnimations(),
     importProvidersFrom(CarouselModule),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideClientHydration(withEventReplay()),
     {
       provide: IMAGE_LOADER,
@@ -30,7 +31,7 @@ export const appConfig: ApplicationConfig = {
 
       withViewTransitions(),
       withInMemoryScrolling({
-        anchorScrolling: 'enabled',   
+        anchorScrolling: 'enabled',
         scrollPositionRestoration: 'top',
       }),
     ),

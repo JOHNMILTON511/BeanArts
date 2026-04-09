@@ -1,0 +1,107 @@
+<div class="od-header">
+  <a routerLink="/dashboard/orders" class="back-link">
+    <span class="material-icons">arrow_back</span> Back to Orders
+  </a>
+</div>
+
+@if (loading()) {
+  <div class="loading-state"><div class="spinner-ring"></div></div>
+} @else if (!order()) {
+  <div class="empty-state"><p>Order not found.</p></div>
+} @else {
+  <div class="od-layout">
+
+    <!-- LEFT -->
+    <div class="od-left">
+      <!-- Order header -->
+      <div class="od-card">
+        <div class="od-card-top">
+          <div>
+            <p class="od-label">Order ID</p>
+            <p class="od-id">#{{ order()!.id?.slice(-8)?.toUpperCase() }}</p>
+          </div>
+          <span class="status-pill"
+            [style.background]="statusColors[order()!.status] + '22'"
+            [style.color]="statusColors[order()!.status]">
+            {{ statusLabels[order()!.status] }}
+          </span>
+        </div>
+        <div class="od-meta">
+          <span><span class="material-icons od-meta-icon">calendar_today</span> {{ order()!.createdAt | date:'dd MMM yyyy, hh:mm a' }}</span>
+          @if (order()!.trackingId) {
+            <span><span class="material-icons od-meta-icon">local_shipping</span> Tracking: {{ order()!.trackingId }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Progress tracker -->
+      <div class="od-card">
+        <h3 class="od-card-title">Order Progress</h3>
+        <div class="progress-track">
+          @for (step of allStatuses; track step) {
+            <div class="progress-step" [class.reached]="isReached(step)" [class.current]="order()!.status === step">
+              <div class="ps-dot">
+                @if (isReached(step) && order()!.status !== step) {
+                  <span class="material-icons" style="font-size:.9rem;">check</span>
+                }
+              </div>
+              <span class="ps-label">{{ statusLabels[step] }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Items -->
+      <div class="od-card">
+        <h3 class="od-card-title">Items Ordered ({{ order()!.items.length }})</h3>
+        <div class="od-items">
+          @for (item of order()!.items; track item.productId) {
+            <div class="od-item">
+              <img [src]="item.imageUrl || 'assets/placeholder.jpg'" [alt]="item.name" class="od-item-img" />
+              <div class="od-item-info">
+                <p class="od-item-name">{{ item.name }}</p>
+                @if (item.variantName) {
+                  <p class="od-item-variant">{{ item.variantName }}</p>
+                }
+                <p class="od-item-qty">Qty: {{ item.quantity }}</p>
+              </div>
+              <p class="od-item-price">₹{{ (item.price * item.quantity).toLocaleString('en-IN') }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="od-right">
+      <!-- Price summary -->
+      <div class="od-card">
+        <h3 class="od-card-title">Price Summary</h3>
+        <div class="od-price-row"><span>Subtotal</span><span>₹{{ order()!.subtotal.toLocaleString('en-IN') }}</span></div>
+        <div class="od-price-row"><span>GST (18%)</span><span>₹{{ order()!.tax.toLocaleString('en-IN') }}</span></div>
+        <div class="od-price-row od-price-total"><span>Total</span><span>₹{{ order()!.total.toLocaleString('en-IN') }}</span></div>
+      </div>
+
+      <!-- Shipping address -->
+      <div class="od-card">
+        <h3 class="od-card-title">Shipping Address</h3>
+        <address class="od-address">
+          <strong>{{ order()!.shippingAddress.name }}</strong><br />
+          {{ order()!.shippingAddress.line1 }}
+          @if (order()!.shippingAddress.line2) { <br />{{ order()!.shippingAddress.line2 }} }
+          <br />{{ order()!.shippingAddress.city }}, {{ order()!.shippingAddress.state }} — {{ order()!.shippingAddress.pincode }}<br />
+          {{ order()!.shippingAddress.country }}<br />
+          <span style="color:rgba(255,255,255,.5);">📞 {{ order()!.shippingAddress.phone }}</span>
+        </address>
+      </div>
+
+      @if (order()!.notes) {
+        <div class="od-card">
+          <h3 class="od-card-title">Order Notes</h3>
+          <p style="color:rgba(255,255,255,.6);font-size:.875rem;line-height:1.6;">{{ order()!.notes }}</p>
+        </div>
+      }
+    </div>
+
+  </div>
+}

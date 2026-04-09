@@ -1,0 +1,119 @@
+<div class="pd-page">
+  <a routerLink="/products" class="back-link">
+    <span class="material-icons">arrow_back</span> Back to Products
+  </a>
+
+  @if (loading()) {
+    <div class="loading-state"><div class="spinner-ring"></div></div>
+  } @else if (!product()) {
+    <div class="empty-state"><p>Product not found.</p> <a routerLink="/products" class="btn-back">Browse Products</a></div>
+  } @else {
+    <div class="pd-layout">
+
+      <!-- Images -->
+      <div class="pd-images">
+        <div class="pd-main-img-wrap">
+          @if (product()!.images?.length) {
+            <img [src]="product()!.images[activeImage()]" [alt]="product()!.name" class="pd-main-img" />
+          } @else {
+            <div class="pd-img-placeholder"><span class="material-icons">image</span></div>
+          }
+        </div>
+        @if ((product()!.images?.length ?? 0) > 1) {
+          <div class="pd-thumbs">
+            @for (img of product()!.images; track img; let i = $index) {
+              <img [src]="img" [alt]="product()!.name + ' ' + (i+1)" class="pd-thumb"
+                [class.active]="activeImage() === i"
+                (click)="activeImage.set(i)" />
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Details -->
+      <div class="pd-details">
+        <span class="pd-category">{{ product()!.category }}</span>
+        <h1 class="pd-name">{{ product()!.name }}</h1>
+
+        <div class="pd-price-row">
+          <p class="pd-price">₹{{ price.toLocaleString('en-IN') }}</p>
+          <span class="pd-per-unit">per unit</span>
+          @if (!product()!.inStock) {
+            <span class="pd-oos-badge">Out of Stock</span>
+          }
+        </div>
+
+        <p class="pd-desc">{{ product()!.description }}</p>
+
+        <!-- Variants -->
+        @if (product()!.variants?.length) {
+          <div class="pd-section">
+            <p class="pd-section-label">Select variant</p>
+            <div class="pd-variants">
+              @for (v of product()!.variants; track v.id) {
+                <button
+                  class="variant-btn"
+                  [class.active]="selectedVariant()?.id === v.id"
+                  [class.oos]="!v.inStock"
+                  [disabled]="!v.inStock"
+                  (click)="selectVariant(v)"
+                >
+                  {{ v.label }}
+                  @if (v.price !== product()!.price) {
+                    <span class="variant-price"> — ₹{{ v.price.toLocaleString('en-IN') }}</span>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Quantity -->
+        <div class="pd-section">
+          <p class="pd-section-label">Quantity <span style="color:rgba(255,255,255,.35)">(Min. {{ product()!.minQty }})</span></p>
+          <div class="qty-control">
+            <button class="qty-btn" (click)="quantity.set(Math.max(product()!.minQty, quantity() - 1))">−</button>
+            <input type="number" class="qty-input" [ngModel]="quantity()" (ngModelChange)="quantity.set($event)"
+              [min]="product()!.minQty" />
+            <button class="qty-btn" (click)="quantity.set(quantity() + 1)">+</button>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="pd-total">
+          <span>Total estimate</span>
+          <span class="pd-total-val">₹{{ (price * quantity()).toLocaleString('en-IN') }}</span>
+        </div>
+
+        <!-- Tags -->
+        @if (product()!.tags?.length) {
+          <div class="pd-tags">
+            @for (tag of product()!.tags; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
+          </div>
+        }
+
+        <!-- Actions -->
+        <div class="pd-actions">
+          @if (added()) {
+            <button class="btn-add added" (click)="goToCart()">
+              <span class="material-icons">check</span> Added — Go to Cart
+            </button>
+          } @else {
+            <button class="btn-add" (click)="addToCart()" [disabled]="!product()!.inStock">
+              <span class="material-icons">add_shopping_cart</span>
+              {{ product()!.inStock ? 'Add to Cart' : 'Out of Stock' }}
+            </button>
+          }
+          <a routerLink="/contact" class="btn-enquire">Request Custom Quote</a>
+        </div>
+
+        <p class="pd-note">
+          <span class="material-icons" style="font-size:.9rem;vertical-align:middle;">info</span>
+          Payment collected offline after order confirmation. GST @ 18% applied at checkout.
+        </p>
+      </div>
+    </div>
+  }
+</div>

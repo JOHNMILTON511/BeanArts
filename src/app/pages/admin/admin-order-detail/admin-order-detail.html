@@ -1,0 +1,119 @@
+<div class="od-admin-header">
+  <a routerLink="/admin/orders" class="back-link">
+    <span class="material-icons">arrow_back</span> All Orders
+  </a>
+</div>
+
+@if (loading()) {
+  <div class="loading-state"><div class="spinner-ring"></div></div>
+} @else if (!order()) {
+  <div class="empty-state"><p>Order not found.</p></div>
+} @else {
+  <div class="admin-od-layout">
+
+    <!-- Left -->
+    <div class="admin-od-left">
+      <!-- Order info -->
+      <div class="od-card">
+        <div class="od-card-top">
+          <div>
+            <p class="od-label">Order ID</p>
+            <p class="od-id">#{{ order()!.id?.slice(-8)?.toUpperCase() }}</p>
+          </div>
+          <span class="status-pill"
+            [style.background]="statusColors[order()!.status] + '22'"
+            [style.color]="statusColors[order()!.status]">
+            {{ statusLabels[order()!.status] }}
+          </span>
+        </div>
+        <div class="od-meta-grid">
+          <div><p class="od-label">Customer</p><p class="od-val">{{ order()!.userName }}</p></div>
+          <div><p class="od-label">Company</p><p class="od-val">{{ order()!.companyName }}</p></div>
+          <div><p class="od-label">Email</p><p class="od-val">{{ order()!.userEmail }}</p></div>
+          <div><p class="od-label">Date</p><p class="od-val">{{ order()!.createdAt | date:'dd MMM yyyy, hh:mm a' }}</p></div>
+        </div>
+      </div>
+
+      <!-- Items -->
+      <div class="od-card">
+        <h3 class="od-card-title">Items ({{ order()!.items.length }})</h3>
+        <div class="od-items">
+          @for (item of order()!.items; track item.productId) {
+            <div class="od-item">
+              <img [src]="item.imageUrl || 'assets/placeholder.jpg'" [alt]="item.name" class="od-item-img" />
+              <div class="od-item-info">
+                <p class="od-item-name">{{ item.name }}</p>
+                @if (item.variantName) { <p class="od-item-variant">{{ item.variantName }}</p> }
+                <p class="od-item-qty">Qty: {{ item.quantity }}</p>
+              </div>
+              <p class="od-item-price">₹{{ (item.price * item.quantity).toLocaleString('en-IN') }}</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Shipping + notes -->
+      <div class="od-card">
+        <h3 class="od-card-title">Shipping Address</h3>
+        <address class="od-address">
+          <strong>{{ order()!.shippingAddress.name }}</strong><br />
+          {{ order()!.shippingAddress.line1 }}<br />
+          @if (order()!.shippingAddress.line2) { {{ order()!.shippingAddress.line2 }}<br /> }
+          {{ order()!.shippingAddress.city }}, {{ order()!.shippingAddress.state }} — {{ order()!.shippingAddress.pincode }}<br />
+          📞 {{ order()!.shippingAddress.phone }}
+        </address>
+        @if (order()!.notes) {
+          <p class="od-notes-label">Notes:</p>
+          <p class="od-notes">{{ order()!.notes }}</p>
+        }
+      </div>
+    </div>
+
+    <!-- Right (admin actions) -->
+    <div class="admin-od-right">
+      <!-- Update status -->
+      <div class="od-card">
+        <h3 class="od-card-title">Update Order</h3>
+
+        <div class="field-group">
+          <label class="field-label">Status</label>
+          <select class="field-input" [ngModel]="newStatus()" (ngModelChange)="newStatus.set($event)">
+            @for (s of statusOptions; track s) {
+              <option [value]="s">{{ statusLabels[s] }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="field-group" style="margin-top:.85rem;">
+          <label class="field-label">Tracking ID</label>
+          <input type="text" class="field-input" [ngModel]="trackingId()" (ngModelChange)="trackingId.set($event)" placeholder="Enter courier tracking number" />
+        </div>
+
+        @if (saveError()) {
+          <div class="error-banner" style="margin-top:.85rem;">
+            <span class="material-icons">error_outline</span> {{ saveError() }}
+          </div>
+        }
+        @if (saved()) {
+          <div class="success-banner" style="margin-top:.85rem;">
+            <span class="material-icons">check_circle</span> Order updated successfully!
+          </div>
+        }
+
+        <button class="btn-update" (click)="updateOrder()" [disabled]="saving()">
+          @if (saving()) { <span class="btn-spinner"></span> Updating… }
+          @else { Update Order }
+        </button>
+      </div>
+
+      <!-- Price summary -->
+      <div class="od-card">
+        <h3 class="od-card-title">Price Summary</h3>
+        <div class="od-price-row"><span>Subtotal</span><span>₹{{ order()!.subtotal.toLocaleString('en-IN') }}</span></div>
+        <div class="od-price-row"><span>GST (18%)</span><span>₹{{ order()!.tax.toLocaleString('en-IN') }}</span></div>
+        <div class="od-price-row od-price-total"><span>Total</span><span>₹{{ order()!.total.toLocaleString('en-IN') }}</span></div>
+      </div>
+    </div>
+
+  </div>
+}

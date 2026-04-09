@@ -1,0 +1,85 @@
+<div class="dash-shell">
+
+  <!-- Sidebar -->
+  <aside class="dash-sidebar" [class.open]="sidebarOpen()">
+    <div class="dash-sidebar-header">
+      <a routerLink="/" class="dash-logo">
+        <img src="assets/logo.png" alt="BeanArts" />
+        <span>BeanArts</span>
+      </a>
+      <button class="dash-sidebar-close" (click)="sidebarOpen.set(false)">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <!-- Profile mini -->
+    <div class="dash-profile-mini">
+      <div class="dash-avatar">
+        {{ profile()?.displayName?.charAt(0)?.toUpperCase() || 'U' }}
+      </div>
+      <div class="dash-profile-info">
+        <span class="dash-profile-name">{{ profile()?.displayName || 'User' }}</span>
+        <span class="dash-profile-company">{{ profile()?.companyName || '' }}</span>
+      </div>
+    </div>
+
+    <nav class="dash-nav">
+      @for (item of navItems; track item.route) {
+        <a
+          class="dash-nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          (click)="sidebarOpen.set(false)"
+        >
+          <span class="material-icons">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+          @if (item.icon === 'shopping_cart' && cartCount() > 0) {
+            <span class="dash-badge">{{ cartCount() }}</span>
+          }
+        </a>
+      }
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a routerLink="/products" class="dash-nav-item" (click)="sidebarOpen.set(false)">
+        <span class="material-icons">storefront</span>
+        <span>Browse Products</span>
+      </a>
+      <button class="dash-nav-item dash-logout" (click)="logout()">
+        <span class="material-icons">logout</span>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Overlay for mobile -->
+  @if (sidebarOpen()) {
+    <div class="dash-overlay" (click)="sidebarOpen.set(false)"></div>
+  }
+
+  <!-- Main content -->
+  <div class="dash-main">
+    <!-- Top bar -->
+    <header class="dash-topbar">
+      <button class="dash-menu-btn" (click)="sidebarOpen.set(true)">
+        <span class="material-icons">menu</span>
+      </button>
+      <div class="dash-topbar-right">
+        <a routerLink="/dashboard/cart" class="dash-cart-btn">
+          <span class="material-icons">shopping_cart</span>
+          @if (cartCount() > 0) {
+            <span class="dash-badge">{{ cartCount() }}</span>
+          }
+        </a>
+        <div class="dash-avatar-sm">
+          {{ profile()?.displayName?.charAt(0)?.toUpperCase() || 'U' }}
+        </div>
+      </div>
+    </header>
+
+    <main class="dash-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+</div>

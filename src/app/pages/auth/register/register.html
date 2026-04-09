@@ -1,0 +1,172 @@
+<section class="auth-page">
+  <!-- Left Panel -->
+  <div class="auth-left">
+    <div class="auth-brand">
+      <img src="assets/logo/3.png" alt="BeanArts" class="auth-logo" />
+      <span class="auth-brand-name">BeanArts</span>
+    </div>
+    <div class="auth-left-content">
+      <h2 class="auth-left-title">Join 50+ Brands<br/><span class="auth-left-accent">That Trust Us.</span></h2>
+      <p class="auth-left-sub">Create your account and start ordering premium corporate gifts — customised for your brand.</p>
+      <ul class="auth-features">
+        <li><span class="auth-feat-icon material-icons">dashboard</span> Manage orders in one dashboard</li>
+        <li><span class="auth-feat-icon material-icons">palette</span> Request custom designs</li>
+        <li><span class="auth-feat-icon material-icons">local_shipping</span> Real-time order tracking</li>
+        <li><span class="auth-feat-icon material-icons">headset_mic</span> Priority support</li>
+      </ul>
+    </div>
+    <div class="auth-left-overlay"></div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="auth-right">
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h1 class="auth-title">Create account</h1>
+        <p class="auth-subtitle">Set up your BeanArts business account</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
+
+        <!-- Full Name -->
+        <div class="field-group">
+          <label class="field-label" for="displayName">Full name</label>
+          <div class="field-wrap" [class.field-error]="form.get('displayName')?.invalid && form.get('displayName')?.touched">
+            <span class="material-icons field-icon">person_outline</span>
+            <input
+              id="displayName"
+              type="text"
+              formControlName="displayName"
+              class="field-input"
+              placeholder="Riya Sharma"
+              autocomplete="name"
+            />
+          </div>
+          @if (form.get('displayName')?.hasError('required') && form.get('displayName')?.touched) {
+            <span class="field-msg">Full name is required.</span>
+          } @else if (form.get('displayName')?.hasError('minlength') && form.get('displayName')?.touched) {
+            <span class="field-msg">Name must be at least 2 characters.</span>
+          }
+        </div>
+
+        <!-- Company Name -->
+        <div class="field-group">
+          <label class="field-label" for="companyName">Company / Organisation</label>
+          <div class="field-wrap" [class.field-error]="form.get('companyName')?.invalid && form.get('companyName')?.touched">
+            <span class="material-icons field-icon">business</span>
+            <input
+              id="companyName"
+              type="text"
+              formControlName="companyName"
+              class="field-input"
+              placeholder="Acme Pvt. Ltd."
+              autocomplete="organization"
+            />
+          </div>
+          @if (form.get('companyName')?.hasError('required') && form.get('companyName')?.touched) {
+            <span class="field-msg">Company name is required.</span>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="field-group">
+          <label class="field-label" for="email">Work email</label>
+          <div class="field-wrap" [class.field-error]="form.get('email')?.invalid && form.get('email')?.touched">
+            <span class="material-icons field-icon">mail_outline</span>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              class="field-input"
+              placeholder="you@company.com"
+              autocomplete="email"
+            />
+          </div>
+          @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+            <span class="field-msg">Email is required.</span>
+          } @else if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+            <span class="field-msg">Enter a valid email address.</span>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="field-group">
+          <label class="field-label" for="password">Password</label>
+          <div class="field-wrap" [class.field-error]="form.get('password')?.invalid && form.get('password')?.touched">
+            <span class="material-icons field-icon">lock_outline</span>
+            <input
+              id="password"
+              [type]="showPw() ? 'text' : 'password'"
+              formControlName="password"
+              class="field-input"
+              placeholder="Min. 6 characters"
+              autocomplete="new-password"
+            />
+            <button type="button" class="field-toggle" (click)="showPw.set(!showPw())">
+              <span class="material-icons">{{ showPw() ? 'visibility_off' : 'visibility' }}</span>
+            </button>
+          </div>
+          @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+            <span class="field-msg">Password is required.</span>
+          } @else if (form.get('password')?.hasError('minlength') && form.get('password')?.touched) {
+            <span class="field-msg">Password must be at least 6 characters.</span>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="field-group">
+          <label class="field-label" for="confirmPassword">Confirm password</label>
+          <div class="field-wrap" [class.field-error]="form.get('confirmPassword')?.touched && (form.get('confirmPassword')?.hasError('required') || form.hasError('mismatch'))">
+            <span class="material-icons field-icon">lock_outline</span>
+            <input
+              id="confirmPassword"
+              [type]="showConfirm() ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              class="field-input"
+              placeholder="Re-enter password"
+              autocomplete="new-password"
+            />
+            <button type="button" class="field-toggle" (click)="showConfirm.set(!showConfirm())">
+              <span class="material-icons">{{ showConfirm() ? 'visibility_off' : 'visibility' }}</span>
+            </button>
+          </div>
+          @if (form.get('confirmPassword')?.hasError('required') && form.get('confirmPassword')?.touched) {
+            <span class="field-msg">Please confirm your password.</span>
+          } @else if (form.hasError('mismatch') && form.get('confirmPassword')?.touched) {
+            <span class="field-msg">Passwords do not match.</span>
+          }
+        </div>
+
+        <!-- Error Banner -->
+        @if (error()) {
+          <div class="auth-error-banner">
+            <span class="material-icons">error_outline</span>
+            {{ error() }}
+          </div>
+        }
+
+        <!-- Submit -->
+        <button type="submit" class="btn-primary" [disabled]="loading()">
+          @if (loading()) {
+            <span class="btn-spinner"></span>
+            Creating account…
+          } @else {
+            Create Account
+          }
+        </button>
+
+        <p class="auth-info">
+          By registering you agree to our
+          <a routerLink="/terms-conditions" style="color:#c17b2d;text-decoration:none;">Terms &amp; Conditions</a>
+          and
+          <a routerLink="/privacy" style="color:#c17b2d;text-decoration:none;">Privacy Policy</a>.
+        </p>
+      </form>
+
+      <p class="auth-switch">
+        Already have an account?
+        <a routerLink="/login" class="auth-switch-link">Sign in</a>
+      </p>
+    </div>
+  </div>
+</section>
