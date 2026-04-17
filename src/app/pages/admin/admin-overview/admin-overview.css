@@ -63,6 +63,7 @@
 .ao-icon-blue   { background: #eff6ff; color: #3b82f6; }
 .ao-icon-amber  { background: #fffbeb; color: #d97706; }
 .ao-icon-teal   { background: #f0fdfa; color: #0d9488; }
+.ao-icon-purple { background: #faf5ff; color: #7c3aed; }
 
 .ao-stat-body { flex: 1; min-width: 0; }
 .ao-stat-value {

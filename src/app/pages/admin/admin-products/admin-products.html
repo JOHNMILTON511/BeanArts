@@ -7,8 +7,12 @@
     <div class="search-wrap">
       <span class="material-icons search-icon">search</span>
       <input type="text" class="search-input" placeholder="Search products…"
-        [ngModel]="search()" (ngModelChange)="search.set($event)" />
+        [value]="search()" (input)="search.set($any($event.target).value)" />
     </div>
+    <button class="btn-add" (click)="openCreate()">
+      <span class="material-icons">add</span>
+      New Product
+    </button>
   </div>
 </div>
 
@@ -17,7 +21,10 @@
 } @else if (filtered.length === 0) {
   <div class="empty-state">
     <span class="material-icons empty-icon">inventory_2</span>
-    <p>No products found. Add products via Firebase Console.</p>
+    <p>No products found.</p>
+    <button class="btn-add" style="margin-top:.75rem;" (click)="openCreate()">
+      <span class="material-icons">add</span> Add First Product
+    </button>
   </div>
 } @else {
   <div class="products-table-wrap">
@@ -55,23 +62,25 @@
             <td>{{ product.minQty }}</td>
             <td>{{ product.variants?.length || 0 }}</td>
             <td>
-              <button class="toggle-btn"
-                [class.active]="product.inStock"
-                (click)="toggleStock(product)"
-                [attr.aria-label]="product.inStock ? 'Mark out of stock' : 'Mark in stock'"
-              >
+              <button class="toggle-btn" [class.active]="product.inStock" (click)="toggleStock(product)">
                 {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
               </button>
             </td>
             <td>
-              <span class="material-icons featured-icon" [style.color]="product.featured ? '#c17b2d' : 'rgba(255,255,255,.15)'">
-                {{ product.featured ? 'star' : 'star_outline' }}
-              </span>
+              <button class="featured-btn" (click)="toggleFeatured(product)"
+                [attr.aria-label]="product.featured ? 'Remove featured' : 'Mark featured'">
+                <span class="material-icons" [style.color]="product.featured ? '#c17b2d' : '#d1d5db'">
+                  {{ product.featured ? 'star' : 'star_outline' }}
+                </span>
+              </button>
             </td>
             <td>
               <div class="action-btns">
-                <button class="action-btn action-danger" (click)="toggleStock(product)">
-                  <span class="material-icons">{{ product.inStock ? 'visibility_off' : 'visibility' }}</span>
+                <button class="action-btn" (click)="openEdit(product)" aria-label="Edit">
+                  <span class="material-icons">edit</span>
+                </button>
+                <button class="action-btn action-danger" (click)="confirmDelete(product)" aria-label="Delete">
+                  <span class="material-icons">delete_outline</span>
                 </button>
               </div>
             </td>
@@ -80,9 +89,179 @@
       </tbody>
     </table>
   </div>
+}
 
-  <p class="admin-note">
-    <span class="material-icons" style="font-size:.9rem;vertical-align:middle;">info</span>
-    To add or edit products, use Firebase Console → Firestore → products collection.
-  </p>
+<!-- ─── Product Form Drawer ───────────────────────────────── -->
+@if (showForm()) {
+  <div class="drawer-overlay" (click)="closeForm()"></div>
+  <aside class="drawer">
+    <div class="drawer-header">
+      <h2 class="drawer-title">{{ editingId() ? 'Edit Product' : 'New Product' }}</h2>
+      <button class="drawer-close" (click)="closeForm()" aria-label="Close">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <form [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+
+        <!-- Name -->
+        <div class="f-group">
+          <label class="f-label">Product Name *</label>
+          <input type="text" formControlName="name" class="f-input"
+            placeholder="e.g. Premium Gift Hamper" />
+          @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
+            <span class="f-msg">Name is required.</span>
+          } @else if (form.get('name')?.hasError('minlength') && form.get('name')?.touched) {
+            <span class="f-msg">Minimum 2 characters.</span>
+          }
+        </div>
+
+        <!-- Category -->
+        <div class="f-group">
+          <label class="f-label">Category *</label>
+          <select formControlName="category" class="f-input f-select">
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Description -->
+        <div class="f-group">
+          <label class="f-label">Description</label>
+          <textarea formControlName="description" class="f-textarea" rows="3"
+            placeholder="Brief product description…"></textarea>
+        </div>
+
+        <!-- Price + MinQty -->
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-label">Base Price (₹) *</label>
+            <input type="number" formControlName="price" class="f-input" min="1" placeholder="0" />
+            @if (form.get('price')?.hasError('min') && form.get('price')?.touched) {
+              <span class="f-msg">Must be at least ₹1.</span>
+            }
+          </div>
+          <div class="f-group">
+            <label class="f-label">Min Order Qty *</label>
+            <input type="number" formControlName="minQty" class="f-input" min="1" placeholder="50" />
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="f-group">
+          <label class="f-label">Tags <span class="f-hint">(comma-separated)</span></label>
+          <input type="text" formControlName="tagsInput" class="f-input"
+            placeholder="customisable, eco-friendly, bulk" />
+        </div>
+
+        <!-- Toggles -->
+        <div class="f-toggles-row">
+          <label class="f-toggle-label">
+            <input type="checkbox" formControlName="inStock" class="f-checkbox" />
+            <span class="f-toggle-text">In Stock</span>
+          </label>
+          <label class="f-toggle-label">
+            <input type="checkbox" formControlName="featured" class="f-checkbox" />
+            <span class="f-toggle-text">Featured</span>
+          </label>
+        </div>
+
+        <!-- Images -->
+        <div class="f-group">
+          <div class="f-label-row">
+            <label class="f-label">Image URLs</label>
+            <button type="button" class="btn-link-add" (click)="addImage()">
+              <span class="material-icons">add</span> Add
+            </button>
+          </div>
+          <div formArrayName="images" class="f-list">
+            @for (ctrl of imagesArray.controls; track ctrl; let i = $index) {
+              <div class="f-list-row">
+                <input type="url" [formControlName]="i" class="f-input"
+                  placeholder="https://example.com/image.jpg" />
+                <button type="button" class="btn-remove-row" (click)="removeImage(i)"
+                  [disabled]="imagesArray.length === 1" aria-label="Remove">
+                  <span class="material-icons">remove_circle_outline</span>
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Variants -->
+        <div class="f-group">
+          <div class="f-label-row">
+            <label class="f-label">Variants</label>
+            <button type="button" class="btn-link-add" (click)="addVariant()">
+              <span class="material-icons">add</span> Add Variant
+            </button>
+          </div>
+          <div formArrayName="variants" class="f-list">
+            @for (ctrl of variantsArray.controls; track ctrl; let i = $index) {
+              <div [formGroupName]="i" class="f-variant-row">
+                <input type="text" formControlName="label" class="f-input f-variant-label"
+                  placeholder="e.g. Premium" />
+                <input type="number" formControlName="price" class="f-input f-variant-price"
+                  placeholder="Price" min="0" />
+                <label class="f-variant-stock">
+                  <input type="checkbox" formControlName="inStock" />
+                  In Stock
+                </label>
+                <button type="button" class="btn-remove-row" (click)="removeVariant(i)" aria-label="Remove">
+                  <span class="material-icons">remove_circle_outline</span>
+                </button>
+              </div>
+            }
+            @if (variantsArray.length === 0) {
+              <p class="f-empty-hint">No variants — product uses base price.</p>
+            }
+          </div>
+        </div>
+
+        @if (formError()) {
+          <div class="form-error-banner">
+            <span class="material-icons">error_outline</span>
+            {{ formError() }}
+          </div>
+        }
+
+        <div class="drawer-actions">
+          <button type="button" class="btn-cancel" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="saving()">
+            @if (saving()) {
+              <span class="btn-spinner"></span> Saving…
+            } @else {
+              {{ editingId() ? 'Save Changes' : 'Create Product' }}
+            }
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </aside>
+}
+
+<!-- ─── Delete Confirmation Dialog ───────────────────────── -->
+@if (deleteTarget()) {
+  <div class="dialog-overlay">
+    <div class="dialog-box">
+      <div class="dialog-icon-wrap">
+        <span class="material-icons">delete_forever</span>
+      </div>
+      <h3 class="dialog-title">Delete Product?</h3>
+      <p class="dialog-msg">
+        "<strong>{{ deleteTarget()!.name }}</strong>" will be permanently deleted.
+        This cannot be undone.
+      </p>
+      <div class="dialog-actions">
+        <button class="btn-cancel" (click)="cancelDelete()" [disabled]="deleting()">Cancel</button>
+        <button class="btn-delete" (click)="executeDelete()" [disabled]="deleting()">
+          @if (deleting()) { <span class="btn-spinner btn-spinner--white"></span> Deleting… }
+          @else { Yes, Delete }
+        </button>
+      </div>
+    </div>
+  </div>
 }

@@ -13,7 +13,8 @@
       "Bash(npm install:*)",
       "Bash(node_modules/.bin/playwright install:*)",
       "Bash(node_modules/.bin/playwright test:*)",
-      "Bash(npx ng:*)"
+      "Bash(npx ng:*)",
+      "Bash(dotnet build *)"
     ]
   }
 }

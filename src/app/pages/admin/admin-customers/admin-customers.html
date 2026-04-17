@@ -28,6 +28,7 @@
           <th>Phone</th>
           <th>GST</th>
           <th>Joined</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +43,12 @@
             <td>{{ c.phone || '—' }}</td>
             <td class="cust-gst">{{ c.gstNumber || '—' }}</td>
             <td class="cust-date">{{ c.createdAt | date:'dd MMM yyyy' }}</td>
+            <td>
+              <a [routerLink]="['/admin/orders']" [queryParams]="{ userId: c.uid }" class="cust-orders-btn">
+                <span class="material-icons">receipt_long</span>
+                Orders
+              </a>
+            </td>
           </tr>
         }
       </tbody>

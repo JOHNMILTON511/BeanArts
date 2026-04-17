@@ -1,6 +1,6 @@
 export const environment = {
-  production: false,
-  apiUrl: 'https://localhost:7242/api',
+  production: true, // Set to true for environment.ts
+  apiUrl: 'https://api.beanarts.in/ERP_SUB/api', 
   emailjs: {
     serviceId: 'service_gk6yg89',
     templateId: 'template_z9epm4d',

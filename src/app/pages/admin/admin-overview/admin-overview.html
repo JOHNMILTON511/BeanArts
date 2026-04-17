@@ -1,6 +1,5 @@
 <div class="ao-page">
 
-  <!-- Page header -->
   <div class="ao-header">
     <div>
       <h1 class="ao-title">Admin Overview</h1>
@@ -53,11 +52,21 @@
           <span class="material-icons">group</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">{{ customerCount }}</span>
+          <span class="ao-stat-value">{{ customerCount() }}</span>
           <span class="ao-stat-label">Customers</span>
         </div>
         <div class="ao-stat-trend ao-trend-up">
           <span class="material-icons">trending_up</span>
+        </div>
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-purple">
+          <span class="material-icons">inventory_2</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">{{ totalProducts() }}</span>
+          <span class="ao-stat-label">Products</span>
         </div>
       </div>
 
@@ -91,7 +100,6 @@
     <!-- ── Charts row ───────────────────────────────────── -->
     <div class="ao-charts-row">
 
-      <!-- Revenue trend (Line) -->
       <div class="ao-chart-card ao-chart-wide">
         <div class="ao-chart-header">
           <div class="ao-chart-title-group">
@@ -104,7 +112,6 @@
         </div>
       </div>
 
-      <!-- Orders by status (Doughnut) -->
       <div class="ao-chart-card ao-chart-narrow">
         <div class="ao-chart-header">
           <div class="ao-chart-title-group">
@@ -122,7 +129,6 @@
     <!-- ── Orders volume (Bar) + Recent orders ──────────── -->
     <div class="ao-charts-row">
 
-      <!-- Monthly bar chart -->
       <div class="ao-chart-card ao-chart-half">
         <div class="ao-chart-header">
           <div class="ao-chart-title-group">
@@ -135,7 +141,6 @@
         </div>
       </div>
 
-      <!-- Recent orders list -->
       <div class="ao-chart-card ao-chart-half">
         <div class="ao-chart-header">
           <div class="ao-chart-title-group">

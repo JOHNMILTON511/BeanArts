@@ -4,13 +4,23 @@
     <p class="page-sub">{{ filteredOrders.length }} order(s)</p>
   </div>
   <div class="filter-wrap">
-    <select class="filter-select" [(ngModel)]="filter" (ngModelChange)="filter.set($event)">
+    <select class="filter-select" [ngModel]="filter()" (ngModelChange)="filter.set($event)">
       @for (opt of filterOptions; track opt.value) {
         <option [value]="opt.value">{{ opt.label }}</option>
       }
     </select>
   </div>
 </div>
+
+@if (customerFilter()) {
+  <div class="customer-filter-banner">
+    <span class="material-icons">person</span>
+    Showing orders for one customer
+    <button class="clear-filter-btn" (click)="clearCustomerFilter()">
+      <span class="material-icons">close</span> Clear filter
+    </button>
+  </div>
+}
 
 @if (loading()) {
   <div class="loading-state"><div class="spinner-ring"></div></div>
@@ -46,8 +56,7 @@
             <td>
               <span class="status-pill"
                 [style.background]="statusColors[order.status] + '22'"
-                [style.color]="statusColors[order.status]"
-              >
+                [style.color]="statusColors[order.status]">
                 {{ statusLabels[order.status] }}
               </span>
             </td>

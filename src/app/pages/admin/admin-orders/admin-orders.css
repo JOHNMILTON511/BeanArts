@@ -10,6 +10,12 @@
 }
 .filter-select:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,.1); }
 
+.customer-filter-banner { display: flex; align-items: center; gap: .5rem; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px; padding: .65rem 1rem; font-size: .85rem; color: #4338ca; font-weight: 500; margin-bottom: 1.25rem; }
+.customer-filter-banner .material-icons { font-size: 1rem !important; }
+.clear-filter-btn { margin-left: auto; display: inline-flex; align-items: center; gap: .2rem; background: none; border: none; cursor: pointer; color: #4338ca; font-size: .8rem; font-weight: 600; font-family: inherit; padding: 0; }
+.clear-filter-btn:hover { color: #3730a3; }
+.clear-filter-btn .material-icons { font-size: .9rem !important; }
+
 .loading-state, .empty-state {
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; padding: 4rem 1rem; gap: 1rem;

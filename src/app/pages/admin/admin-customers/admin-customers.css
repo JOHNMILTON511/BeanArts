@@ -27,3 +27,6 @@
 .cust-email { color: #6b7280; font-size: .82rem; }
 .cust-gst { font-family: monospace; font-size: .8rem; color: #9ca3af; }
 .cust-date { color: #9ca3af; white-space: nowrap; }
+.cust-orders-btn { display: inline-flex; align-items: center; gap: .3rem; background: #eef2ff; color: #4f46e5; border-radius: 7px; padding: .3rem .7rem; font-size: .78rem; font-weight: 600; text-decoration: none; transition: background .15s; white-space: nowrap; }
+.cust-orders-btn:hover { background: #e0e7ff; }
+.cust-orders-btn .material-icons { font-size: .9rem !important; }
