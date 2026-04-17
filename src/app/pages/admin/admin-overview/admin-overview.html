@@ -1,0 +1,173 @@
+<div class="ao-page">
+
+  <!-- Page header -->
+  <div class="ao-header">
+    <div>
+      <h1 class="ao-title">Admin Overview</h1>
+      <p class="ao-sub">Real-time snapshot of your store.</p>
+    </div>
+    <a routerLink="/admin/orders" class="ao-all-orders-btn">
+      <span class="material-icons">receipt_long</span>
+      All Orders
+    </a>
+  </div>
+
+  @if (loading()) {
+    <div class="ao-loading">
+      <div class="ao-spinner"></div>
+      <p>Loading analytics…</p>
+    </div>
+  } @else {
+
+    <!-- ── Stat cards ───────────────────────────────────── -->
+    <div class="ao-stats">
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-indigo">
+          <span class="material-icons">receipt_long</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">{{ totalOrders }}</span>
+          <span class="ao-stat-label">Total Orders</span>
+        </div>
+        <div class="ao-stat-trend ao-trend-up">
+          <span class="material-icons">trending_up</span>
+        </div>
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-green">
+          <span class="material-icons">currency_rupee</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">₹{{ totalRevenue.toLocaleString('en-IN') }}</span>
+          <span class="ao-stat-label">Total Revenue</span>
+        </div>
+        <div class="ao-stat-trend ao-trend-up">
+          <span class="material-icons">trending_up</span>
+        </div>
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-blue">
+          <span class="material-icons">group</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">{{ customerCount }}</span>
+          <span class="ao-stat-label">Customers</span>
+        </div>
+        <div class="ao-stat-trend ao-trend-up">
+          <span class="material-icons">trending_up</span>
+        </div>
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-amber">
+          <span class="material-icons">hourglass_top</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">{{ pendingCount }}</span>
+          <span class="ao-stat-label">Pending Orders</span>
+        </div>
+        @if (pendingCount > 0) {
+          <div class="ao-stat-trend ao-trend-warn">
+            <span class="material-icons">priority_high</span>
+          </div>
+        }
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-teal">
+          <span class="material-icons">verified</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">{{ deliveredCount }}</span>
+          <span class="ao-stat-label">Delivered</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Charts row ───────────────────────────────────── -->
+    <div class="ao-charts-row">
+
+      <!-- Revenue trend (Line) -->
+      <div class="ao-chart-card ao-chart-wide">
+        <div class="ao-chart-header">
+          <div class="ao-chart-title-group">
+            <span class="material-icons ao-chart-icon">show_chart</span>
+            <h2 class="ao-chart-title">Revenue — Last 7 Days</h2>
+          </div>
+        </div>
+        <div class="ao-chart-body">
+          <canvas #lineCanvas></canvas>
+        </div>
+      </div>
+
+      <!-- Orders by status (Doughnut) -->
+      <div class="ao-chart-card ao-chart-narrow">
+        <div class="ao-chart-header">
+          <div class="ao-chart-title-group">
+            <span class="material-icons ao-chart-icon">donut_large</span>
+            <h2 class="ao-chart-title">Orders by Status</h2>
+          </div>
+        </div>
+        <div class="ao-chart-body ao-chart-doughnut">
+          <canvas #doughnutCanvas></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Orders volume (Bar) + Recent orders ──────────── -->
+    <div class="ao-charts-row">
+
+      <!-- Monthly bar chart -->
+      <div class="ao-chart-card ao-chart-half">
+        <div class="ao-chart-header">
+          <div class="ao-chart-title-group">
+            <span class="material-icons ao-chart-icon">bar_chart</span>
+            <h2 class="ao-chart-title">Orders — Last 6 Months</h2>
+          </div>
+        </div>
+        <div class="ao-chart-body">
+          <canvas #barCanvas></canvas>
+        </div>
+      </div>
+
+      <!-- Recent orders list -->
+      <div class="ao-chart-card ao-chart-half">
+        <div class="ao-chart-header">
+          <div class="ao-chart-title-group">
+            <span class="material-icons ao-chart-icon">schedule</span>
+            <h2 class="ao-chart-title">Recent Orders</h2>
+          </div>
+          <a routerLink="/admin/orders" class="ao-view-all">View all</a>
+        </div>
+        @if (recentOrders.length === 0) {
+          <div class="ao-empty">No orders yet.</div>
+        } @else {
+          <div class="ao-recent-list">
+            @for (order of recentOrders; track order.id) {
+              <a [routerLink]="['/admin/orders', order.id]" class="ao-recent-row">
+                <div class="ao-recent-info">
+                  <span class="ao-recent-id">#{{ order.id?.slice(-8)?.toUpperCase() }}</span>
+                  <span class="ao-recent-name">{{ order.companyName || order.userName }}</span>
+                </div>
+                <span class="ao-recent-pill"
+                  [style.background]="statusColors[order.status] + '18'"
+                  [style.color]="statusColors[order.status]"
+                  [style.border]="'1px solid ' + statusColors[order.status] + '35'">
+                  {{ statusLabels[order.status] }}
+                </span>
+                <span class="ao-recent-amount">₹{{ order.total.toLocaleString('en-IN') }}</span>
+              </a>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
+
+  }
+</div>

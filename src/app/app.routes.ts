@@ -94,7 +94,10 @@ export const routes: Routes = [
     canActivate: [adminGuard],
     loadComponent: () => import('./pages/admin/admin-layout/admin-layout').then(m => m.AdminLayout),
     children: [
-      { path: '', redirectTo: 'orders', pathMatch: 'full' },
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview',
+        loadComponent: () => import('./pages/admin/admin-overview/admin-overview').then(m => m.AdminOverview),
+        title: 'Overview | BeanArts Admin' },
       { path: 'orders',
         loadComponent: () => import('./pages/admin/admin-orders/admin-orders').then(m => m.AdminOrders),
         title: 'Manage Orders | BeanArts Admin' },

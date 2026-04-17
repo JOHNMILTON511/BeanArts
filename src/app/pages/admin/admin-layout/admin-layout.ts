@@ -20,6 +20,7 @@ export class AdminLayout {
   sidebarOpen = signal(false);
 
   navItems = [
+    { label: 'Overview',  icon: 'dashboard',     route: '/admin/overview' },
     { label: 'Orders',    icon: 'receipt_long',  route: '/admin/orders' },
     { label: 'Products',  icon: 'inventory_2',   route: '/admin/products' },
     { label: 'Customers', icon: 'group',          route: '/admin/customers' },

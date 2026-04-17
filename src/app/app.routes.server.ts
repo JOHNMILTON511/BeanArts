@@ -11,6 +11,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'dashboard',             renderMode: RenderMode.Server },
   { path: 'dashboard/**',          renderMode: RenderMode.Server },
   { path: 'admin',                 renderMode: RenderMode.Server },
+  { path: 'admin/overview',        renderMode: RenderMode.Server },
   { path: 'admin/**',              renderMode: RenderMode.Server },
 
   // All other routes can be prerendered
