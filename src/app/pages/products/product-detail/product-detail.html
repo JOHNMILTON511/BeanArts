@@ -86,7 +86,7 @@
         </div>
 
         <!-- Tags -->
-        @if (product()!.tags?.length) {
+        @if (product()!.tags.length) {
           <div class="pd-tags">
             @for (tag of product()!.tags; track tag) {
               <span class="tag">{{ tag }}</span>

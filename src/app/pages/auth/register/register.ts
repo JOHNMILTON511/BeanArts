@@ -31,6 +31,7 @@ export class Register {
     displayName:  ['', [Validators.required, Validators.minLength(2)]],
     companyName:  ['', [Validators.required]],
     email:        ['', [Validators.required, Validators.email]],
+    phone:        ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
     password:     ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', Validators.required],
   }, { validators: passwordMatch });
@@ -40,8 +41,8 @@ export class Register {
     this.loading.set(true);
     this.error.set('');
     try {
-      const { email, password, displayName, companyName } = this.form.value;
-      await this.auth.register(email!, password!, displayName!, companyName!);
+      const { email, password, displayName, companyName, phone } = this.form.value;
+      await this.auth.register(email!, password!, displayName!, companyName!, phone ?? '');
     } catch (e: any) {
       const status = e?.status;
       if (status === 409) this.error.set('An account with this email already exists.');

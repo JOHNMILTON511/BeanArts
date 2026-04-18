@@ -4,13 +4,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
-import { OrderService } from '../../../core/services/order.service';
-import { ProductService } from '../../../core/services/product.service';
-import { Order, OrderStatus, ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from '../../../core/models/order.model';
-import { UserProfile } from '../../../core/models/user.model';
-import { environment } from '../../../../environments/environment';
+import { AnalyticsService, AnalyticsResponse, StatusBreakdown } from '../../../core/services/analytics.service';
+import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS, OrderStatus } from '../../../core/models/order.model';
 import {
   Chart, ChartConfiguration,
   ArcElement, Tooltip, Legend, DoughnutController,
@@ -33,17 +28,13 @@ Chart.register(
   styleUrl: './admin-overview.css',
 })
 export class AdminOverview implements OnInit, OnDestroy {
-  private orderService   = inject(OrderService);
-  private productService = inject(ProductService);
-  private http           = inject(HttpClient);
+  private analyticsService = inject(AnalyticsService);
 
-  orders        = signal<Order[]>([]);
-  customerCount = signal(0);
-  totalProducts = signal(0);
-  loading       = signal(true);
+  data    = signal<AnalyticsResponse | null>(null);
+  loading = signal(true);
 
-  readonly statusLabels = ORDER_STATUS_LABELS;
-  readonly statusColors = ORDER_STATUS_COLORS;
+  readonly statusLabels = ORDER_STATUS_LABELS as Record<string, string>;
+  readonly statusColors = ORDER_STATUS_COLORS as Record<string, string>;
 
   readonly doughnutCanvas = viewChild<ElementRef<HTMLCanvasElement>>('doughnutCanvas');
   readonly lineCanvas     = viewChild<ElementRef<HTMLCanvasElement>>('lineCanvas');
@@ -52,40 +43,25 @@ export class AdminOverview implements OnInit, OnDestroy {
   private charts: Chart[] = [];
   private chartsInitialized = false;
 
-  get totalOrders()    { return this.orders().length; }
-  get totalRevenue()   { return this.orders().reduce((s, o) => s + o.total, 0); }
-  get pendingCount()   { return this.orders().filter(o => o.status === 'pending').length; }
-  get deliveredCount() { return this.orders().filter(o => o.status === 'delivered').length; }
-  get recentOrders()   {
-    return [...this.orders()]
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 6);
-  }
-
   constructor() {
     effect(() => {
       const doughnut = this.doughnutCanvas();
       const line     = this.lineCanvas();
       const bar      = this.barCanvas();
       const done     = !this.loading();
+      const d        = this.data();
 
-      if (done && doughnut && line && bar && !this.chartsInitialized) {
-        this.buildCharts();
+      if (done && d && doughnut && line && bar && !this.chartsInitialized) {
+        this.buildCharts(d);
         this.chartsInitialized = true;
       }
     });
   }
 
   ngOnInit(): void {
-    forkJoin({
-      orders:    this.orderService.getAllOrders(),
-      customers: this.http.get<UserProfile[]>(`${environment.apiUrl}/users`, { params: { role: 'customer' } }),
-      products:  this.productService.getAllAdmin(),
-    }).subscribe({
-      next: ({ orders, customers, products }) => {
-        this.orders.set(orders);
-        this.customerCount.set(customers.length);
-        this.totalProducts.set(products.length);
+    this.analyticsService.getAll().subscribe({
+      next: (d) => {
+        this.data.set(d);
         this.loading.set(false);
       },
       error: () => this.loading.set(false),
@@ -96,22 +72,23 @@ export class AdminOverview implements OnInit, OnDestroy {
     this.charts.forEach(c => c.destroy());
   }
 
-  private buildCharts(): void {
+  private buildCharts(d: AnalyticsResponse): void {
     this.charts.forEach(c => c.destroy());
     this.charts = [];
-    this.buildDoughnut();
-    this.buildLine();
-    this.buildBar();
+    this.buildDoughnut(d.byStatus);
+    this.buildLine(d.revenueByDay);
+    this.buildBar(d.byMonth);
   }
 
-  private buildDoughnut(): void {
+  private buildDoughnut(byStatus: StatusBreakdown[]): void {
     const el = this.doughnutCanvas()?.nativeElement;
     if (!el) return;
 
     const statuses: OrderStatus[] = [
       'pending','confirmed','in_production','quality_check','dispatched','delivered','cancelled',
     ];
-    const data   = statuses.map(s => this.orders().filter(o => o.status === s).length);
+    const statusMap = Object.fromEntries(byStatus.map(s => [s.status, s.count]));
+    const data   = statuses.map(s => statusMap[s] ?? 0);
     const colors = statuses.map(s => this.statusColors[s]);
     const labels = statuses.map(s => this.statusLabels[s]);
 
@@ -144,22 +121,14 @@ export class AdminOverview implements OnInit, OnDestroy {
     } as ChartConfiguration));
   }
 
-  private buildLine(): void {
+  private buildLine(revenueByDay: { date: string; revenue: number }[]): void {
     const el = this.lineCanvas()?.nativeElement;
     if (!el) return;
 
-    const days = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date();
-      d.setDate(d.getDate() - (6 - i));
-      return d;
-    });
-    const labels  = days.map(d => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }));
-    const revenue = days.map(day => {
-      const ds = day.toDateString();
-      return this.orders()
-        .filter(o => new Date(o.createdAt).toDateString() === ds)
-        .reduce((s, o) => s + o.total, 0);
-    });
+    const labels  = revenueByDay.map(r =>
+      new Date(r.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }),
+    );
+    const revenue = revenueByDay.map(r => r.revenue);
 
     this.charts.push(new Chart(el, {
       type: 'line',
@@ -208,23 +177,12 @@ export class AdminOverview implements OnInit, OnDestroy {
     } as ChartConfiguration));
   }
 
-  private buildBar(): void {
+  private buildBar(byMonth: { month: string; orders: number }[]): void {
     const el = this.barCanvas()?.nativeElement;
     if (!el) return;
 
-    const months = Array.from({ length: 6 }, (_, i) => {
-      const d = new Date();
-      d.setDate(1);
-      d.setMonth(d.getMonth() - (5 - i));
-      return d;
-    });
-    const labels = months.map(d => d.toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }));
-    const counts = months.map(m =>
-      this.orders().filter(o => {
-        const c = new Date(o.createdAt);
-        return c.getMonth() === m.getMonth() && c.getFullYear() === m.getFullYear();
-      }).length,
-    );
+    const labels = byMonth.map(m => m.month);
+    const counts = byMonth.map(m => m.orders);
 
     this.charts.push(new Chart(el, {
       type: 'bar',

@@ -40,6 +40,11 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   private counterAnimated = false;
 
   activeTestimonial = signal(0);
+  heroReady        = signal(false);
+
+  onHeroCarouselInit(): void {
+    this.heroReady.set(true);
+  }
 
   // ── Counter animation state ───────────────────────────────────────
   private animatedNums = signal([0, 0, 0, 0]);

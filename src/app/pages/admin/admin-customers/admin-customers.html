@@ -24,34 +24,123 @@
         <tr>
           <th>Customer</th>
           <th>Company</th>
-          <th>Email</th>
+          <th>Login (Email)</th>
           <th>Phone</th>
           <th>GST</th>
+          <th>Status</th>
           <th>Joined</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         @for (c of filtered; track c.uid) {
-          <tr>
+          <tr [class.row-inactive]="!c.isActive">
             <td class="cust-name-cell">
-              <div class="cust-avatar">{{ c.displayName?.charAt(0)?.toUpperCase() || '?' }}</div>
-              <span class="cust-name">{{ c.displayName }}</span>
+              <div class="cust-avatar" [class.avatar-inactive]="!c.isActive">
+                {{ c.displayName?.charAt(0)?.toUpperCase() || '?' }}
+              </div>
+              <div>
+                <span class="cust-name">{{ c.displayName }}</span>
+                @if (c.phone) {
+                  <span class="cust-phone-sub">{{ c.phone }}</span>
+                }
+              </div>
             </td>
             <td class="cust-company">{{ c.companyName || '—' }}</td>
-            <td class="cust-email">{{ c.email }}</td>
+            <td>
+              <span class="cust-email-badge">{{ c.email }}</span>
+            </td>
             <td>{{ c.phone || '—' }}</td>
             <td class="cust-gst">{{ c.gstNumber || '—' }}</td>
-            <td class="cust-date">{{ c.createdAt | date:'dd MMM yyyy' }}</td>
             <td>
-              <a [routerLink]="['/admin/orders']" [queryParams]="{ userId: c.uid }" class="cust-orders-btn">
+              <span class="status-pill" [class.pill-active]="c.isActive" [class.pill-inactive]="!c.isActive">
+                {{ c.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="cust-date">{{ c.createdAt | date:'dd MMM yyyy' }}</td>
+            <td class="actions-cell">
+              <a [routerLink]="['/admin/orders']" [queryParams]="{ userId: c.uid }" class="action-btn btn-orders">
                 <span class="material-icons">receipt_long</span>
-                Orders
               </a>
+              <button class="action-btn btn-pw" title="Reset Password" (click)="openResetPw(c)">
+                <span class="material-icons">key</span>
+              </button>
+              <button class="action-btn"
+                [class.btn-deactivate]="c.isActive"
+                [class.btn-activate]="!c.isActive"
+                [disabled]="togglingId() === c.uid"
+                [title]="c.isActive ? 'Deactivate' : 'Activate'"
+                (click)="toggleStatus(c)">
+                @if (togglingId() === c.uid) {
+                  <span class="btn-spinner-sm"></span>
+                } @else {
+                  <span class="material-icons">{{ c.isActive ? 'block' : 'check_circle' }}</span>
+                }
+              </button>
             </td>
           </tr>
         }
       </tbody>
     </table>
+  </div>
+}
+
+<!-- ── Reset Password Modal ────────────────────────────── -->
+@if (pwTarget()) {
+  <div class="modal-overlay" (click)="closeResetPw()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Set New Password</h2>
+        <button class="modal-close" (click)="closeResetPw()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-customer-info">
+          <div class="modal-avatar">{{ pwTarget()!.displayName?.charAt(0)?.toUpperCase() }}</div>
+          <div>
+            <div class="modal-cust-name">{{ pwTarget()!.displayName }}</div>
+            <div class="modal-cust-email">{{ pwTarget()!.email }}</div>
+          </div>
+        </div>
+
+        @if (pwDone()) {
+          <div class="pw-success">
+            <span class="material-icons">check_circle</span>
+            Password updated successfully.
+          </div>
+        } @else {
+          <div class="pw-field-wrap" [class.pw-field-error]="pwError()">
+            <span class="material-icons pw-field-icon">lock_outline</span>
+            <input
+              [type]="showPw() ? 'text' : 'password'"
+              class="pw-field-input"
+              placeholder="New password (min 6 characters)"
+              [ngModel]="newPassword()"
+              (ngModelChange)="newPassword.set($event)"
+            />
+            <button type="button" class="pw-toggle" (click)="showPw.set(!showPw())">
+              <span class="material-icons">{{ showPw() ? 'visibility_off' : 'visibility' }}</span>
+            </button>
+          </div>
+
+          @if (pwError()) {
+            <p class="pw-error-msg">{{ pwError() }}</p>
+          }
+
+          <div class="modal-actions">
+            <button class="btn-cancel" (click)="closeResetPw()">Cancel</button>
+            <button class="btn-save-pw" [disabled]="pwSaving()" (click)="savePassword()">
+              @if (pwSaving()) {
+                <span class="btn-spinner-sm"></span> Saving…
+              } @else {
+                <span class="material-icons">key</span> Set Password
+              }
+            </button>
+          </div>
+        }
+      </div>
+    </div>
   </div>
 }

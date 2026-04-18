@@ -16,7 +16,7 @@
       <div class="ao-spinner"></div>
       <p>Loading analytics…</p>
     </div>
-  } @else {
+  } @else if (data(); as d) {
 
     <!-- ── Stat cards ───────────────────────────────────── -->
     <div class="ao-stats">
@@ -26,7 +26,7 @@
           <span class="material-icons">receipt_long</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">{{ totalOrders }}</span>
+          <span class="ao-stat-value">{{ d.summary.totalOrders }}</span>
           <span class="ao-stat-label">Total Orders</span>
         </div>
         <div class="ao-stat-trend ao-trend-up">
@@ -39,7 +39,7 @@
           <span class="material-icons">currency_rupee</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">₹{{ totalRevenue.toLocaleString('en-IN') }}</span>
+          <span class="ao-stat-value">₹{{ d.summary.totalRevenue.toLocaleString('en-IN') }}</span>
           <span class="ao-stat-label">Total Revenue</span>
         </div>
         <div class="ao-stat-trend ao-trend-up">
@@ -52,7 +52,7 @@
           <span class="material-icons">group</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">{{ customerCount() }}</span>
+          <span class="ao-stat-value">{{ d.summary.totalCustomers }}</span>
           <span class="ao-stat-label">Customers</span>
         </div>
         <div class="ao-stat-trend ao-trend-up">
@@ -65,7 +65,7 @@
           <span class="material-icons">inventory_2</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">{{ totalProducts() }}</span>
+          <span class="ao-stat-value">{{ d.summary.totalProducts }}</span>
           <span class="ao-stat-label">Products</span>
         </div>
       </div>
@@ -75,10 +75,10 @@
           <span class="material-icons">hourglass_top</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">{{ pendingCount }}</span>
+          <span class="ao-stat-value">{{ d.summary.pendingOrders }}</span>
           <span class="ao-stat-label">Pending Orders</span>
         </div>
-        @if (pendingCount > 0) {
+        @if (d.summary.pendingOrders > 0) {
           <div class="ao-stat-trend ao-trend-warn">
             <span class="material-icons">priority_high</span>
           </div>
@@ -90,8 +90,28 @@
           <span class="material-icons">verified</span>
         </div>
         <div class="ao-stat-body">
-          <span class="ao-stat-value">{{ deliveredCount }}</span>
+          <span class="ao-stat-value">{{ d.summary.deliveredOrders }}</span>
           <span class="ao-stat-label">Delivered</span>
+        </div>
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-rose">
+          <span class="material-icons">shopping_cart</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">₹{{ d.summary.revenueThisMonth.toLocaleString('en-IN') }}</span>
+          <span class="ao-stat-label">Revenue This Month</span>
+        </div>
+      </div>
+
+      <div class="ao-stat-card">
+        <div class="ao-stat-icon ao-icon-cyan">
+          <span class="material-icons">person_add</span>
+        </div>
+        <div class="ao-stat-body">
+          <span class="ao-stat-value">{{ d.summary.newCustomersThisMonth }}</span>
+          <span class="ao-stat-label">New Customers</span>
         </div>
       </div>
 
@@ -126,7 +146,7 @@
 
     </div>
 
-    <!-- ── Orders volume (Bar) + Recent orders ──────────── -->
+    <!-- ── Bar chart + Recent orders ────────────────────── -->
     <div class="ao-charts-row">
 
       <div class="ao-chart-card ao-chart-half">
@@ -149,11 +169,11 @@
           </div>
           <a routerLink="/admin/orders" class="ao-view-all">View all</a>
         </div>
-        @if (recentOrders.length === 0) {
+        @if (d.recentOrders.length === 0) {
           <div class="ao-empty">No orders yet.</div>
         } @else {
           <div class="ao-recent-list">
-            @for (order of recentOrders; track order.id) {
+            @for (order of d.recentOrders; track order.id) {
               <a [routerLink]="['/admin/orders', order.id]" class="ao-recent-row">
                 <div class="ao-recent-info">
                   <span class="ao-recent-id">#{{ order.id?.slice(-8)?.toUpperCase() }}</span>
@@ -167,6 +187,69 @@
                 </span>
                 <span class="ao-recent-amount">₹{{ order.total.toLocaleString('en-IN') }}</span>
               </a>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <!-- ── Top customers + Top products ─────────────────── -->
+    <div class="ao-charts-row ao-two-col">
+
+      <div class="ao-chart-card">
+        <div class="ao-chart-header">
+          <div class="ao-chart-title-group">
+            <span class="material-icons ao-chart-icon">workspace_premium</span>
+            <h2 class="ao-chart-title">Top Customers</h2>
+          </div>
+          <a routerLink="/admin/customers" class="ao-view-all">View all</a>
+        </div>
+        @if (d.topCustomers.length === 0) {
+          <div class="ao-empty">No customer data yet.</div>
+        } @else {
+          <div class="ao-top-list">
+            @for (c of d.topCustomers; track c.userId; let i = $index) {
+              <div class="ao-top-row">
+                <span class="ao-top-rank">{{ i + 1 }}</span>
+                <div class="ao-top-info">
+                  <span class="ao-top-name">{{ c.name }}</span>
+                  <span class="ao-top-sub">{{ c.companyName || c.email }}</span>
+                </div>
+                <div class="ao-top-meta">
+                  <span class="ao-top-value">₹{{ c.totalSpend.toLocaleString('en-IN') }}</span>
+                  <span class="ao-top-orders">{{ c.orderCount }} orders</span>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="ao-chart-card">
+        <div class="ao-chart-header">
+          <div class="ao-chart-title-group">
+            <span class="material-icons ao-chart-icon">emoji_events</span>
+            <h2 class="ao-chart-title">Top Products</h2>
+          </div>
+          <a routerLink="/admin/products" class="ao-view-all">View all</a>
+        </div>
+        @if (d.topProducts.length === 0) {
+          <div class="ao-empty">No product data yet.</div>
+        } @else {
+          <div class="ao-top-list">
+            @for (p of d.topProducts; track p.productId; let i = $index) {
+              <div class="ao-top-row">
+                <span class="ao-top-rank">{{ i + 1 }}</span>
+                <div class="ao-top-info">
+                  <span class="ao-top-name">{{ p.name }}</span>
+                  <span class="ao-top-sub">{{ p.totalQuantity }} units sold</span>
+                </div>
+                <div class="ao-top-meta">
+                  <span class="ao-top-value">₹{{ p.totalRevenue.toLocaleString('en-IN') }}</span>
+                  <span class="ao-top-orders">{{ p.orderCount }} orders</span>
+                </div>
+              </div>
             }
           </div>
         }

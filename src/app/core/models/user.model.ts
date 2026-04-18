@@ -8,6 +8,7 @@ export interface UserProfile {
   companyName: string;
   gstNumber:   string;
   role:        UserRole;
+  isActive:    boolean;
   addresses:   Address[];
   createdAt:   Date;
   updatedAt:   Date;

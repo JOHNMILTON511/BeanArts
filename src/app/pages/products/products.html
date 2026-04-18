@@ -40,7 +40,7 @@
         <div class="product-card">
           <!-- Image -->
           <a [routerLink]="['/products', product.id]" class="product-img-wrap">
-            @if (product.images?.[0]) {
+            @if (product.images[0]) {
               <img [src]="product.images[0]" [alt]="product.name" class="product-img" loading="lazy" />
             } @else {
               <div class="product-img-placeholder">
@@ -63,7 +63,7 @@
                 <p class="product-price">₹{{ product.price.toLocaleString('en-IN') }}</p>
                 <p class="product-min-qty">Min. {{ product.minQty }} units</p>
               </div>
-              @if (product.variants?.length) {
+              @if (product.variants.length) {
                 <span class="product-variants-tag">{{ product.variants.length }} variants</span>
               }
             </div>

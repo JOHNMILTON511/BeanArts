@@ -8,7 +8,26 @@
   Split layout: text left + floating product showcase right.
 ════════════════════════════════════════════════════════════════ -->
 <section class="relative overflow-hidden h-[92vh] min-h-[600px] max-h-[900px]">
-  <owl-carousel-o [options]="heroCarouselOptions" class="w-full hero-carousel">
+
+  <!-- ── Hero skeleton — hides the pre-init carousel stack ── -->
+  @if (!heroReady()) {
+    <div class="hero-skeleton" aria-hidden="true">
+      <div class="hero-skeleton-shimmer"></div>
+      <div class="hero-skeleton-content">
+        <div class="hero-sk-pill"></div>
+        <div class="hero-sk-title"></div>
+        <div class="hero-sk-title hero-sk-title--short"></div>
+        <div class="hero-sk-sub"></div>
+        <div class="hero-sk-btns">
+          <div class="hero-sk-btn hero-sk-btn--primary"></div>
+          <div class="hero-sk-btn"></div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <owl-carousel-o [options]="heroCarouselOptions" class="w-full hero-carousel"
+                  (initialized)="onHeroCarouselInit()">
     @for (slide of slides; track slide.id) {
     <ng-template carouselSlide>
       <div class="relative w-full h-[92vh] min-h-[600px] max-h-[900px]">
