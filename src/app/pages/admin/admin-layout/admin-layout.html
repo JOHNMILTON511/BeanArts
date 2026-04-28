@@ -3,10 +3,17 @@
   <!-- Sidebar -->
   <aside class="admin-sidebar" [class.open]="sidebarOpen()">
 
+    <!-- Decorative orbs -->
+    <div class="admin-orb admin-orb-1"></div>
+    <div class="admin-orb admin-orb-2"></div>
+
+    <!-- Brand -->
     <div class="admin-sidebar-header">
       <div class="admin-logo">
-        <img src="assets/logo/3.png" alt="BeanArts" />
-        <div>
+        <div class="admin-logo-icon">
+          <img src="assets/logo/3.png" alt="BeanArts" />
+        </div>
+        <div class="admin-logo-text">
           <span class="admin-brand">BeanArts</span>
           <span class="admin-panel-tag">Admin Panel</span>
         </div>
@@ -16,6 +23,8 @@
       </button>
     </div>
 
+    <!-- Navigation -->
+    <div class="admin-nav-label">Management</div>
     <nav class="admin-nav">
       @for (item of navItems; track item.route) {
         <a
@@ -24,22 +33,25 @@
           routerLinkActive="active"
           (click)="sidebarOpen.set(false)"
         >
-          <span class="material-icons">{{ item.icon }}</span>
-          <span>{{ item.label }}</span>
+          <div class="admin-nav-icon"><span class="material-icons">{{ item.icon }}</span></div>
+          <span class="admin-nav-text">{{ item.label }}</span>
         </a>
       }
     </nav>
 
+    <!-- Footer -->
     <div class="admin-sidebar-footer">
+      <div class="admin-nav-label">Account</div>
       <a routerLink="/dashboard" class="admin-nav-item" (click)="sidebarOpen.set(false)">
-        <span class="material-icons">person</span>
-        <span>My Account</span>
+        <div class="admin-nav-icon admin-nav-icon--blue"><span class="material-icons">person</span></div>
+        <span class="admin-nav-text">My Account</span>
       </a>
       <button class="admin-nav-item admin-logout" (click)="logout()">
-        <span class="material-icons">logout</span>
-        <span>Sign Out</span>
+        <div class="admin-nav-icon admin-nav-icon--red"><span class="material-icons">logout</span></div>
+        <span class="admin-nav-text">Sign Out</span>
       </button>
     </div>
+
   </aside>
 
   @if (sidebarOpen()) {
@@ -49,8 +61,6 @@
   <div class="admin-main">
 
     <header class="admin-topbar">
-
-      <!-- Left: burger + logo -->
       <div class="admin-topbar-left">
         <button class="admin-menu-btn" (click)="sidebarOpen.set(true)" aria-label="Open menu">
           <span class="material-icons">menu</span>
@@ -64,22 +74,23 @@
         </a>
       </div>
 
-      <!-- Right: My Account + Sign Out -->
       <div class="admin-topbar-right">
-        <a routerLink="/dashboard" class="admin-topbar-action" title="My Account">
+        <div class="admin-topbar-badge">
+          <span class="material-icons">verified_user</span>
+          <span>Administrator</span>
+        </div>
+        <a routerLink="/dashboard" class="admin-icon-btn" title="My Account">
           <span class="material-icons">person_outline</span>
-          <span class="admin-topbar-action-label">My Account</span>
         </a>
-        <button class="admin-signout-btn" (click)="logout()" title="Sign Out">
+        <button class="admin-icon-btn admin-icon-btn--red" (click)="logout()" title="Sign Out">
           <span class="material-icons">logout</span>
-          <span class="admin-topbar-action-label">Sign Out</span>
         </button>
       </div>
-
     </header>
 
     <main class="admin-content">
       <router-outlet></router-outlet>
     </main>
+
   </div>
 </div>

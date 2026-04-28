@@ -15,7 +15,7 @@
         <div class="form-row">
           <div class="field-group">
             <label class="field-label">Contact name *</label>
-            <input formControlName="name" class="field-input" placeholder="Riya Sharma" type="text" />
+            <input formControlName="name" class="field-input" placeholder="Thangama" type="text" />
             @if (form.get('name')?.invalid && form.get('name')?.touched) {
               <span class="field-msg">Required.</span>
             }
@@ -45,21 +45,21 @@
         <div class="form-row">
           <div class="field-group">
             <label class="field-label">City *</label>
-            <input formControlName="city" class="field-input" placeholder="Mumbai" type="text" />
+            <input formControlName="city" class="field-input" placeholder="Bengaluru" type="text" />
             @if (form.get('city')?.invalid && form.get('city')?.touched) {
               <span class="field-msg">Required.</span>
             }
           </div>
           <div class="field-group">
             <label class="field-label">State *</label>
-            <input formControlName="state" class="field-input" placeholder="Maharashtra" type="text" />
+            <input formControlName="state" class="field-input" placeholder="Karnataka" type="text" />
             @if (form.get('state')?.invalid && form.get('state')?.touched) {
               <span class="field-msg">Required.</span>
             }
           </div>
           <div class="field-group field-group-sm">
             <label class="field-label">Pincode *</label>
-            <input formControlName="pincode" class="field-input" placeholder="400001" type="text" maxlength="6" />
+            <input formControlName="pincode" class="field-input" placeholder="560001" type="text" maxlength="6" />
             @if (form.get('pincode')?.invalid && form.get('pincode')?.touched) {
               <span class="field-msg">6-digit pincode required.</span>
             }
