@@ -24,12 +24,13 @@ export class AdminProducts implements OnInit {
   loading  = signal(true);
   search   = signal('');
 
-  showForm     = signal(false);
-  editingId    = signal<string | null>(null);
-  saving       = signal(false);
-  formError    = signal('');
-  deleteTarget = signal<Product | null>(null);
-  deleting     = signal(false);
+  showForm        = signal(false);
+  editingId       = signal<string | null>(null);
+  saving          = signal(false);
+  formError       = signal('');
+  deleteTarget    = signal<Product | null>(null);
+  deleting        = signal(false);
+  uploadingSlots  = signal<Set<number>>(new Set());
 
   readonly categories: ProductCategory[] = ['Gifting', 'Printing', 'Packaging', 'Merchandise'];
 
@@ -110,8 +111,29 @@ export class AdminProducts implements OnInit {
     this.editingId.set(null);
   }
 
-  addImage(): void   { this.imagesArray.push(this.fb.control('')); }
+  addImage(): void { this.imagesArray.push(this.fb.control('')); }
   removeImage(i: number): void { if (this.imagesArray.length > 1) this.imagesArray.removeAt(i); }
+
+  isUploadingSlot(i: number): boolean { return this.uploadingSlots().has(i); }
+
+  async handleFileSelected(event: Event, index: number): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file  = input.files?.[0];
+    if (!file) return;
+
+    this.uploadingSlots.update(s => new Set([...s, index]));
+    this.formError.set('');
+
+    try {
+      const res = await firstValueFrom(this.productService.uploadImage(file));
+      this.imagesArray.at(index).setValue(res.url);
+    } catch {
+      this.formError.set('Image upload failed. Check file type/size and try again.');
+    } finally {
+      this.uploadingSlots.update(s => { const n = new Set(s); n.delete(index); return n; });
+      input.value = '';
+    }
+  }
 
   addVariant(): void {
     this.variantsArray.push(this.fb.group({

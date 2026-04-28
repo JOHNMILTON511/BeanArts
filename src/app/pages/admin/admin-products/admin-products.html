@@ -171,23 +171,61 @@
         <!-- Images -->
         <div class="f-group">
           <div class="f-label-row">
-            <label class="f-label">Image URLs</label>
+            <label class="f-label">Product Images</label>
             <button type="button" class="btn-link-add" (click)="addImage()">
-              <span class="material-icons">add</span> Add
+              <span class="material-icons">add</span> Add Slot
             </button>
           </div>
           <div formArrayName="images" class="f-list">
             @for (ctrl of imagesArray.controls; track ctrl; let i = $index) {
-              <div class="f-list-row">
-                <input type="url" [formControlName]="i" class="f-input"
-                  placeholder="https://example.com/image.jpg" />
+              <div class="f-img-row">
+
+                <!-- Preview thumbnail -->
+                <div class="f-img-thumb">
+                  @if (ctrl.value) {
+                    <img [src]="ctrl.value" alt="preview" class="f-thumb-img" />
+                  } @else {
+                    <span class="material-icons f-thumb-placeholder">image</span>
+                  }
+                </div>
+
+                <!-- URL text input -->
+                <input type="url" [formControlName]="i" class="f-input f-img-input"
+                  placeholder="Paste URL or upload a file →" />
+
+                <!-- Hidden file input -->
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  class="f-file-hidden"
+                  [id]="'img-file-' + i"
+                  (change)="handleFileSelected($event, i)"
+                />
+
+                <!-- Upload button -->
+                <label [for]="'img-file-' + i" class="btn-upload-img"
+                  [class.uploading]="isUploadingSlot(i)"
+                  [attr.title]="isUploadingSlot(i) ? 'Uploading…' : 'Upload local image'">
+                  @if (isUploadingSlot(i)) {
+                    <span class="btn-spinner btn-spinner--sm"></span>
+                  } @else {
+                    <span class="material-icons">upload</span>
+                  }
+                </label>
+
+                <!-- Remove -->
                 <button type="button" class="btn-remove-row" (click)="removeImage(i)"
-                  [disabled]="imagesArray.length === 1" aria-label="Remove">
+                  [disabled]="imagesArray.length === 1" aria-label="Remove slot">
                   <span class="material-icons">remove_circle_outline</span>
                 </button>
+
               </div>
             }
           </div>
+          <p class="f-img-hint">
+            <span class="material-icons">info</span>
+            Upload a local file (JPG/PNG/WebP, max 5 MB) or paste an external URL.
+          </p>
         </div>
 
         <!-- Variants -->
