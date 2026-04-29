@@ -5,6 +5,11 @@
 
 /* ── Hero Carousel ───────────────────────────────────────────── */
 
+/* Prevent any white flash — dark background matches skeleton */
+.hero-section {
+  background: linear-gradient(155deg, #08062a 0%, #0d0b3a 55%, #0b0930 100%);
+}
+
 /* Cinematic dark overlay */
 .hero-overlay {
   background:
@@ -106,7 +111,12 @@
   Prevent CLS: lock carousel to section height before owl initializes.
   Without this, all 3 slides stack vertically (~276vh) until owl collapses
   them to 1 slide, causing a massive layout shift on first paint.
+  Hide carousel content until owl sets .owl-loaded (before skeleton is removed).
 */
+.hero-carousel .owl-carousel:not(.owl-loaded) {
+  opacity: 0;
+}
+
 .hero-carousel,
 .hero-carousel .owl-carousel {
   height: 100%;
@@ -620,6 +630,14 @@
   z-index: 30;
   background: linear-gradient(to right, #08062a 0%, #0d0b3a 55%, #0b0930 100%);
   overflow: hidden;
+}
+.hero-sk-exit {
+  animation: heroskFadeOut 0.45s ease forwards;
+  pointer-events: none;
+}
+@keyframes heroskFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 /* Shimmer sweep */

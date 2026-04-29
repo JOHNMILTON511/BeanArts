@@ -7,11 +7,11 @@
   SECTION 1 — HERO CAROUSEL
   Split layout: text left + floating product showcase right.
 ════════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden h-[92vh] min-h-[600px] max-h-[900px]">
+<section class="relative overflow-hidden h-[92vh] min-h-[600px] max-h-[900px] hero-section">
 
   <!-- ── Hero skeleton — hides the pre-init carousel stack ── -->
-  @if (!heroReady()) {
-    <div class="hero-skeleton" aria-hidden="true">
+  @if (!skeletonDone()) {
+    <div class="hero-skeleton" [class.hero-sk-exit]="heroReady()" aria-hidden="true">
       <div class="hero-skeleton-shimmer"></div>
       <div class="hero-skeleton-content">
         <div class="hero-sk-pill"></div>

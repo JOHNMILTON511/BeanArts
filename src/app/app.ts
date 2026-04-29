@@ -36,9 +36,15 @@ export class App implements OnDestroy {
     this.currentUrl.set(this.router.url || '/');
 
     afterNextRender(() => {
-      // Mark doc as JS-ready → scroll-reveal animations activate,
-      // SSR hydration flash is prevented (see styles.css ba-ready guard)
-      document.documentElement.classList.add('ba-ready');
+      // Delay two frames so IntersectionObserver fires for in-viewport .reveal
+      // elements before .ba-ready activates the opacity:0 CSS rules.
+      // Without this, visible sections briefly flash invisible (opacity:0)
+      // before the observer marks them .revealed.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.documentElement.classList.add('ba-ready');
+        });
+      });
 
       // Fade out the init loader (only present in CSR / slow-network)
       const loader = document.getElementById('ba-init-loader');

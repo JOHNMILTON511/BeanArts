@@ -41,9 +41,11 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   activeTestimonial = signal(0);
   heroReady        = signal(false);
+  skeletonDone     = signal(false);
 
   onHeroCarouselInit(): void {
     this.heroReady.set(true);
+    setTimeout(() => this.skeletonDone.set(true), 500);
   }
 
   // ── Counter animation state ───────────────────────────────────────
@@ -73,7 +75,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     ],
     navSpeed: 800,
     autoplay: true,
-    autoplayTimeout: 2500,
+    autoplayTimeout: 4000,
     autoplayHoverPause: true,
     animateOut: 'fadeOut',
     animateIn: 'fadeIn',
