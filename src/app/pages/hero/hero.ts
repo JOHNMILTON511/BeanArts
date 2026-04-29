@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -8,5 +8,6 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule, NgOptimizedImage],
   templateUrl: './hero.html',
   styleUrls: ['./hero.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero {}

@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 ],
   templateUrl: './privacy-policy.html',
   styleUrl: './privacy-policy.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrivacyPolicy implements OnInit {
   lastUpdatedDate: string = 'October 25, 2025';

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
  // Added CommonModule
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
@@ -13,6 +13,7 @@ import { Meta, Title } from '@angular/platform-browser';
 ],
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFound implements OnInit {
 

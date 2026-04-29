@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   OnDestroy,
@@ -20,6 +21,7 @@ import { AuthService } from '../../core/services/auth.service';
   imports: [RouterLink, RouterLinkActive, MatIconModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header implements OnInit, OnDestroy {
   private router      = inject(Router);

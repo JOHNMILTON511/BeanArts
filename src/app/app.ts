@@ -1,4 +1,4 @@
-import { afterNextRender, Component, inject, OnDestroy, signal, computed } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject, OnDestroy, signal, computed } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Header } from './shared/header/header';
@@ -11,7 +11,8 @@ const STANDALONE_PREFIXES = ['/dashboard', '/admin', '/login', '/register', '/fo
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer, RouterModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnDestroy {
   protected readonly title = signal('BeanArts');

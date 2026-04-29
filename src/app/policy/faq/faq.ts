@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { MatExpansionModule } from '@angular/material/expansion'; 
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
     RouterModule
 ],
   templateUrl: './faq.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .mat-expansion-panel-header-title { font-weight: 600; color: #1f2937; }
     .mat-expansion-panel-header.mat-expanded { height: 64px; }

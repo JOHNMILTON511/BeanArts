@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, RouterLink, MatIconModule, MatButtonModule],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
   currentYear = signal(new Date().getFullYear());

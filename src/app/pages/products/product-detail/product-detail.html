@@ -1,25 +1,46 @@
-<div class="pd-page">
-  <a routerLink="/products" class="back-link">
-    <span class="material-icons">arrow_back</span> Back to Products
-  </a>
+<!-- ── Hero (full-width, matches products / about / services pages) ── -->
+<section class="pd-hero relative overflow-hidden">
+  <div class="pd-grid-bg" aria-hidden="true"></div>
+  <div class="pd-blob pd-blob--1"></div>
+
+  <div class="ba-container relative z-10 py-12 lg:py-16">
+    <a routerLink="/products" class="back-link">
+      <span class="material-icons">arrow_back</span> Back to Products
+    </a>
+  </div>
+
+  <!-- Wave — same curve as contact hero -->
+  <div class="pd-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 64" fill="none" preserveAspectRatio="none"
+         xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,32 C360,64 1080,0 1440,32 L1440,64 L0,64 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ── Content (light background) ──────────────────────────────── -->
+<div class="ba-container pd-content">
 
   @if (loading()) {
     <div class="loading-state"><div class="spinner-ring"></div></div>
   } @else if (!product()) {
-    <div class="empty-state"><p>Product not found.</p> <a routerLink="/products" class="btn-back">Browse Products</a></div>
+    <div class="empty-state">
+      <p>Product not found.</p>
+      <a routerLink="/products" class="btn-back">Browse Products</a>
+    </div>
   } @else {
     <div class="pd-layout">
 
       <!-- Images -->
       <div class="pd-images">
         <div class="pd-main-img-wrap">
-          @if (product()!.images?.length) {
+          @if (product()!.images.length) {
             <img [src]="product()!.images[activeImage()]" [alt]="product()!.name" class="pd-main-img" />
           } @else {
             <div class="pd-img-placeholder"><span class="material-icons">image</span></div>
           }
         </div>
-        @if ((product()!.images?.length ?? 0) > 1) {
+        @if (product()!.images.length > 1) {
           <div class="pd-thumbs">
             @for (img of product()!.images; track img; let i = $index) {
               <img [src]="img" [alt]="product()!.name + ' ' + (i+1)" class="pd-thumb"
@@ -46,7 +67,7 @@
         <p class="pd-desc">{{ product()!.description }}</p>
 
         <!-- Variants -->
-        @if (product()!.variants?.length) {
+        @if (product()!.variants.length) {
           <div class="pd-section">
             <p class="pd-section-label">Select variant</p>
             <div class="pd-variants">
@@ -70,7 +91,7 @@
 
         <!-- Quantity -->
         <div class="pd-section">
-          <p class="pd-section-label">Quantity <span style="color:rgba(255,255,255,.35)">(Min. {{ product()!.minQty }})</span></p>
+          <p class="pd-section-label">Quantity <span class="pd-min-note">(Min. {{ product()!.minQty }})</span></p>
           <div class="qty-control">
             <button class="qty-btn" (click)="quantity.set(Math.max(product()!.minQty, quantity() - 1))">−</button>
             <input type="number" class="qty-input" [ngModel]="quantity()" (ngModelChange)="quantity.set($event)"
@@ -116,4 +137,5 @@
       </div>
     </div>
   }
+
 </div>
