@@ -13,7 +13,7 @@
 .admin-sidebar {
   width: 252px;
   flex-shrink: 0;
-  background: #05050f;
+  background: #120e28;
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -209,7 +209,7 @@
 .admin-topbar-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
 .admin-topbar-logo-img { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; }
 .admin-topbar-logo-text { display: flex; flex-direction: column; line-height: 1; gap: 1px; }
-.admin-topbar-logo-name { font-size: 0.95rem; font-weight: 800; color: #05050f; letter-spacing: -0.01em; }
+.admin-topbar-logo-name { font-size: 0.95rem; font-weight: 800; color: #120e28; letter-spacing: -0.01em; }
 .admin-topbar-logo-tag  { font-size: 0.57rem; font-weight: 800; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.09em; }
 
 .admin-topbar-right { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }

@@ -1,50 +1,56 @@
+/* ── Order Detail ─────────────────────────────────────── */
 .od-header { margin-bottom: 1.5rem; }
 .back-link {
   display: inline-flex; align-items: center; gap: .35rem;
-  color: #9ca3af; text-decoration: none; font-size: .875rem;
+  color: #94a3b8; text-decoration: none; font-size: .875rem; font-weight: 500;
   transition: color .2s;
 }
-.back-link:hover { color: #111827; }
+.back-link:hover { color: #0f172a; }
 .back-link .material-icons { font-size: 1rem !important; }
 
 .loading-state, .empty-state {
   display: flex; align-items: center; justify-content: center; padding: 4rem 1rem;
-  color: #9ca3af;
+  color: #94a3b8;
 }
 .spinner-ring {
   width: 36px; height: 36px;
-  border: 3px solid #e5e7eb;
-  border-top-color: #4f46e5;
-  border-radius: 50%;
-  animation: spin .7s linear infinite;
+  border: 3px solid #e0e7ff; border-top-color: #4f46e5;
+  border-radius: 50%; animation: spin .7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .od-layout { display: grid; grid-template-columns: 1fr 340px; gap: 1.25rem; align-items: start; }
 
 .od-card {
-  background: #ffffff; border: 1px solid #e5e7eb;
-  border-radius: 14px; padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(99,102,241,0.08);
+  border-radius: 18px; padding: 1.5rem;
   margin-bottom: 1.25rem;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04), 0 4px 16px rgba(99,102,241,0.05);
 }
 .od-card:last-child { margin-bottom: 0; }
-.od-card-title { font-size: .95rem; font-weight: 700; color: #111827; margin: 0 0 1.25rem; }
+.od-card-title {
+  font-size: .9rem; font-weight: 800; color: #0f172a; margin: 0 0 1.25rem;
+  display: flex; align-items: center; gap: .4rem; letter-spacing: -0.01em;
+}
 .od-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
-.od-label { font-size: .75rem; color: #9ca3af; margin: 0 0 .25rem; }
-.od-id { font-family: monospace; font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0; }
-.od-meta { display: flex; flex-direction: column; gap: .4rem; color: #9ca3af; font-size: .82rem; }
+.od-label { font-size: .7rem; color: #94a3b8; margin: 0 0 .25rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.od-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0;
+}
+.od-meta { display: flex; flex-direction: column; gap: .4rem; color: #94a3b8; font-size: .82rem; }
 .od-meta span { display: flex; align-items: center; gap: .35rem; }
 .od-meta-icon { font-size: .95rem !important; }
 
-.status-pill { padding: .3rem .75rem; border-radius: 99px; font-size: .8rem; font-weight: 600; }
+.status-pill { padding: .28rem .72rem; border-radius: 99px; font-size: .68rem; font-weight: 700; }
 
 /* Progress tracker */
 .progress-track { display: flex; gap: 0; position: relative; }
 .progress-track::before {
   content: ''; position: absolute;
   top: 11px; left: 0; right: 0; height: 2px;
-  background: #e5e7eb;
-  z-index: 0;
+  background: rgba(99,102,241,0.1); z-index: 0;
 }
 .progress-step {
   flex: 1; display: flex; flex-direction: column; align-items: center;
@@ -52,39 +58,45 @@
 }
 .ps-dot {
   width: 24px; height: 24px; border-radius: 50%;
-  background: #f3f4f6; border: 2px solid #e5e7eb;
+  background: #f1f5ff; border: 2px solid rgba(99,102,241,0.15);
   display: flex; align-items: center; justify-content: center;
-  color: #9ca3af; transition: background .3s, border-color .3s;
+  color: #c7d2fe; transition: background .3s, border-color .3s;
 }
-.progress-step.reached .ps-dot {
-  background: #4f46e5; border-color: #4f46e5; color: #fff;
-}
+.ps-dot .material-icons { font-size: .75rem !important; }
+.progress-step.reached .ps-dot { background: #4f46e5; border-color: #4f46e5; color: #fff; }
 .progress-step.current .ps-dot {
   background: #4f46e5; border-color: #6366f1; color: #fff;
-  box-shadow: 0 0 0 4px rgba(79,70,229,.2);
+  box-shadow: 0 0 0 5px rgba(79,70,229,.15);
 }
-.ps-label { font-size: .65rem; color: #d1d5db; text-align: center; line-height: 1.3; }
-.progress-step.reached .ps-label, .progress-step.current .ps-label { color: #6b7280; }
+.ps-label { font-size: .62rem; color: #c7d2fe; text-align: center; line-height: 1.3; font-weight: 600; }
+.progress-step.reached .ps-label, .progress-step.current .ps-label { color: #64748b; }
 
 /* Items */
 .od-items { display: flex; flex-direction: column; gap: .85rem; }
 .od-item { display: flex; align-items: center; gap: 1rem; }
-.od-item-img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; background: #f3f4f6; flex-shrink: 0; }
+.od-item-img {
+  width: 56px; height: 56px; object-fit: cover;
+  border-radius: 10px; background: #f1f5ff;
+  border: 1px solid rgba(99,102,241,0.1); flex-shrink: 0;
+}
 .od-item-info { flex: 1; }
-.od-item-name { font-size: .875rem; font-weight: 600; color: #111827; margin: 0 0 .2rem; }
-.od-item-variant { font-size: .75rem; color: #9ca3af; margin: 0 0 .15rem; }
-.od-item-qty { font-size: .75rem; color: #d1d5db; margin: 0; }
-.od-item-price { font-weight: 700; color: #111827; font-size: .9rem; white-space: nowrap; }
+.od-item-name { font-size: .875rem; font-weight: 700; color: #0f172a; margin: 0 0 .2rem; }
+.od-item-variant { font-size: .75rem; color: #94a3b8; margin: 0 0 .15rem; }
+.od-item-qty { font-size: .72rem; color: #c7d2fe; margin: 0; }
+.od-item-price { font-weight: 800; color: #0f172a; font-size: .9rem; white-space: nowrap; letter-spacing: -0.01em; }
 
 /* Price summary */
-.od-price-row { display: flex; justify-content: space-between; padding: .5rem 0; border-bottom: 1px solid #f3f4f6; font-size: .875rem; color: #6b7280; }
+.od-price-row {
+  display: flex; justify-content: space-between; padding: .55rem 0;
+  border-bottom: 1px solid rgba(99,102,241,0.06); font-size: .875rem; color: #64748b;
+}
 .od-price-row:last-child { border: none; }
-.od-price-total { font-size: 1rem; font-weight: 700; color: #111827; }
+.od-price-total { font-size: 1rem; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; }
 
 /* Address */
-.od-address { font-style: normal; color: #6b7280; font-size: .875rem; line-height: 1.8; }
-.od-phone { color: #9ca3af; }
-.od-notes-text { color: #6b7280; font-size: .875rem; margin: 0; line-height: 1.6; }
+.od-address { font-style: normal; color: #64748b; font-size: .875rem; line-height: 1.8; }
+.od-phone { color: #94a3b8; }
+.od-notes-text { color: #64748b; font-size: .875rem; margin: 0; line-height: 1.6; }
 
 @media (max-width: 768px) {
   .od-layout { grid-template-columns: 1fr; }

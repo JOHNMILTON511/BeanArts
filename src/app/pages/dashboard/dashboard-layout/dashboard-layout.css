@@ -16,7 +16,7 @@
 .dash-sidebar {
   width: 262px;
   flex-shrink: 0;
-  background: #09091d;
+  background: #141432;
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -129,7 +129,7 @@
   width: 10px; height: 10px;
   background: #22c55e;
   border-radius: 50%;
-  border: 2px solid #09091d;
+  border: 2px solid #141432;
   box-shadow: 0 0 6px rgba(34,197,94,0.6);
 }
 .dash-profile-name {
