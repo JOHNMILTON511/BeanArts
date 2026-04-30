@@ -176,7 +176,7 @@
             @for (order of d.recentOrders; track order.id) {
               <a [routerLink]="['/admin/orders', order.id]" class="ao-recent-row">
                 <div class="ao-recent-info">
-                  <span class="ao-recent-id">#{{ order.id?.slice(-8)?.toUpperCase() }}</span>
+                  <span class="ao-recent-id">#{{ order.id.slice(-8).toUpperCase() }}</span>
                   <span class="ao-recent-name">{{ order.companyName || order.userName }}</span>
                 </div>
                 <span class="ao-recent-pill"

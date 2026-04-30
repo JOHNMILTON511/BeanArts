@@ -18,7 +18,7 @@
         <div class="od-card-top">
           <div>
             <p class="od-label">Order ID</p>
-            <p class="od-id">#{{ order()!.id?.slice(-8)?.toUpperCase() }}</p>
+            <p class="od-id">#{{ order()!.id.slice(-8).toUpperCase() }}</p>
           </div>
           <span class="status-pill"
             [style.background]="statusColors[order()!.status] + '22'"

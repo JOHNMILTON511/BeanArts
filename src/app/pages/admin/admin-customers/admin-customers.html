@@ -37,7 +37,7 @@
           <tr [class.row-inactive]="!c.isActive">
             <td class="cust-name-cell">
               <div class="cust-avatar" [class.avatar-inactive]="!c.isActive">
-                {{ c.displayName?.charAt(0)?.toUpperCase() || '?' }}
+                {{ c.displayName.charAt(0).toUpperCase() || '?' }}
               </div>
               <div>
                 <span class="cust-name">{{ c.displayName }}</span>
@@ -98,7 +98,7 @@
 
       <div class="modal-body">
         <div class="modal-customer-info">
-          <div class="modal-avatar">{{ pwTarget()!.displayName?.charAt(0)?.toUpperCase() }}</div>
+          <div class="modal-avatar">{{ pwTarget()!.displayName.charAt(0).toUpperCase() }}</div>
           <div>
             <div class="modal-cust-name">{{ pwTarget()!.displayName }}</div>
             <div class="modal-cust-email">{{ pwTarget()!.email }}</div>
