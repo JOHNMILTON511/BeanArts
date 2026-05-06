@@ -22,6 +22,12 @@
   <!-- ══ Right Panel ══════════════════════════════════════════ -->
   <div class="auth-right">
     <div class="auth-card">
+
+      <a routerLink="/" class="auth-back-link">
+        <span class="material-icons">arrow_back</span>
+        Back to Home
+      </a>
+
       <div class="auth-card-header">
         <h1 class="auth-title">Welcome back</h1>
         <p class="auth-subtitle">Sign in to your BeanArts account</p>
@@ -30,7 +36,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
 
         <!-- Email -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Email address</mat-label>
           <input matInput type="email" formControlName="email"
             placeholder="you@company.com" autocomplete="email" />
@@ -39,7 +45,7 @@
         </mat-form-field>
 
         <!-- Password -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Password</mat-label>
           <input matInput [type]="showPassword() ? 'text' : 'password'"
             formControlName="password" placeholder="••••••••"

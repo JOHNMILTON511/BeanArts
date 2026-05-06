@@ -1,6 +1,7 @@
 import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../core/services/auth.service';
 import { CartService } from '../../../core/services/cart.service';
 
@@ -8,7 +9,7 @@ import { CartService } from '../../../core/services/cart.service';
   selector: 'app-admin-layout',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatTooltipModule],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',
 })

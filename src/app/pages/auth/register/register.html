@@ -22,6 +22,11 @@
   <!-- ══ Right Panel ══════════════════════════════════════════ -->
   <div class="auth-right">
     <div class="auth-card">
+      <a routerLink="/" class="auth-back-link">
+        <span class="material-icons">arrow_back</span>
+        Back to Home
+      </a>
+
       <div class="auth-card-header">
         <h1 class="auth-title">Create account</h1>
         <p class="auth-subtitle">Set up your BeanArts business account</p>
@@ -30,7 +35,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
 
         <!-- Full Name -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Full name</mat-label>
           <input matInput type="text" formControlName="displayName"
             placeholder="Riya Sharma" autocomplete="name" />
@@ -42,7 +47,7 @@
         </mat-form-field>
 
         <!-- Company -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Company / Organisation</mat-label>
           <input matInput type="text" formControlName="companyName"
             placeholder="Acme Pvt. Ltd." autocomplete="organization" />
@@ -51,7 +56,7 @@
         </mat-form-field>
 
         <!-- Email -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Work email</mat-label>
           <input matInput type="email" formControlName="email"
             placeholder="you@company.com" autocomplete="email" />
@@ -63,7 +68,7 @@
         </mat-form-field>
 
         <!-- Phone -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Mobile number</mat-label>
           <input matInput type="tel" formControlName="phone"
             placeholder="10-digit mobile number" autocomplete="tel" maxlength="10" />
@@ -75,7 +80,7 @@
         </mat-form-field>
 
         <!-- Password -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Password</mat-label>
           <input matInput [type]="showPw() ? 'text' : 'password'"
             formControlName="password" placeholder="Min. 6 characters"
@@ -91,7 +96,7 @@
         </mat-form-field>
 
         <!-- Confirm Password -->
-        <mat-form-field appearance="outline" class="auth-field">
+        <mat-form-field appearance="outline" class="auth-field" subscriptSizing="dynamic">
           <mat-label>Confirm password</mat-label>
           <input matInput [type]="showConfirm() ? 'text' : 'password'"
             formControlName="confirmPassword" placeholder="Re-enter password"

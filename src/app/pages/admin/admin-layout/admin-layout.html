@@ -18,7 +18,7 @@
           <span class="admin-panel-tag">Admin Panel</span>
         </div>
       </div>
-      <button class="admin-close-btn" (click)="sidebarOpen.set(false)" aria-label="Close menu">
+      <button class="admin-close-btn" (click)="sidebarOpen.set(false)" aria-label="Close menu" matTooltip="Close menu">
         <span class="material-icons">close</span>
       </button>
     </div>
@@ -62,7 +62,7 @@
 
     <header class="admin-topbar">
       <div class="admin-topbar-left">
-        <button class="admin-menu-btn" (click)="sidebarOpen.set(true)" aria-label="Open menu">
+        <button class="admin-menu-btn" (click)="sidebarOpen.set(true)" aria-label="Open menu" matTooltip="Open menu">
           <span class="material-icons">menu</span>
         </button>
         <a routerLink="/" class="admin-topbar-logo">
@@ -79,10 +79,10 @@
           <span class="material-icons">verified_user</span>
           <span>Administrator</span>
         </div>
-        <a routerLink="/dashboard" class="admin-icon-btn" title="My Account">
+        <a routerLink="/dashboard" class="admin-icon-btn" matTooltip="My Account">
           <span class="material-icons">person_outline</span>
         </a>
-        <button class="admin-icon-btn admin-icon-btn--red" (click)="logout()" title="Sign Out">
+        <button class="admin-icon-btn admin-icon-btn--red" (click)="logout()" matTooltip="Sign Out">
           <span class="material-icons">logout</span>
         </button>
       </div>

@@ -4,6 +4,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProductService } from '../../../core/services/product.service';
 import { Product, ProductCategory, ProductVariant } from '../../../core/models/product.model';
 import { firstValueFrom } from 'rxjs';
@@ -12,7 +13,7 @@ import { firstValueFrom } from 'rxjs';
   selector: 'app-admin-products',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatTooltipModule],
   templateUrl: './admin-products.html',
   styleUrl: './admin-products.css',
 })

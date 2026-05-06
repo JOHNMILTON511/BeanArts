@@ -138,6 +138,21 @@
 
 .auth-card { width: 100%; max-width: 420px; }
 
+/* Back to home link */
+.auth-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s;
+}
+.auth-back-link:hover { color: #4f46e5; }
+.auth-back-link .material-icons { font-size: 1rem !important; }
+
 .auth-card-header { margin-bottom: 2rem; }
 .auth-title {
   font-size: 1.85rem;
@@ -191,7 +206,7 @@
 .auth-divider::after  { right: 0; }
 
 /* ── Form — Angular Material fields ─────────────────────── */
-.auth-form { display: flex; flex-direction: column; gap: 0.2rem; }
+.auth-form { display: flex; flex-direction: column; gap: 1rem; }
 .auth-field { width: 100%; }
 
 /* Brand color + Inter font + card-feel for mat-form-field */
@@ -209,7 +224,7 @@
   --mdc-outlined-text-field-error-label-text-color:       #f87171;
   --mdc-outlined-text-field-label-text-font:              'Inter', sans-serif;
   --mdc-outlined-text-field-input-text-font:              'Inter', sans-serif;
-  --mdc-outlined-text-field-label-text-size:              0.9rem;
+  --mdc-outlined-text-field-label-text-size:              0.82rem;
   --mat-form-field-subscript-text-font:                   'Inter', sans-serif;
   --mat-form-field-error-text-color:                      #f87171;
 }

@@ -1,6 +1,7 @@
 import { Component, signal, inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../core/services/auth.service';
 import { CartService } from '../../../core/services/cart.service';
 import { UserProfile } from '../../../core/models/user.model';
@@ -9,7 +10,7 @@ import { UserProfile } from '../../../core/models/user.model';
   selector: 'app-dashboard-layout',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatTooltipModule],
   templateUrl: './dashboard-layout.html',
   styleUrl: './dashboard-layout.css',
 })

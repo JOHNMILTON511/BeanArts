@@ -18,7 +18,7 @@
           <span class="dash-logo-sub">Customer Portal</span>
         </div>
       </a>
-      <button class="dash-sidebar-close" (click)="sidebarOpen.set(false)" aria-label="Close menu">
+      <button class="dash-sidebar-close" (click)="sidebarOpen.set(false)" aria-label="Close menu" matTooltip="Close menu">
         <span class="material-icons">close</span>
       </button>
     </div>
@@ -84,7 +84,7 @@
 
     <header class="dash-topbar">
       <div class="dash-topbar-left">
-        <button class="dash-menu-btn" (click)="sidebarOpen.set(true)" aria-label="Open menu">
+        <button class="dash-menu-btn" (click)="sidebarOpen.set(true)" aria-label="Open menu" matTooltip="Open menu">
           <span class="material-icons">menu</span>
         </button>
         <a routerLink="/" class="dash-topbar-logo">
@@ -101,14 +101,14 @@
           </a>
         }
 
-        <a routerLink="/dashboard/cart" class="dash-cart-btn" title="Cart">
+        <a routerLink="/dashboard/cart" class="dash-cart-btn" matTooltip="Cart">
           <span class="material-icons">shopping_cart</span>
           @if (cartCount() > 0) {
             <span class="dash-badge">{{ cartCount() }}</span>
           }
         </a>
 
-        <a routerLink="/dashboard/profile" class="dash-user-chip" title="My Profile">
+        <a routerLink="/dashboard/profile" class="dash-user-chip" matTooltip="My Profile">
           <div class="dash-avatar-sm">{{ profile()?.displayName?.charAt(0)?.toUpperCase() || 'U' }}</div>
           <div class="dash-user-chip-info">
             <span class="dash-user-chip-name">{{ profile()?.displayName || 'User' }}</span>
@@ -116,7 +116,7 @@
           </div>
         </a>
 
-        <button class="dash-icon-btn dash-icon-btn--red" (click)="logout()" title="Sign Out">
+        <button class="dash-icon-btn dash-icon-btn--red" (click)="logout()" matTooltip="Sign Out">
           <span class="material-icons">logout</span>
         </button>
       </div>

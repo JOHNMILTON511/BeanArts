@@ -68,14 +68,14 @@
               <td>
                 <div class="action-btns">
                   <a [href]="'/page/' + page.slug" target="_blank"
-                    class="action-btn" title="View live page"
+                    class="action-btn" matTooltip="View Live Page"
                     [class.disabled-link]="page.status !== 'published'">
                     <span class="material-icons">open_in_new</span>
                   </a>
-                  <button class="action-btn" (click)="openEdit(page)" title="Edit">
+                  <button class="action-btn" (click)="openEdit(page)" matTooltip="Edit Page">
                     <span class="material-icons">edit</span>
                   </button>
-                  <button class="action-btn action-danger" (click)="deletePage(page)" title="Delete">
+                  <button class="action-btn action-danger" (click)="deletePage(page)" matTooltip="Delete Page">
                     <span class="material-icons">delete_outline</span>
                   </button>
                 </div>

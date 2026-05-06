@@ -7,13 +7,14 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { firstValueFrom } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageService, PageDto, SavePageRequest } from '../../../core/services/page.service';
 
 @Component({
   selector: 'app-admin-pages',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, MatTooltipModule],
   templateUrl: './admin-pages.html',
   styleUrl: './admin-pages.css',
 })

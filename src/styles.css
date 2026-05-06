@@ -261,6 +261,20 @@ mat-icon {
   box-shadow: 0 4px 16px rgba(79,70,229,0.10);
 }
 
+/* Compact input height — global */
+.mat-mdc-form-field {
+  --mat-form-field-container-height: 44px;
+  --mat-form-field-container-vertical-padding: 8px;
+}
+.mat-mdc-form-field-infix {
+  min-height: unset;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.mat-mdc-text-field-wrapper {
+  padding-bottom: 0;
+}
+
 /* ── SSR hydration guard ─────────────────────────────────────── */
 /*
   Before afterNextRender adds .ba-ready to <html>, all .reveal elements

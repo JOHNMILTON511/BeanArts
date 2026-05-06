@@ -3,10 +3,16 @@
     <h1 class="page-title">Customers</h1>
     <p class="page-sub">{{ filtered.length }} registered customer(s)</p>
   </div>
-  <div class="search-wrap">
-    <span class="material-icons search-icon">search</span>
-    <input type="text" class="search-input" placeholder="Search by name, email or company…"
-      [ngModel]="search()" (ngModelChange)="search.set($event)" />
+  <div class="page-header-actions">
+    <div class="search-wrap">
+      <span class="material-icons search-icon">search</span>
+      <input type="text" class="search-input" placeholder="Search by name, email or company…"
+        [ngModel]="search()" (ngModelChange)="search.set($event)" />
+    </div>
+    <button class="btn-create-user" (click)="openCreate()">
+      <span class="material-icons">person_add</span>
+      Create User
+    </button>
   </div>
 </div>
 
@@ -59,17 +65,17 @@
             </td>
             <td class="cust-date">{{ c.createdAt | date:'dd MMM yyyy' }}</td>
             <td class="actions-cell">
-              <a [routerLink]="['/admin/orders']" [queryParams]="{ userId: c.uid }" class="action-btn btn-orders">
+              <a [routerLink]="['/admin/orders']" [queryParams]="{ userId: c.uid }" class="action-btn btn-orders" matTooltip="View Orders">
                 <span class="material-icons">receipt_long</span>
               </a>
-              <button class="action-btn btn-pw" title="Reset Password" (click)="openResetPw(c)">
+              <button class="action-btn btn-pw" matTooltip="Reset Password" (click)="openResetPw(c)">
                 <span class="material-icons">key</span>
               </button>
               <button class="action-btn"
                 [class.btn-deactivate]="c.isActive"
                 [class.btn-activate]="!c.isActive"
                 [disabled]="togglingId() === c.uid"
-                [title]="c.isActive ? 'Deactivate' : 'Activate'"
+                [matTooltip]="c.isActive ? 'Deactivate' : 'Activate'"
                 (click)="toggleStatus(c)">
                 @if (togglingId() === c.uid) {
                   <span class="btn-spinner-sm"></span>
@@ -85,13 +91,127 @@
   </div>
 }
 
+<!-- ── Create User Modal ───────────────────────────────── -->
+@if (createOpen()) {
+  <div class="modal-overlay" (click)="closeCreate()">
+    <div class="modal-box modal-box--wide" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-header-icon">
+          <span class="material-icons">person_add</span>
+        </div>
+        <div>
+          <h2 class="modal-title">Create New User</h2>
+          <p class="modal-sub">Add a new customer account manually</p>
+        </div>
+        <button class="modal-close" (click)="closeCreate()" matTooltip="Close">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        @if (createDone()) {
+          <div class="pw-success">
+            <span class="material-icons">check_circle</span>
+            User account created successfully.
+          </div>
+          <div class="modal-actions" style="margin-top:.5rem;">
+            <button class="btn-cancel" (click)="closeCreate()">Close</button>
+            <button class="btn-save-pw" (click)="createDone.set(false); createForm.reset()">
+              <span class="material-icons">add</span> Create Another
+            </button>
+          </div>
+
+        } @else {
+          <form [formGroup]="createForm" (ngSubmit)="saveCreate()" class="create-form" novalidate>
+
+            <div class="create-form-row">
+              <mat-form-field appearance="outline" class="create-field" subscriptSizing="dynamic">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="displayName" placeholder="Riya Sharma" autocomplete="off" />
+                <mat-icon matSuffix>person_outline</mat-icon>
+                <mat-error>
+                  @if (createForm.get('displayName')?.hasError('required')) { Name is required. }
+                  @else { Min. 2 characters. }
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="create-field" subscriptSizing="dynamic">
+                <mat-label>Company / Organisation</mat-label>
+                <input matInput formControlName="companyName" placeholder="Acme Pvt. Ltd." autocomplete="off" />
+                <mat-icon matSuffix>business</mat-icon>
+                <mat-error>Company name is required.</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="create-form-row">
+              <mat-form-field appearance="outline" class="create-field" subscriptSizing="dynamic">
+                <mat-label>Work Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="user@company.com" autocomplete="off" />
+                <mat-icon matSuffix>mail_outline</mat-icon>
+                <mat-error>
+                  @if (createForm.get('email')?.hasError('required')) { Email is required. }
+                  @else { Enter a valid email. }
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="create-field" subscriptSizing="dynamic">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput type="tel" formControlName="phone" placeholder="10-digit number" maxlength="10" autocomplete="off" />
+                <mat-icon matSuffix>phone_iphone</mat-icon>
+                <mat-error>
+                  @if (createForm.get('phone')?.hasError('required')) { Mobile number is required. }
+                  @else { Enter a valid 10-digit Indian number. }
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="create-field create-field--full" subscriptSizing="dynamic">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="showCreatePw() ? 'text' : 'password'"
+                formControlName="password" placeholder="Min. 6 characters" autocomplete="new-password" />
+              <button mat-icon-button matSuffix type="button" (click)="showCreatePw.set(!showCreatePw())">
+                <mat-icon>{{ showCreatePw() ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-error>
+                @if (createForm.get('password')?.hasError('required')) { Password is required. }
+                @else { Min. 6 characters. }
+              </mat-error>
+            </mat-form-field>
+
+            @if (createError()) {
+              <div class="create-error-banner">
+                <span class="material-icons">error_outline</span>
+                {{ createError() }}
+              </div>
+            }
+
+            <div class="modal-actions">
+              <button type="button" class="btn-cancel" (click)="closeCreate()">Cancel</button>
+              <button type="submit" class="btn-save-pw" [disabled]="createSaving()">
+                @if (createSaving()) {
+                  <span class="btn-spinner-sm"></span> Creating…
+                } @else {
+                  <span class="material-icons">person_add</span> Create User
+                }
+              </button>
+            </div>
+
+          </form>
+        }
+
+      </div>
+    </div>
+  </div>
+}
+
 <!-- ── Reset Password Modal ────────────────────────────── -->
 @if (pwTarget()) {
   <div class="modal-overlay" (click)="closeResetPw()">
     <div class="modal-box" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 class="modal-title">Set New Password</h2>
-        <button class="modal-close" (click)="closeResetPw()">
+        <button class="modal-close" (click)="closeResetPw()" matTooltip="Close">
           <span class="material-icons">close</span>
         </button>
       </div>

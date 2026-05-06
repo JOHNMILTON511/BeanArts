@@ -68,7 +68,7 @@
             </td>
             <td>
               <button class="featured-btn" (click)="toggleFeatured(product)"
-                [attr.aria-label]="product.featured ? 'Remove featured' : 'Mark featured'">
+                [matTooltip]="product.featured ? 'Remove from featured' : 'Mark as featured'">
                 <span class="material-icons" [style.color]="product.featured ? '#c17b2d' : '#d1d5db'">
                   {{ product.featured ? 'star' : 'star_outline' }}
                 </span>
@@ -76,10 +76,10 @@
             </td>
             <td>
               <div class="action-btns">
-                <button class="action-btn" (click)="openEdit(product)" aria-label="Edit">
+                <button class="action-btn" (click)="openEdit(product)" matTooltip="Edit Product">
                   <span class="material-icons">edit</span>
                 </button>
-                <button class="action-btn action-danger" (click)="confirmDelete(product)" aria-label="Delete">
+                <button class="action-btn action-danger" (click)="confirmDelete(product)" matTooltip="Delete Product">
                   <span class="material-icons">delete_outline</span>
                 </button>
               </div>
@@ -97,7 +97,7 @@
   <aside class="drawer">
     <div class="drawer-header">
       <h2 class="drawer-title">{{ editingId() ? 'Edit Product' : 'New Product' }}</h2>
-      <button class="drawer-close" (click)="closeForm()" aria-label="Close">
+      <button class="drawer-close" (click)="closeForm()" matTooltip="Close">
         <span class="material-icons">close</span>
       </button>
     </div>
