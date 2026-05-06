@@ -1,5 +1,6 @@
 <section class="auth-page">
-  <!-- Left Panel -->
+
+  <!-- ══ Left Panel ═══════════════════════════════════════════ -->
   <div class="auth-left">
     <div class="auth-brand">
       <img src="assets/logo/3.png" alt="BeanArts" class="auth-logo" />
@@ -18,7 +19,7 @@
     <div class="auth-left-overlay"></div>
   </div>
 
-  <!-- Right Panel -->
+  <!-- ══ Right Panel ══════════════════════════════════════════ -->
   <div class="auth-right">
     <div class="auth-card">
       <div class="auth-card-header">
@@ -26,54 +27,33 @@
         <p class="auth-subtitle">Sign in to your BeanArts account</p>
       </div>
 
-      <!-- Login Form -->
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
 
         <!-- Email -->
-        <div class="field-group">
-          <label class="field-label" for="email">Email address</label>
-          <div class="field-wrap" [class.field-error]="form.get('email')?.invalid && form.get('email')?.touched">
-            <span class="material-icons field-icon">mail_outline</span>
-            <input
-              id="email"
-              type="email"
-              formControlName="email"
-              class="field-input"
-              placeholder="you@company.com"
-              autocomplete="email"
-            />
-          </div>
-          @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
-            <span class="field-msg">Email is required.</span>
-          } @else if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
-            <span class="field-msg">Enter a valid email address.</span>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Email address</mat-label>
+          <input matInput type="email" formControlName="email"
+            placeholder="you@company.com" autocomplete="email" />
+          <mat-icon matSuffix class="auth-field-sfx">mail_outline</mat-icon>
+          <mat-error>Enter a valid email address.</mat-error>
+        </mat-form-field>
 
         <!-- Password -->
-        <div class="field-group">
-          <div class="field-label-row">
-            <label class="field-label" for="password">Password</label>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password" placeholder="••••••••"
+            autocomplete="current-password" />
+          <button mat-icon-button matSuffix type="button"
+            (click)="showPassword.set(!showPassword())"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+            <mat-icon class="auth-field-sfx">{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-hint align="end">
             <a routerLink="/forgot-password" class="forgot-link">Forgot password?</a>
-          </div>
-          <div class="field-wrap" [class.field-error]="form.get('password')?.invalid && form.get('password')?.touched">
-            <span class="material-icons field-icon">lock_outline</span>
-            <input
-              id="password"
-              [type]="showPassword() ? 'text' : 'password'"
-              formControlName="password"
-              class="field-input"
-              placeholder="••••••••"
-              autocomplete="current-password"
-            />
-            <button type="button" class="field-toggle" (click)="showPassword.set(!showPassword())" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
-              <span class="material-icons">{{ showPassword() ? 'visibility_off' : 'visibility' }}</span>
-            </button>
-          </div>
-          @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
-            <span class="field-msg">Password is required.</span>
-          }
-        </div>
+          </mat-hint>
+          <mat-error>Password is required (min 6 characters).</mat-error>
+        </mat-form-field>
 
         <!-- Error Banner -->
         @if (error()) {
@@ -86,12 +66,12 @@
         <!-- Submit -->
         <button type="submit" class="btn-primary" [disabled]="loading()">
           @if (loading()) {
-            <span class="btn-spinner"></span>
-            Signing in…
+            <span class="btn-spinner"></span> Signing in…
           } @else {
             Sign In
           }
         </button>
+
       </form>
 
       <p class="auth-switch">
@@ -100,4 +80,5 @@
       </p>
     </div>
   </div>
+
 </section>

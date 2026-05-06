@@ -14,7 +14,10 @@
       "Bash(node_modules/.bin/playwright install:*)",
       "Bash(node_modules/.bin/playwright test:*)",
       "Bash(npx ng:*)",
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "Bash(Get-ChildItem -Path \"d:\\\\CodeBase\\\\Neethu Ma\\\\Angular\\\\V1-01\\\\BeanArts\\\\src\\\\app\\\\pages\\\\admin\\\\\" -Recurse | Select-Object FullName)",
+      "Bash(Get-ChildItem \"d:\\\\CodeBase\\\\Neethu Ma\\\\Angular\\\\V1-01\\\\BeanArts\\\\src\\\\app\\\\pages\\\\dashboard\" -Filter \"*.css\" -Recurse)",
+      "Bash(Select-Object -ExpandProperty FullName)"
     ]
   }
 }

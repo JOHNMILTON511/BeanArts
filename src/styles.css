@@ -227,6 +227,40 @@ mat-icon {
   border-radius: 9999px !important;
 }
 
+/* mat-form-field — use Inter instead of Material's Roboto */
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-label-text-font:   'Inter', system-ui, sans-serif;
+  --mdc-outlined-text-field-input-text-font:   'Inter', system-ui, sans-serif;
+  --mdc-filled-text-field-label-text-font:     'Inter', system-ui, sans-serif;
+  --mdc-filled-text-field-input-text-font:     'Inter', system-ui, sans-serif;
+  --mat-form-field-subscript-text-font:        'Inter', system-ui, sans-serif;
+}
+.mat-mdc-input-element {
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+.mat-mdc-select-value,
+.mat-mdc-option {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Auth form — card-style field backgrounds ───────────────── */
+/*
+  mat-form-field internals live inside a child component, so we must
+  style them from global CSS (component-scoped rules can't reach inside).
+  .auth-form scopes these rules to auth pages only.
+*/
+.auth-form .mdc-text-field--outlined {
+  background-color: #f5f6ff;
+  border-radius: 12px;
+}
+.auth-form .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover {
+  background-color: #eef0ff;
+}
+.auth-form .mdc-text-field--outlined.mdc-text-field--focused {
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(79,70,229,0.10);
+}
+
 /* ── SSR hydration guard ─────────────────────────────────────── */
 /*
   Before afterNextRender adds .ba-ready to <html>, all .reveal elements

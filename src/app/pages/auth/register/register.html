@@ -1,5 +1,6 @@
 <section class="auth-page">
-  <!-- Left Panel -->
+
+  <!-- ══ Left Panel ═══════════════════════════════════════════ -->
   <div class="auth-left">
     <div class="auth-brand">
       <img src="assets/logo/3.png" alt="BeanArts" class="auth-logo" />
@@ -18,7 +19,7 @@
     <div class="auth-left-overlay"></div>
   </div>
 
-  <!-- Right Panel -->
+  <!-- ══ Right Panel ══════════════════════════════════════════ -->
   <div class="auth-right">
     <div class="auth-card">
       <div class="auth-card-header">
@@ -29,135 +30,83 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
 
         <!-- Full Name -->
-        <div class="field-group">
-          <label class="field-label" for="displayName">Full name</label>
-          <div class="field-wrap" [class.field-error]="form.get('displayName')?.invalid && form.get('displayName')?.touched">
-            <span class="material-icons field-icon">person_outline</span>
-            <input
-              id="displayName"
-              type="text"
-              formControlName="displayName"
-              class="field-input"
-              placeholder="Riya Sharma"
-              autocomplete="name"
-            />
-          </div>
-          @if (form.get('displayName')?.hasError('required') && form.get('displayName')?.touched) {
-            <span class="field-msg">Full name is required.</span>
-          } @else if (form.get('displayName')?.hasError('minlength') && form.get('displayName')?.touched) {
-            <span class="field-msg">Name must be at least 2 characters.</span>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Full name</mat-label>
+          <input matInput type="text" formControlName="displayName"
+            placeholder="Riya Sharma" autocomplete="name" />
+          <mat-icon matSuffix class="auth-field-sfx">person_outline</mat-icon>
+          <mat-error>
+            @if (form.get('displayName')?.hasError('required')) { Full name is required. }
+            @else { Name must be at least 2 characters. }
+          </mat-error>
+        </mat-form-field>
 
-        <!-- Company Name -->
-        <div class="field-group">
-          <label class="field-label" for="companyName">Company / Organisation</label>
-          <div class="field-wrap" [class.field-error]="form.get('companyName')?.invalid && form.get('companyName')?.touched">
-            <span class="material-icons field-icon">business</span>
-            <input
-              id="companyName"
-              type="text"
-              formControlName="companyName"
-              class="field-input"
-              placeholder="Acme Pvt. Ltd."
-              autocomplete="organization"
-            />
-          </div>
-          @if (form.get('companyName')?.hasError('required') && form.get('companyName')?.touched) {
-            <span class="field-msg">Company name is required.</span>
-          }
-        </div>
+        <!-- Company -->
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Company / Organisation</mat-label>
+          <input matInput type="text" formControlName="companyName"
+            placeholder="Acme Pvt. Ltd." autocomplete="organization" />
+          <mat-icon matSuffix class="auth-field-sfx">business</mat-icon>
+          <mat-error>Company name is required.</mat-error>
+        </mat-form-field>
 
         <!-- Email -->
-        <div class="field-group">
-          <label class="field-label" for="email">Work email</label>
-          <div class="field-wrap" [class.field-error]="form.get('email')?.invalid && form.get('email')?.touched">
-            <span class="material-icons field-icon">mail_outline</span>
-            <input
-              id="email"
-              type="email"
-              formControlName="email"
-              class="field-input"
-              placeholder="you@company.com"
-              autocomplete="email"
-            />
-          </div>
-          @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
-            <span class="field-msg">Email is required.</span>
-          } @else if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
-            <span class="field-msg">Enter a valid email address.</span>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Work email</mat-label>
+          <input matInput type="email" formControlName="email"
+            placeholder="you@company.com" autocomplete="email" />
+          <mat-icon matSuffix class="auth-field-sfx">mail_outline</mat-icon>
+          <mat-error>
+            @if (form.get('email')?.hasError('required')) { Email is required. }
+            @else { Enter a valid email address. }
+          </mat-error>
+        </mat-form-field>
 
         <!-- Phone -->
-        <div class="field-group">
-          <label class="field-label" for="phone">Mobile number</label>
-          <div class="field-wrap" [class.field-error]="form.get('phone')?.invalid && form.get('phone')?.touched">
-            <span class="material-icons field-icon">phone_iphone</span>
-            <input
-              id="phone"
-              type="tel"
-              formControlName="phone"
-              class="field-input"
-              placeholder="10-digit mobile number"
-              autocomplete="tel"
-              maxlength="10"
-            />
-          </div>
-          @if (form.get('phone')?.hasError('required') && form.get('phone')?.touched) {
-            <span class="field-msg">Mobile number is required.</span>
-          } @else if (form.get('phone')?.hasError('pattern') && form.get('phone')?.touched) {
-            <span class="field-msg">Enter a valid 10-digit Indian mobile number.</span>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Mobile number</mat-label>
+          <input matInput type="tel" formControlName="phone"
+            placeholder="10-digit mobile number" autocomplete="tel" maxlength="10" />
+          <mat-icon matSuffix class="auth-field-sfx">phone_iphone</mat-icon>
+          <mat-error>
+            @if (form.get('phone')?.hasError('required')) { Mobile number is required. }
+            @else { Enter a valid 10-digit Indian mobile number. }
+          </mat-error>
+        </mat-form-field>
 
         <!-- Password -->
-        <div class="field-group">
-          <label class="field-label" for="password">Password</label>
-          <div class="field-wrap" [class.field-error]="form.get('password')?.invalid && form.get('password')?.touched">
-            <span class="material-icons field-icon">lock_outline</span>
-            <input
-              id="password"
-              [type]="showPw() ? 'text' : 'password'"
-              formControlName="password"
-              class="field-input"
-              placeholder="Min. 6 characters"
-              autocomplete="new-password"
-            />
-            <button type="button" class="field-toggle" (click)="showPw.set(!showPw())">
-              <span class="material-icons">{{ showPw() ? 'visibility_off' : 'visibility' }}</span>
-            </button>
-          </div>
-          @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
-            <span class="field-msg">Password is required.</span>
-          } @else if (form.get('password')?.hasError('minlength') && form.get('password')?.touched) {
-            <span class="field-msg">Password must be at least 6 characters.</span>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="showPw() ? 'text' : 'password'"
+            formControlName="password" placeholder="Min. 6 characters"
+            autocomplete="new-password" />
+          <button mat-icon-button matSuffix type="button" (click)="showPw.set(!showPw())"
+            aria-label="Toggle password visibility">
+            <mat-icon class="auth-field-sfx">{{ showPw() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>
+            @if (form.get('password')?.hasError('required')) { Password is required. }
+            @else { Password must be at least 6 characters. }
+          </mat-error>
+        </mat-form-field>
 
         <!-- Confirm Password -->
-        <div class="field-group">
-          <label class="field-label" for="confirmPassword">Confirm password</label>
-          <div class="field-wrap" [class.field-error]="form.get('confirmPassword')?.touched && (form.get('confirmPassword')?.hasError('required') || form.hasError('mismatch'))">
-            <span class="material-icons field-icon">lock_outline</span>
-            <input
-              id="confirmPassword"
-              [type]="showConfirm() ? 'text' : 'password'"
-              formControlName="confirmPassword"
-              class="field-input"
-              placeholder="Re-enter password"
-              autocomplete="new-password"
-            />
-            <button type="button" class="field-toggle" (click)="showConfirm.set(!showConfirm())">
-              <span class="material-icons">{{ showConfirm() ? 'visibility_off' : 'visibility' }}</span>
-            </button>
-          </div>
-          @if (form.get('confirmPassword')?.hasError('required') && form.get('confirmPassword')?.touched) {
-            <span class="field-msg">Please confirm your password.</span>
-          } @else if (form.hasError('mismatch') && form.get('confirmPassword')?.touched) {
-            <span class="field-msg">Passwords do not match.</span>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="auth-field">
+          <mat-label>Confirm password</mat-label>
+          <input matInput [type]="showConfirm() ? 'text' : 'password'"
+            formControlName="confirmPassword" placeholder="Re-enter password"
+            autocomplete="new-password" />
+          <button mat-icon-button matSuffix type="button" (click)="showConfirm.set(!showConfirm())"
+            aria-label="Toggle confirm password visibility">
+            <mat-icon class="auth-field-sfx">{{ showConfirm() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>Please confirm your password.</mat-error>
+        </mat-form-field>
+
+        <!-- Mismatch error (on the parent form group) -->
+        @if (form.hasError('mismatch') && form.get('confirmPassword')?.touched) {
+          <p class="auth-field-err">Passwords do not match.</p>
+        }
 
         <!-- Error Banner -->
         @if (error()) {
@@ -170,8 +119,7 @@
         <!-- Submit -->
         <button type="submit" class="btn-primary" [disabled]="loading()">
           @if (loading()) {
-            <span class="btn-spinner"></span>
-            Creating account…
+            <span class="btn-spinner"></span> Creating account…
           } @else {
             Create Account
           }
@@ -183,6 +131,7 @@
           and
           <a routerLink="/privacy" style="color:#c17b2d;text-decoration:none;">Privacy Policy</a>.
         </p>
+
       </form>
 
       <p class="auth-switch">
@@ -191,4 +140,5 @@
       </p>
     </div>
   </div>
+
 </section>

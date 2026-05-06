@@ -2,6 +2,10 @@ import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/cor
 import { FormBuilder, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../core/services/auth.service';
 
 function passwordMatch(control: AbstractControl): ValidationErrors | null {
@@ -14,7 +18,8 @@ function passwordMatch(control: AbstractControl): ValidationErrors | null {
   selector: 'app-register',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule,
+    MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
   templateUrl: './register.html',
   styleUrl: '../login/auth.css',
 })

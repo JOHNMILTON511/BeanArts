@@ -1,65 +1,129 @@
-/* ── Admin Orders ─────────────────────────────────────── */
-.page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem; }
-.page-title { font-size: 1.65rem; font-weight: 900; color: #0f172a; margin: 0 0 .3rem; letter-spacing: -0.03em; }
-.page-sub { color: #94a3b8; font-size: .875rem; margin: 0; font-weight: 500; }
+/* ═══════════════════════════════════════════════════════════
+   Admin Orders — Premium v3
+   ═══════════════════════════════════════════════════════════ */
 
-.filter-wrap { display: flex; gap: .75rem; }
-.filter-select {
-  background: #fff; border: 1.5px solid #e5e7eb;
-  border-radius: 9px; color: #0f172a; font-size: .85rem; padding: .55rem .9rem;
-  outline: none; cursor: pointer; font-family: inherit;
-  transition: border-color .15s;
+/* ══ Page header ═══════════════════════════════════════════ */
+.page-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eaecf4;
+  position: relative;
 }
-.filter-select:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,.1); }
+.page-header::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 0;
+  width: 44px; height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #4f46e5);
+  border-radius: 99px;
+}
+.page-title { font-size: 1.6rem; font-weight: 900; color: #0b091d; margin: 0 0 .28rem; letter-spacing: -0.03em; }
+.page-sub   { color: #94a3b8; font-size: .875rem; margin: 0; font-weight: 500; }
+
+/* ══ Filters ════════════════════════════════════════════════ */
+.filter-wrap { display: flex; gap: .65rem; flex-wrap: wrap; }
+.filter-select {
+  background: #fff; border: 1.5px solid #eaecf4;
+  border-radius: 10px; color: #374151; font-size: .85rem;
+  padding: .55rem 1rem; outline: none; cursor: pointer;
+  font-family: inherit; transition: border-color .15s, box-shadow .15s;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04);
+}
+.filter-select:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,.1); }
 
 .customer-filter-banner {
   display: flex; align-items: center; gap: .5rem;
-  background: #eef2ff; border: 1px solid #c7d2fe;
-  border-radius: 10px; padding: .65rem 1rem;
-  font-size: .85rem; color: #4338ca; font-weight: 500; margin-bottom: 1.25rem;
+  background: linear-gradient(90deg, #eef2ff, #f0f5ff);
+  border: 1px solid #c7d2fe;
+  border-radius: 12px; padding: .7rem 1.1rem;
+  font-size: .85rem; color: #4338ca; font-weight: 600; margin-bottom: 1.25rem;
 }
 .customer-filter-banner .material-icons { font-size: 1rem !important; }
 .clear-filter-btn {
   margin-left: auto; display: inline-flex; align-items: center; gap: .2rem;
   background: none; border: none; cursor: pointer; color: #4338ca;
   font-size: .8rem; font-weight: 700; font-family: inherit; padding: 0;
+  transition: color .15s;
 }
 .clear-filter-btn:hover { color: #3730a3; }
 .clear-filter-btn .material-icons { font-size: .9rem !important; }
 
+/* ══ States ════════════════════════════════════════════════ */
 .loading-state, .empty-state {
   display: flex; flex-direction: column; align-items: center;
-  justify-content: center; padding: 4rem 1rem; gap: 1rem; color: #94a3b8;
+  justify-content: center; padding: 4.5rem 1rem; gap: 1rem; color: #94a3b8;
   background: #fff; border-radius: 18px;
-  border: 1px solid rgba(99,102,241,0.08);
+  border: 1px solid #eaecf4;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.03), 0 6px 20px rgba(79,70,229,0.05);
 }
-.empty-icon { font-size: 3rem !important; color: #e0e7ff; }
-.spinner-ring { width: 36px; height: 36px; border: 3px solid #e0e7ff; border-top-color: #4f46e5; border-radius: 50%; animation: spin .7s linear infinite; }
+.empty-icon { font-size: 2.8rem !important; color: #dde2f4; }
+.spinner-ring {
+  width: 36px; height: 36px; border: 3px solid #e0e7ff;
+  border-top-color: #4f46e5; border-radius: 50%; animation: spin .7s linear infinite;
+}
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ══ Table ══════════════════════════════════════════════════ */
 .orders-table-wrap {
   background: #fff;
-  border: 1px solid rgba(99,102,241,0.08);
+  border: 1px solid #eaecf4;
   border-radius: 18px; overflow-x: auto;
-  box-shadow: 0 1px 3px rgba(15,23,42,0.05), 0 4px 16px rgba(99,102,241,0.05);
+  box-shadow: 0 1px 2px rgba(15,23,42,0.03), 0 8px 24px rgba(79,70,229,0.06);
 }
 .orders-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
-.orders-table thead tr { background: #fafbff; border-bottom: 1px solid rgba(99,102,241,0.07); }
-.orders-table th { text-align: left; padding: 1rem 1.1rem; color: #94a3b8; font-weight: 700; font-size: .7rem; text-transform: uppercase; letter-spacing: .7px; }
-.orders-table td { padding: .88rem 1.1rem; color: #374151; }
-.orders-table tbody tr { border-bottom: 1px solid rgba(99,102,241,0.05); transition: background .15s; }
+.orders-table thead tr {
+  background: linear-gradient(90deg, #f7f8ff 0%, #f4f5fc 100%);
+  border-bottom: 1.5px solid #eaecf4;
+}
+.orders-table th {
+  text-align: left; padding: .95rem 1.15rem;
+  color: #64748b; font-weight: 700;
+  font-size: .67rem; text-transform: uppercase; letter-spacing: .07em;
+}
+.orders-table td { padding: .92rem 1.15rem; color: #374151; }
+.orders-table tbody tr {
+  border-bottom: 1px solid #f1f3f9;
+  transition: background .12s, box-shadow .12s;
+}
 .orders-table tbody tr:last-child { border: none; }
-.orders-table tbody tr:hover { background: #fafbff; }
+.orders-table tbody tr:hover { background: #f7f8ff; }
 
-.order-id { font-family: 'JetBrains Mono', monospace; color: #0f172a; font-weight: 700; font-size: .82rem; }
+.order-id { font-family: 'JetBrains Mono', monospace; color: #0b091d; font-weight: 700; font-size: .82rem; }
 .company-cell { color: #94a3b8; font-size: .8rem; }
-.date-cell { color: #94a3b8; font-size: .82rem; }
-.total-cell { font-weight: 800; color: #0f172a; letter-spacing: -0.01em; }
-.status-pill { padding: .22rem .65rem; border-radius: 99px; font-size: .68rem; font-weight: 700; white-space: nowrap; }
+.date-cell    { color: #94a3b8; font-size: .82rem; }
+.total-cell   { font-weight: 800; color: #0b091d; letter-spacing: -0.01em; }
+
+/* ══ Status pills with dot indicators ══════════════════════ */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: .24rem .7rem; border-radius: 99px;
+  font-size: .67rem; font-weight: 700; white-space: nowrap;
+}
+.status-pill::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  display: inline-block; flex-shrink: 0;
+}
+.pill-pending    { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.pill-pending::before    { background: #f59e0b; }
+.pill-confirmed  { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+.pill-confirmed::before  { background: #3b82f6; }
+.pill-processing { background: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; }
+.pill-processing::before { background: #7c3aed; }
+.pill-shipped    { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
+.pill-shipped::before    { background: #06b6d4; }
+.pill-delivered  { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.pill-delivered::before  { background: #22c55e; }
+.pill-cancelled  { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+.pill-cancelled::before  { background: #ef4444; }
+
+/* ══ View button ════════════════════════════════════════════ */
 .view-btn {
-  display: inline-flex; align-items: center; color: #4f46e5;
-  text-decoration: none; font-weight: 700; font-size: .8rem;
-  padding: .28rem .65rem; border-radius: 7px; transition: background .15s;
+  display: inline-flex; align-items: center; gap: .2rem;
+  color: #4f46e5; text-decoration: none; font-weight: 700; font-size: .8rem;
+  padding: .3rem .72rem; border-radius: 8px;
+  border: 1px solid transparent;
+  transition: background .14s, border-color .14s;
 }
 .view-btn .material-icons { font-size: .9rem !important; }
-.view-btn:hover { background: #eef2ff; }
+.view-btn:hover { background: #eef2ff; border-color: #c7d2fe; }

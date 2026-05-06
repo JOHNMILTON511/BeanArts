@@ -1,118 +1,168 @@
-<div class="checkout-page">
-  <div class="page-header">
-    <h1 class="page-title">Checkout</h1>
-    <a routerLink="/dashboard/cart" class="back-link">
-      <span class="material-icons">arrow_back</span> Back to Cart
+<div class="co-page">
+
+  <!-- ══ Page Header ══════════════════════════════════════════ -->
+  <div class="co-page-header">
+    <div>
+      <h1 class="co-page-title">Checkout</h1>
+      <p class="co-page-sub">Complete your order below</p>
+    </div>
+    <a routerLink="/dashboard/cart" class="co-back-btn">
+      <mat-icon>arrow_back_ios_new</mat-icon>
+      Back to Cart
     </a>
   </div>
 
-  <div class="checkout-layout">
-    <!-- Shipping Form -->
-    <div class="checkout-form-wrap">
-      <h3 class="section-title">Shipping Address</h3>
-      <form [formGroup]="form" (ngSubmit)="placeOrder()" class="checkout-form" novalidate>
+  <!-- ══ Layout ════════════════════════════════════════════════ -->
+  <div class="co-layout">
 
-        <div class="form-row">
-          <div class="field-group">
-            <label class="field-label">Contact name *</label>
-            <input formControlName="name" class="field-input" placeholder="Thangama" type="text" />
-            @if (form.get('name')?.invalid && form.get('name')?.touched) {
-              <span class="field-msg">Required.</span>
-            }
-          </div>
-          <div class="field-group">
-            <label class="field-label">Phone *</label>
-            <input formControlName="phone" class="field-input" placeholder="9876543210" type="tel" />
-            @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
-              <span class="field-msg">Valid 10-digit Indian mobile number required.</span>
-            }
-          </div>
+    <!-- LEFT: Shipping Form ──────────────────────────────────── -->
+    <div class="co-form-card">
+
+      <!-- Section badge -->
+      <div class="co-section-head">
+        <div class="co-section-icon-wrap">
+          <mat-icon class="co-section-icon">local_shipping</mat-icon>
+        </div>
+        <div>
+          <h3 class="co-section-title">Shipping Address</h3>
+          <p class="co-section-sub">Where should we deliver your order?</p>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="placeOrder()" novalidate class="co-form">
+
+        <!-- Name + Phone -->
+        <div class="co-row-2">
+          <mat-form-field appearance="outline" class="co-field">
+            <mat-label>Contact Name</mat-label>
+            <input matInput formControlName="name" placeholder="Thangama" autocomplete="name" />
+            <mat-icon matSuffix class="co-field-icon">person</mat-icon>
+            <mat-error>Contact name is required.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="co-field">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" placeholder="9876543210" type="tel" autocomplete="tel" />
+            <mat-icon matSuffix class="co-field-icon">phone</mat-icon>
+            <mat-error>Valid 10-digit Indian mobile required.</mat-error>
+          </mat-form-field>
         </div>
 
-        <div class="field-group">
-          <label class="field-label">Address Line 1 *</label>
-          <input formControlName="line1" class="field-input" placeholder="Flat / Building / Street" type="text" />
-          @if (form.get('line1')?.invalid && form.get('line1')?.touched) {
-            <span class="field-msg">Required.</span>
-          }
+        <!-- Address 1 -->
+        <mat-form-field appearance="outline" class="co-field co-field-full">
+          <mat-label>Address Line 1</mat-label>
+          <input matInput formControlName="line1" placeholder="Flat / Building / Street" autocomplete="address-line1" />
+          <mat-icon matSuffix class="co-field-icon">home</mat-icon>
+          <mat-error>Address line 1 is required.</mat-error>
+        </mat-form-field>
+
+        <!-- Address 2 -->
+        <mat-form-field appearance="outline" class="co-field co-field-full">
+          <mat-label>Address Line 2 (optional)</mat-label>
+          <input matInput formControlName="line2" placeholder="Landmark / Area" autocomplete="address-line2" />
+        </mat-form-field>
+
+        <!-- City + State + Pincode -->
+        <div class="co-row-3">
+          <mat-form-field appearance="outline" class="co-field">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" placeholder="Bengaluru" autocomplete="address-level2" />
+            <mat-error>City is required.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="co-field">
+            <mat-label>State</mat-label>
+            <input matInput formControlName="state" placeholder="Karnataka" autocomplete="address-level1" />
+            <mat-error>State is required.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="co-field">
+            <mat-label>Pincode</mat-label>
+            <input matInput formControlName="pincode" placeholder="560001" maxlength="6" autocomplete="postal-code" />
+            <mat-error>6-digit pincode required.</mat-error>
+          </mat-form-field>
         </div>
 
-        <div class="field-group">
-          <label class="field-label">Address Line 2</label>
-          <input formControlName="line2" class="field-input" placeholder="Landmark / Area (optional)" type="text" />
-        </div>
+        <!-- Notes -->
+        <mat-form-field appearance="outline" class="co-field co-field-full">
+          <mat-label>Order Notes / Custom Requirements</mat-label>
+          <textarea matInput formControlName="notes" rows="3"
+            placeholder="E.g. Company logo to be printed, packaging colour preference, etc."></textarea>
+          <mat-icon matSuffix class="co-field-icon">notes</mat-icon>
+        </mat-form-field>
 
-        <div class="form-row">
-          <div class="field-group">
-            <label class="field-label">City *</label>
-            <input formControlName="city" class="field-input" placeholder="Bengaluru" type="text" />
-            @if (form.get('city')?.invalid && form.get('city')?.touched) {
-              <span class="field-msg">Required.</span>
-            }
-          </div>
-          <div class="field-group">
-            <label class="field-label">State *</label>
-            <input formControlName="state" class="field-input" placeholder="Karnataka" type="text" />
-            @if (form.get('state')?.invalid && form.get('state')?.touched) {
-              <span class="field-msg">Required.</span>
-            }
-          </div>
-          <div class="field-group field-group-sm">
-            <label class="field-label">Pincode *</label>
-            <input formControlName="pincode" class="field-input" placeholder="560001" type="text" maxlength="6" />
-            @if (form.get('pincode')?.invalid && form.get('pincode')?.touched) {
-              <span class="field-msg">6-digit pincode required.</span>
-            }
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Order Notes / Custom Requirements</label>
-          <textarea formControlName="notes" class="field-input field-textarea" placeholder="E.g. Company logo to be printed, packaging colour preference, etc." rows="3"></textarea>
-        </div>
-
+        <!-- Error banner -->
         @if (error()) {
-          <div class="error-banner">
-            <span class="material-icons">error_outline</span>
-            {{ error() }}
+          <div class="co-error-banner">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{ error() }}</span>
           </div>
         }
 
-        <button type="submit" class="btn-place" [disabled]="loading()">
+        <!-- Submit button -->
+        <button type="submit" class="co-submit-btn" [disabled]="loading()">
           @if (loading()) {
-            <span class="btn-spinner"></span> Placing Order…
+            <span class="co-btn-spinner"></span>
+            <span>Placing Order…</span>
           } @else {
-            Place Order — ₹{{ total.toLocaleString('en-IN') }}
+            <mat-icon>shopping_bag</mat-icon>
+            <span>Place Order &mdash; ₹{{ total.toLocaleString('en-IN') }}</span>
           }
         </button>
+
       </form>
     </div>
 
-    <!-- Order Summary -->
-    <div class="checkout-summary">
-      <h3 class="section-title">Your Order ({{ items().length }} items)</h3>
-      <div class="co-items">
-        @for (item of items(); track (item.productId + item.variantId)) {
-          <div class="co-item">
-            <img [src]="item.imageUrl || 'assets/placeholder.jpg'" [alt]="item.name" class="co-img" />
-            <div class="co-item-info">
-              <p class="co-name">{{ item.name }}</p>
-              @if (item.variantName) { <p class="co-variant">{{ item.variantName }}</p> }
-              <p class="co-qty">Qty: {{ item.quantity }}</p>
+    <!-- RIGHT: Order Summary ─────────────────────────────────── -->
+    <aside class="co-summary">
+
+      <!-- Summary header -->
+      <div class="co-summary-head">
+        <mat-icon>receipt_long</mat-icon>
+        <div>
+          <h3 class="co-summary-title">Your Order</h3>
+          <span class="co-summary-count">{{ items().length }} item{{ items().length !== 1 ? 's' : '' }}</span>
+        </div>
+      </div>
+
+      <!-- Items list -->
+      <div class="co-summary-body">
+        <div class="co-items">
+          @for (item of items(); track (item.productId + item.variantId)) {
+            <div class="co-item">
+              <img [src]="item.imageUrl || 'assets/placeholder.jpg'" [alt]="item.name" class="co-item-img" />
+              <div class="co-item-info">
+                <p class="co-item-name">{{ item.name }}</p>
+                @if (item.variantName) {
+                  <p class="co-item-variant">{{ item.variantName }}</p>
+                }
+                <p class="co-item-qty">Qty: {{ item.quantity }}</p>
+              </div>
+              <p class="co-item-price">₹{{ (item.price * item.quantity).toLocaleString('en-IN') }}</p>
             </div>
-            <p class="co-price">₹{{ (item.price * item.quantity).toLocaleString('en-IN') }}</p>
+          }
+        </div>
+
+        <!-- Totals -->
+        <div class="co-totals">
+          <div class="co-total-row">
+            <span>Subtotal</span>
+            <span>₹{{ subtotal().toLocaleString('en-IN') }}</span>
           </div>
-        }
+          <div class="co-total-row">
+            <span>GST (18%)</span>
+            <span>₹{{ tax.toLocaleString('en-IN') }}</span>
+          </div>
+          <div class="co-total-row co-grand">
+            <span>Total</span>
+            <span>₹{{ total.toLocaleString('en-IN') }}</span>
+          </div>
+        </div>
+
+        <!-- Payment note -->
+        <div class="co-payment-note">
+          <mat-icon>info</mat-icon>
+          <span>Payment is collected offline by our team after order confirmation.</span>
+        </div>
       </div>
-      <div class="co-total-rows">
-        <div class="co-row"><span>Subtotal</span><span>₹{{ subtotal().toLocaleString('en-IN') }}</span></div>
-        <div class="co-row"><span>GST (18%)</span><span>₹{{ tax.toLocaleString('en-IN') }}</span></div>
-        <div class="co-row co-grand"><span>Total</span><span>₹{{ total.toLocaleString('en-IN') }}</span></div>
-      </div>
-      <p class="co-note">
-        <span class="material-icons" style="font-size:.9rem;vertical-align:middle;">info</span>
-        Payment is collected offline by our team after order confirmation.
-      </p>
-    </div>
+
+    </aside>
   </div>
 </div>

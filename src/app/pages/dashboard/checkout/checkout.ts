@@ -2,6 +2,10 @@ import { Component, signal, inject, ChangeDetectionStrategy, OnInit } from '@ang
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../../core/services/cart.service';
 import { OrderService } from '../../../core/services/order.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -12,7 +16,10 @@ import { firstValueFrom } from 'rxjs';
   selector: 'app-checkout',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, RouterModule, ReactiveFormsModule,
+    MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
+  ],
   templateUrl: './checkout.html',
   styleUrl: './checkout.css',
 })
